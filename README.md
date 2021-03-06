@@ -22,6 +22,8 @@ This is the Discord Bot Darling. To run it, install all packages listed below.
     -datetime
 
     -wget
+    
+    -mutagen
 
     ONLY ON LINUX:
 
