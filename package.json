@@ -1,0 +1,14 @@
+{
+  "name": "darling.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "author": "EckigerLuca",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "discord.js": "^13.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0"
+  }
+}
