@@ -18,7 +18,7 @@ module.exports = {
         const embed = new MessageEmbed()
             .setColor(color)
             .setTitle('Random waifu pic?')
-            .setImage('')
+            .setImage('https://i.waifu.pics/3x~ovC6.jpg')
         await interaction.reply(`Waifu.png comes here\n You have chosen ${amount} picture(s)`);
     },
 };
