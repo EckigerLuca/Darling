@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { color } =require('./data/config.json');
+const { color } = require('../data/config.json');
 const { MessageEmbed } = require('discord.js')
 
 module.exports = {
@@ -19,6 +19,6 @@ module.exports = {
             .setColor(color)
             .setTitle('Random waifu pic?')
             .setImage('https://i.waifu.pics/3x~ovC6.jpg')
-        await interaction.reply(`Waifu.png comes here\n You have chosen ${amount} picture(s)`);
+        await interaction.reply({ embeds: [embed] });
     },
 };
