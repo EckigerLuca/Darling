@@ -3,12 +3,30 @@ const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./data/config.json');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
-
 client.commands = new Collection();
-const commandFiles = fs.readdirSync('./src/commands').filter(file => file.endsWith('.js'));
-for (const file of commandFiles) {
+
+/*
+client.commands = new Collection();
+const commandFilesMedia = fs.readdirSync('./src/commands/media').filter(file => file.endsWith('.js'));
+for (const file of commandFilesMedia) {
+    const command = require(`./commands/media/${file}`)
+    client.commands.set(command.data.name, command);
+}
+
+const commandFilesHelp = fs.readdirSync('./src/commands/help').filter(file => file.endsWith('.js'));
+for (const file of commandFilesHelp) {
     const command = require(`./commands/${file}`)
     client.commands.set(command.data.name, command);
+}
+*/
+const folders = fs.readdirSync('./src/commands');
+
+for (var folder of folders) {
+    const files = fs.readdirSync(`./src/commands/${folder}`);
+    for (var file of files) {
+        const command = require(`./commands/${folder}/${file}`);
+        client.commands.set(command.data.name, command);
+    }
 }
 
 

@@ -5,11 +5,15 @@ const { Routes } = require('discord-api-types/v9');
 const { clientId, token } = require('./data/config.json');
 
 const commands = [];
-const commandFiles = fs.readdirSync('./src/commands').filter(file => file.endsWith('.js'));
 
-for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
-    commands.push(command.data.toJSON());
+const folders = fs.readdirSync('./src/commands');
+
+for (var folder of folders) {
+    const files = fs.readdirSync(`./src/commands/${folder}`);
+    for (var file of files) {
+        const command = require(`./commands/${folder}/${file}`);
+        commands.push(command.data.toJSON());
+    }
 }
 
 const rest = new REST({ version: '9' }).setToken(token);

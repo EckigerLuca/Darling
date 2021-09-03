@@ -1,10 +1,10 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { color } = require('../data/config.json');
+const { color } = require('../../data/config.json');
 const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch')
 
 module.exports = {
-    data: new SlashCommandBuilder()
+    data: new SlashCommandBuilder() 
         .setName('waifu')
         .setDescription('Returns a random waifu pic')
         .addStringOption(option =>
@@ -29,13 +29,14 @@ module.exports = {
             const embed = new MessageEmbed()
                 .setColor(color)
                 .setTitle('Random waifu pic?')
+                .setFooter('From waifu.pics')
                 .setImage(await fetchImage())
         
             
             await interaction.reply({ embeds: [embed] });
-        for(var i=0; i < real_amount; i++){
-            embed.setImage(await fetchImage())
-            await interaction.followUp({ embeds: [embed]} );
+            for(var i=0; i < real_amount; i++){
+                embed.setImage(await fetchImage())
+                await interaction.followUp({ embeds: [embed]} );
         }
     },
 };
