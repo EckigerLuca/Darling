@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { client } = require('../../index.js');
 const { color } = require('../../data/config.json');
 const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch')
@@ -9,10 +10,13 @@ module.exports = {
     .setDescription('Shows all commands'),
     
     async execute(interaction) {
+        let eckigerluca = await client.users.fetch('173374602389618688')
+        let eckigerluca_avatar = eckigerluca.displayAvatarURL({size: 1024, format: 'png', dynamic: true})
         const embed = new MessageEmbed()
             .setColor(color)
             .setTitle('All commands')
             .setDescription('[] = Needed argument\n() = Optional argument')
+            .setFooter(`Bot by ${eckigerluca.username}#${eckigerluca.discriminator}`, eckigerluca_avatar)
             .addFields(
                 { name: '❓ Help', value: '`/help`'},
                 { name: '🎵 Music', value: '`/play` `/join` `/leave` `/nowplaying` `/pause` `/stop` `/resume` `/volume [level]`'},
