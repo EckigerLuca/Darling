@@ -3,6 +3,7 @@ const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./data/config.json');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+module.exports = { client };
 client.commands = new Collection();
 
 const folders = fs.readdirSync('./src/commands');
