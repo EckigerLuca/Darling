@@ -1,16 +1,15 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { client } = require('../../index.js');
 const { color } = require('../../data/config.json');
 const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch')
 
 module.exports = {
     data: new SlashCommandBuilder()
-    .setName('help')
-    .setDescription('Shows all commands'),
+        .setName('help')
+        .setDescription('Shows all commands'),
     
     async execute(interaction) {
-        let eckigerluca = await client.users.fetch('173374602389618688')
+        let eckigerluca = await interaction.client.users.fetch('173374602389618688')
         let eckigerluca_avatar = eckigerluca.displayAvatarURL({size: 1024, format: 'png', dynamic: true})
         const embed = new MessageEmbed()
             .setColor(color)
@@ -32,5 +31,5 @@ module.exports = {
                 embed.addField('🔞 NSFW', '||`/hentai (subreddit)` `/hentai help` `/hentaiwaifu` `/hentaineko` `/hentaiblowjob`||')
             }
         await interaction.reply({embeds: [embed]});
-    }
-}
+    },
+};
