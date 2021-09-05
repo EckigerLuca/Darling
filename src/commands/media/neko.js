@@ -39,4 +39,4 @@ module.exports = {
                 await interaction.followUp({ embeds: [embed]} );
         }
     },
-}
+};
