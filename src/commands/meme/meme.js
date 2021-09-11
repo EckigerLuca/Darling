@@ -42,52 +42,55 @@ module.exports = {
                 await interaction.reply({ embeds: [embed]});
                 return
 
-            } else if (REDDIT_ENABLED_MEME_SUBREDDITS.includes(input)) {
-                let response = await fetch(`https://reddit.com/r/${input}/random.json`);
-                let data = await response.json();
+            } else if (input !== null) {
+                if (REDDIT_ENABLED_MEME_SUBREDDITS.map(list => list.toLowerCase()).indexOf(input.toLowerCase()) === -1) {
+                    let subreddit = REDDIT_ENABLED_MEME_SUBREDDITS[Math.floor(Math.random() * REDDIT_ENABLED_MEME_SUBREDDITS.length)];
+                    let response = await fetch(`https://reddit.com/r/${subreddit}/random.json`);
+                    let data = await response.json();
 
-                let permalink = data[0].data.children[0].data.permalink;
-                let memeUrl = `https://reddit.com${permalink}`;
-                let memeImg = data[0].data.children[0].data.url;
-                let memeTitle = data[0].data.children[0].data.title;
-                let memeUpvotes = data[0].data.children[0].data.ups;
-                let memeDownvotes = data[0].data.children[0].data.downs;
-                let memeNumComents = data[0].data.children[0].data.num_comments;
+                    let permalink = data[0].data.children[0].data.permalink;
+                    let memeUrl = `https://reddit.com${permalink}`;
+                    let memeImg = data[0].data.children[0].data.url;
+                    let memeTitle = data[0].data.children[0].data.title;
+                    let memeUpvotes = data[0].data.children[0].data.ups;
+                    let memeDownvotes = data[0].data.children[0].data.downs;
+                    let memeNumComents = data[0].data.children[0].data.num_comments;
 
-                embed.setTitle(memeTitle)
-                    .setURL(memeUrl)
-                    .setImage(memeImg)
-                    .setFooter(`👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComents}`)
+                    embed.setTitle(memeTitle)
+                        .setURL(memeUrl)
+                        .setImage(memeImg)
+                        .setFooter(`👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComents}`)
+                    
+                    let infoEmbed = new MessageEmbed()
+                        .setTitle('404 Not Found')
+                        .setDescription("Seems like, that you've tried to get something from a subreddit that is not in the list!\nThat's why I decided to throw random shit..\nAnyway, you can see all supported subreddits with `/meme help`")
+                        .setColor(color)
+
+                    await interaction.reply({ embeds: [embed] })
+                    await interaction.followUp({embeds: [infoEmbed], ephemeral: true});
+                    return
+
+                } else if (REDDIT_ENABLED_MEME_SUBREDDITS.map(list => list.toLowerCase()).includes(input.toLowerCase())) {
+                    let response = await fetch(`https://reddit.com/r/${input}/random.json`);
+                    let data = await response.json();
+
+                    let permalink = data[0].data.children[0].data.permalink;
+                    let memeUrl = `https://reddit.com${permalink}`;
+                    let memeImg = data[0].data.children[0].data.url;
+                    let memeTitle = data[0].data.children[0].data.title;
+                    let memeUpvotes = data[0].data.children[0].data.ups;
+                    let memeDownvotes = data[0].data.children[0].data.downs;
+                    let memeNumComents = data[0].data.children[0].data.num_comments;
+
+                    embed.setTitle(memeTitle)
+                        .setURL(memeUrl)
+                        .setImage(memeImg)
+                        .setFooter(`👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComents}`)
                 
-                await interaction.reply({ embeds: [embed] })
-                return
-            } else if (REDDIT_ENABLED_MEME_SUBREDDITS.indexOf(input) === -1 && input !== null) {
-                console.log(input);
-                let subreddit = REDDIT_ENABLED_MEME_SUBREDDITS[Math.floor(Math.random() * REDDIT_ENABLED_MEME_SUBREDDITS.length)];
-                let response = await fetch(`https://reddit.com/r/${subreddit}/random.json`);
-                let data = await response.json();
+                    await interaction.reply({ embeds: [embed] })
+                    return
+                }
 
-                let permalink = data[0].data.children[0].data.permalink;
-                let memeUrl = `https://reddit.com${permalink}`;
-                let memeImg = data[0].data.children[0].data.url;
-                let memeTitle = data[0].data.children[0].data.title;
-                let memeUpvotes = data[0].data.children[0].data.ups;
-                let memeDownvotes = data[0].data.children[0].data.downs;
-                let memeNumComents = data[0].data.children[0].data.num_comments;
-
-                embed.setTitle(memeTitle)
-                    .setURL(memeUrl)
-                    .setImage(memeImg)
-                    .setFooter(`👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComents}`)
-                
-                let infoEmbed = new MessageEmbed()
-                    .setTitle('404 Not Found')
-                    .setDescription("Seems like, that you've tried to get something from a subreddit that is not in the list!\nThat's why I decided to throw random shit..\nAnyway, you can see all supported subreddits with `/meme help`")
-                    .setColor(color)
-
-                await interaction.reply({ embeds: [embed] })
-                await interaction.followUp({embeds: [infoEmbed], ephemeral: true});
-                return
             } else {
                 let subreddit = REDDIT_ENABLED_MEME_SUBREDDITS[Math.floor(Math.random() * REDDIT_ENABLED_MEME_SUBREDDITS.length)];
                 let response = await fetch(`https://reddit.com/r/${subreddit}/random.json`);
