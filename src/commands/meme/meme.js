@@ -55,8 +55,10 @@ module.exports = {
                     let memeUpvotes = data[0].data.children[0].data.ups;
                     let memeDownvotes = data[0].data.children[0].data.downs;
                     let memeNumComents = data[0].data.children[0].data.num_comments;
+                    let subredditUrl = `https://reddit.com/r/${data[0].data.children[0].data.subreddit}`;
 
                     embed.setTitle(memeTitle)
+                        .setDescription(`From [r/${subreddit}](${subredditUrl})`)
                         .setURL(memeUrl)
                         .setImage(memeImg)
                         .setFooter(`👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComents}`)
@@ -81,8 +83,10 @@ module.exports = {
                     let memeUpvotes = data[0].data.children[0].data.ups;
                     let memeDownvotes = data[0].data.children[0].data.downs;
                     let memeNumComents = data[0].data.children[0].data.num_comments;
+                    let subredditUrl = `https://reddit.com/r/${data[0].data.children[0].data.subreddit}`;
 
                     embed.setTitle(memeTitle)
+                        .setDescription(`From [r/${subreddit}](${subredditUrl})`)
                         .setURL(memeUrl)
                         .setImage(memeImg)
                         .setFooter(`👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComents}`)
@@ -103,8 +107,10 @@ module.exports = {
                 let memeUpvotes = data[0].data.children[0].data.ups;
                 let memeDownvotes = data[0].data.children[0].data.downs;
                 let memeNumComents = data[0].data.children[0].data.num_comments;
+                let subredditUrl = `https://reddit.com/r/${data[0].data.children[0].data.subreddit}`;
 
                 embed.setTitle(memeTitle)
+                    .setDescription(`From [r/${subreddit}](${subredditUrl})`)
                     .setURL(memeUrl)
                     .setImage(memeImg)
                     .setFooter(`👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComents}`)
