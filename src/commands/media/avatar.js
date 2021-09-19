@@ -9,14 +9,14 @@ module.exports = {
         .setDescription('returns your or the avatar of someone else')
         .addUserOption(option => 
             option.setName('user')
-                .setDescription('Tag a user to get his avatar')),
+                .setDescription('Tag a user to get their avatar')),
 
         async execute(interaction) {
             let user = interaction.options.getUser('user');
             if (user === null) {
                 user = interaction.user
             }
-            avatar = user.displayAvatarURL({size: 1024, format: 'png', dynamic: true})
+            let avatar = user.displayAvatarURL({size: 1024, format: 'png', dynamic: true})
             const embed = new MessageEmbed()
                 .setColor(color)
                 .setDescription(`You requested ${user}'s avatar`)
