@@ -23,7 +23,7 @@ module.exports = {
                 { name: '🖼️ Media', value: '`/cat` `/fox` `/dog` `/avatar (user)` `/waifu` `/neko`'},
                 { name: '🤣 Memes', value: '`/meme (subreddit)` `/meme help` `/adidas`'},
                 { name: '🎭 Roleplay', value: '`/bite` `/blush` `/bonk` `/bully` `/cringe` `/cry` `/cuddle` `/dance` `/glomp` `/happy` `/highfive` `/hug` `/kill` `/kiss` `/lick` `/nom` `/pat` `/poke` `/slap` `/smile` `/wave` `/wink` `/yeet`'},
-                { name: '🔰 Other', value: '`/ping` `/whois (user)` `/botinvite` `/serverinvite` `/randomnumber (range)`'},
+                { name: '🔰 Other', value: '`/ping` `/whois (user)` `/invite bot` `/invite server` `/randomnumber (range)`'},
             )
             if (interaction.channel.nsfw) {
                 embed.addField('🔞 NSFW', '`/hentai (subreddit)` `/hentai help` `/hentaiwaifu` `/hentaineko` `/hentaiblowjob`')
