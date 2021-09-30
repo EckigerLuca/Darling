@@ -19,7 +19,7 @@ module.exports = {
             .addFields(
                 { name: '❓ Help', value: '`/help`'},
                 { name: '🎵 Music', value: '`/play` `/join` `/leave` `/nowplaying` `/pause` `/stop` `/resume` `/volume`'},
-                { name: '🔨 Moderation', value: '`/ban` `/kick` `/unban [user]` `/clear` `/serverstats`'},
+                { name: '🔨 Moderation', value: '`/ban` `/kick` `/unban` `/clear` `/serverstats`'},
                 { name: '🖼️ Media', value: '`/cat` `/fox` `/dog` `/avatar` `/waifu` `/neko`'},
                 { name: '🤣 Memes', value: '`/meme` `/meme help` `/adidas`'},
                 { name: '🎭 Roleplay', value: '`/bite` `/blush` `/bonk` `/bully` `/cringe` `/cry` `/cuddle` `/dance` `/glomp` `/happy` `/highfive` `/hug` `/kill` `/kiss` `/lick` `/nom` `/pat` `/poke` `/slap` `/smile` `/wave` `/wink` `/yeet`'},
