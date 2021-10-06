@@ -7,10 +7,15 @@
   "license": "GPL-3.0",
   "dependencies": {
     "@discordjs/builders": "^0.6.0",
+    "@discordjs/opus": "^0.5.3",
     "@discordjs/rest": "^0.1.0-canary.0",
+    "@discordjs/voice": "^0.6.0",
     "canvas": "^2.8.0",
     "discord-api-types": "^0.22.0",
     "discord.js": "^13.1.0",
-    "node-fetch": "^2.6.1"
+    "ffmpeg-static": "^4.4.0",
+    "node-fetch": "^2.6.1",
+    "yt-search": "^2.10.1",
+    "ytdl-core": "^4.9.1"
   }
 }
