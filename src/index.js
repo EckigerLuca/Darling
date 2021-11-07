@@ -1,9 +1,11 @@
 const fs = require('fs');
-const { Client, Collection, Intents } = require('discord.js');
-const { token } = require('./data/config.json');
+const { Client, Collection, Intents, MessageEmbed } = require('discord.js');
+const { token, color } = require('./data/config.json');
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_VOICE_STATES] });
 client.commands = new Collection();
+
+// #region command loading
 
 const folders = fs.readdirSync('./src/commands');
 
@@ -26,6 +28,9 @@ for (const file of eventFiles) {
 	}
 }
 
+// #endregion
+
+// #region command interaction
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
@@ -42,5 +47,6 @@ client.on('interactionCreate', async interaction => {
 	}
 });
 
+// #endregion
 
 client.login(token);
