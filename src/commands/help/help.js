@@ -22,7 +22,7 @@ module.exports = {
                 { name: '🔨 Moderation', value: '`/ban` `/kick` `/unban` `/clear` `/serverstats`'},
                 { name: '🖼️ Media', value: '`/cat` `/fox` `/dog` `/avatar` `/waifu` `/neko`'},
                 { name: '🤣 Memes', value: '`/meme` `/meme help` `/adidas`'},
-                { name: '🎭 Roleplay', value: '`/bite` `/blush` `/bonk` `/bully` `/cringe` `/cry` `/cuddle` `/dance` `/glomp` `/happy` `/highfive` `/hug` `/kill` `/kiss` `/lick` `/nom` `/pat` `/poke` `/slap` `/smile` `/wave` `/wink` `/yeet`'},
+                { name: '🎭 Roleplay', value: '`/baka` `/bite` `/blush` `/bored` `/cry` `/cuddle` `/dance` `/facepalm` `/feed` `/happy` `/highfive` `/hug` `/kiss` `/laugh` `/pat` `/poke` `/pout` `/shrug` `/slap` `/sleep` `/smile` `/smug` `/stare` `/think` `/tickle` `/wave` `/wink`'},
                 { name: '🔰 Other', value: '`/ping` `/whois` `/invite bot` `/invite server` `/random number`'},
             )
             if (interaction.channel.nsfw) {
