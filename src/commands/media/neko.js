@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
 const { MessageEmbed } = require('discord.js');
+const {fetchNeko} = require('nekos-best.js')
 const fetch = require('node-fetch')
 
 module.exports = {
@@ -16,27 +17,28 @@ module.exports = {
                 .addChoice('Ten', '10')),
         
         async execute(interaction) {
-            const amount = interaction.options.getString('amount');
+            await interaction.deferReply();
+            let amount = interaction.options.getString('amount');
+            amount = parseInt(amount);
 
             async function fetchImage() {
-                let response = await fetch('https://api.waifu.pics/sfw/neko');
-                let data = await response.json();
-                let img_url = data.url
-                return img_url;
+                let response = await fetchNeko('nekos', parseInt(amount));
+                return response;
             }
 
-            var real_amount = amount-1;
-            const embed = new MessageEmbed()
-                .setColor(color)
-                .setTitle('Meow')
-                .setFooter('From waifu.pics')
-                .setImage(await fetchImage())
+            let real_amount = amount-1;
+            let nekos = await fetchImage()
+            let embeds = [];
+            for(let i=0; i <= real_amount; i++) {
+                let embed = new MessageEmbed()
+                    .setColor(color)
+                    .setTitle('Meow')
+                    .setDescription(`[${nekos.url[i].artist_name}](${nekos.url[i].source_url})`)
+                    .setFooter('From nekos.best')
+                    .setImage(nekos.url[i].url)
+                embeds.push(embed)
+            }
         
-            
-            await interaction.reply({ embeds: [embed] });
-            for(var i=0; i < real_amount; i++){
-                embed.setImage(await fetchImage())
-                await interaction.followUp({ embeds: [embed]} );
-        }
+            await interaction.editReply({ embeds: embeds });
     },
 };
