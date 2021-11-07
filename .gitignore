@@ -3,3 +3,5 @@ node_modules
 config.json
 test.js.old
 .vscode
+discord-js-music.js
+music
