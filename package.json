@@ -13,9 +13,11 @@
     "canvas": "^2.8.0",
     "discord-api-types": "^0.22.0",
     "discord.js": "^13.1.0",
+    "events": "^3.3.0",
     "ffmpeg-static": "^4.4.0",
+    "libsodium-wrappers": "^0.7.9",
+    "nekos-best.js": "^4.0.4",
     "node-fetch": "^2.6.1",
-    "yt-search": "^2.10.1",
     "ytdl-core": "^4.9.1"
   }
 }
