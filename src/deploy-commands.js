@@ -25,7 +25,7 @@ const rest = new REST({ version: '9' }).setToken(token);
 			{ body: commands },
 		);
 		await rest.put(
-			Routes.applicationGuildCommands(clientId, '785571867279753238'),
+			Routes.applicationGuildCommands(clientId),
 			{ body: commands },
 		);
 		console.log('Successfully registered application commands.');
