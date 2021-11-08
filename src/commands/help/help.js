@@ -18,12 +18,12 @@ module.exports = {
             .setFooter(`Bot by ${eckigerluca.username}#${eckigerluca.discriminator}`, eckigerluca_avatar)
             .addFields(
                 { name: '❓ Help', value: '`/help`'},
-                { name: '🎵 Music', value: '`/play` `/join` `/leave` `/nowplaying` `/pause` `/stop` `/resume` `/volume`'},
+                //{ name: '🎵 Music', value: '`/play` `/join` `/leave` `/nowplaying` `/pause` `/stop` `/resume` `/volume`'},
                 { name: '🔨 Moderation', value: '`/ban` `/kick` `/unban` `/clear` `/serverstats`'},
                 { name: '🖼️ Media', value: '`/cat` `/fox` `/dog` `/avatar` `/waifu` `/neko`'},
                 { name: '🤣 Memes', value: '`/meme` `/meme help` `/adidas`'},
                 { name: '🎭 Roleplay', value: '`/baka` `/bite` `/blush` `/bored` `/cry` `/cuddle` `/dance` `/facepalm` `/feed` `/happy` `/highfive` `/hug` `/kiss` `/laugh` `/pat` `/poke` `/pout` `/shrug` `/slap` `/sleep` `/smile` `/smug` `/stare` `/think` `/tickle` `/wave` `/wink`'},
-                { name: '🔰 Other', value: '`/ping` `/whois` `/invite bot` `/invite server` `/random number`'},
+                { name: '🔰 Other', value: '`/ping` `/whois` `/invite bot` `/invite server` `/random number` `/botinfo`'},
             )
             if (interaction.channel.nsfw) {
                 embed.addField('🔞 NSFW', '`/hentai (subreddit)` `/hentai help` `/hentaiwaifu` `/hentaineko` `/hentaiblowjob`')
