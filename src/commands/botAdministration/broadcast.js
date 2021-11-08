@@ -46,14 +46,20 @@ module.exports = {
                     let guildId = guild.id;
                     guild.fetch(guildId).then(server => {
                         let systemChannel = server.systemChannel
-                        systemChannel.send({embeds: [newsEmbed]})
-                        let ownerId = server.ownerId
-                        interaction.client.users.fetch(ownerId).then(owner => {
-                            owner.send({embeds: [ownerEmbed]})
-                        })
+                        try {
+                            systemChannel.send({embeds: [newsEmbed]})
+                        } catch (error){
+                            console.log(error)
+                        }
+                        finally {
+                            let ownerId = server.ownerId
+                            interaction.client.users.fetch(ownerId).then(owner => {
+                                owner.send({embeds: [ownerEmbed]})
+                            })
+                        }
                     })
                 })
-            } catch {console.log("error but idc")}
+            } catch (err){console.log(err)}
             finally {
                 await interaction.editReply({content:"Bonkers", ephemeral: true})
             }
