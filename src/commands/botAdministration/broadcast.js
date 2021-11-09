@@ -50,6 +50,10 @@ module.exports = {
                             systemChannel.send({embeds: [newsEmbed]})
                         } catch (error){
                             console.log(error)
+                            let ownerId = server.ownerId
+                            interaction.client.users.fetch(ownerId).then(owner => {
+                                owner.send({content: "Hey, your server is not having a system channel. Please make sure to have one in future." , embeds: [ownerEmbed]})
+                            })
                         }
                         finally {
                             let ownerId = server.ownerId
