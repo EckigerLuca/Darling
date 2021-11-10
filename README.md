@@ -14,4 +14,4 @@ If the Bot won't start, check the console for any errors and if there are one's,
 ## Contact:
 * [E-Mail](mailto:contact@eckigerluca.com)
 * Discord: `EckigerLuca#0001`
-* My Discord [Server](https://eckigerluca.com/discord) (German)
+* My Discord [Server](https://eckigerluca.com/discord)
