@@ -8,8 +8,12 @@ rename the `config.json.public` to `config.json` and edit the values. The Bot **
 
 After that, use `npm i` to install all needed packages. When done, run the `index.js` and the bot should be online.
 If yes, invite it to the server You want to use it on! (Check the image for permissions).
+
 ![img](https://user-images.githubusercontent.com/63116530/133927732-7ad6a8e1-86cb-4ece-8753-ec69be1b370c.png)
 If the Bot won't start, check the console for any errors and if there are one's, create an Issue.
+
+## Top.gg
+This bot uses Top.gg. If you don't want to use it, leave the variable `topGG` in the `index.js` as it is, but if you want to use it change the bool to true and PLEASE DO NOT forget to add your token in the config file!
 
 ## Contact:
 * [E-Mail](mailto:contact@eckigerluca.com)

@@ -2,9 +2,24 @@ const fs = require('fs');
 const { Client, Collection, Intents, MessageEmbed } = require('discord.js');
 const { token, color } = require('./data/config.json');
 
+const topGG = false;
+
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_VOICE_STATES] });
 client.commands = new Collection();
 
+if (topGG) {
+	const discordBotListToken = require('./data/config.json');
+	const { AutoPoster } = require('topgg-autoposter');
+	const ap = AutoPoster(discordBotListToken, client)
+
+	ap.on('posted', (stats) => {
+		console.log(`Posted stats to Top.gg | ${stats.serverCount} servers`)
+	})
+
+	ap.on('error', (err) => {
+		console.log(err)
+	})
+}
 // #region command loading
 
 const folders = fs.readdirSync('./src/commands');
