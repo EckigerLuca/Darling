@@ -11,12 +11,10 @@ module.exports = {
 
     async execute(interaction) {
         let application = await interaction.client.application.fetch()
-        let eckigerluca = await interaction.client.users.fetch('173374602389618688')
-        let eckigerluca_avatar = eckigerluca.displayAvatarURL({size: 1024, format: 'png', dynamic: true})
 
         let newsEmbed = new MessageEmbed()
             .setTitle('<a:alarm:891426490594492466> UPDATES BITCHES <a:alarm:891426490594492466>')
-            .setAuthor('EckigerLuca', eckigerluca_avatar)
+            .setAuthor("AVATAR HERE")
             .setDescription('that was kinda cringe pls do not remind me. thank you.')
             .setColor(color)
             .addFields(
@@ -29,12 +27,12 @@ module.exports = {
                 {name: "Last but not least,", value: "THANK YOU!\nWithout you all I wouldn't be at this point here, publishing another update of the bot.\nHuge thankies to EckigerMike, SillySoon, Sniperspyder, Akage, seesmon aka. wcmeister and of course, you!\nThank you for supporting me and my project! You were helping me to let the bot grow, I mean, we're at 31 Server (8.11.2021 22:20), that's quite much for me!", inline: true},
                 {name: "And that's it!", value: "Lets just hope I'll finish the music update soon without wasting much time like on this update here.\nAnyway, see you next time!\n\nBleibt Gesund\n~Luca"},
             )
-            .setFooter("Ich mag Waschbären\nCurrent Version: Darling 1.2", eckigerluca_avatar)
+            .setFooter("Ich mag Waschbären\nCurrent Version: Darling 1.2", 'https://cdn.discordapp.com/avatars/173374602389618688/60010fedefafc07d68b2a48a76db9a5c.png?size=1024')
 
         let ownerEmbed = new MessageEmbed()
             .setTitle('ELLO!')
-            .setAuthor('EckigerLuca', eckigerluca_avatar)
-            .setFooter("Ich mag Waschbären\nCurrent Version: Darling 1.2", eckigerluca_avatar)
+            .setAuthor('EckigerLuca', 'https://cdn.discordapp.com/avatars/173374602389618688/60010fedefafc07d68b2a48a76db9a5c.png?size=1024')
+            .setFooter("Ich mag Waschbären\nCurrent Version: Darling 1.2", 'https://cdn.discordapp.com/avatars/173374602389618688/60010fedefafc07d68b2a48a76db9a5c.png?size=1024')
             .setDescription("Sorry for the DM I guess.\nMy Bot (Darling.) is added on one or multiply of your servers.\nPlease check the System Channel on your Server! There are some important information about my Bot, Darling.")
             .setColor(color)
 
@@ -47,7 +45,7 @@ module.exports = {
                     guild.fetch(guildId).then(server => {
                         let systemChannel = server.systemChannel
                         try {
-                            systemChannel.send({embeds: [newsEmbed]})
+                            systemChannel.send({content: "Trying it again painw", embeds: [newsEmbed]})
                         } catch (error){
                             console.log(error)
                             let ownerId = server.ownerId
