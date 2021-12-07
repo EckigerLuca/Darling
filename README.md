@@ -18,4 +18,4 @@ This bot uses Top.gg. If you don't want to use it, leave the variable `topGG` in
 ## Contact:
 * [E-Mail](mailto:contact@eckigerluca.com)
 * Discord: `EckigerLuca#0001`
-* My Discord [Server](https://eckigerluca.com/discord) (German)
+* My Discord [Server](https://eckigerluca.com/discord)
