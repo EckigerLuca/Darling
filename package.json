@@ -15,6 +15,7 @@
     "events": "^3.3.0",
     "nekos-best.js": "^4.0.4",
     "node-fetch": "^2.6.1",
-    "topgg-autoposter": "^2.0.0"
+    "topgg-autoposter": "^2.0.0",
+    "xml-js": "^1.6.11"
   }
 }
