@@ -20,16 +20,19 @@ module.exports = {
                 { name: '❓ Help', value: '`/help`'},
                 //{ name: '🎵 Music', value: '`/play` `/join` `/leave` `/nowplaying` `/pause` `/stop` `/resume` `/volume`'},
                 { name: '🔨 Moderation', value: '`/ban` `/kick` `/unban` `/clear` `/serverstats`'},
-                { name: '🖼️ Media', value: '`/cat` `/fox` `/dog` `/avatar` `/waifu` `/neko`'},
+                { name: '🖼️ Media', value: '`/cat` `/fox` `/dog` `/raccoon` `/avatar` `/waifu` `/neko`'},
+                { name: '📸 Image Generation', value: '`/lolilicense`'},
                 { name: '🤣 Memes', value: '`/meme` `/meme help` `/adidas`'},
                 { name: '😂 Meme Generation', value: '`/magik (@member)`'},
-                { name: '🎭 Roleplay', value: '`/baka` `/bite` `/blush` `/bored` `/cry` `/cuddle` `/dance` `/facepalm` `/feed` `/happy` `/highfive` `/hug` `/kiss` `/laugh` `/pat` `/poke` `/pout` `/shrug` `/slap` `/sleep` `/smile` `/smug` `/stare` `/think` `/tickle` `/wave` `/wink`'},
-                { name: '🔰 Other', value: '`/ping` `/whois` `/invite bot` `/invite server` `/random number` `/botinfo` `/vote`'},
+                { name: '🎭 Roleplay', value: '`/baka` `/bite` `/blush` `/bored` `/cry` `/cuddle` `/dance` `/facepalm` `/feed` `/happy` `/highfive` `/hug` `/kiss` `/laugh` `/pat` `/poke` `/pout` `/shrug` `/slap` `/sleep` `/smile` `/smug` `/stare` `/think` `/tickle` `/wave` `/wink` ||`/fuck`||'},
+                { name: '🔰 Other', value: '`/ping` `/whois` `/invite bot` `/invite server` `/random number` `/botinfo` `/botvote`'},
             )
             if (interaction.channel.nsfw) {
                 embed.addField('🔞 NSFW', '`/hentai (subreddit)` `/hentai help` `/hentaiwaifu` `/hentaineko` `/hentaiblowjob`')
+                embed.addField('🔞² Boorus', '`/safebooru (tags)` `/konachan (tags)` `/gelbooru (tags)` `/rule34 (tags)` `/lolibooru (tags)`')
             } else {
-                embed.addField('🔞 NSFW', '||`/hentai (subreddit)` `/hentai help` `/hentaiwaifu` `/hentaineko` `/hentaiblowjob`||')
+                embed.addField('🔞 NSFW', '||`/hentai (subreddit)` `/hentai help` `/hentaiwaifu` `/hentaineko` `/hentaiblowjob` ||')
+                embed.addField('🔞² Boorus', '||`/safebooru (tags)` `/konachan (tags)` `/gelbooru (tags)` `/rule34 (tags)` `/lolibooru (tags)`||')
             }
         await interaction.reply({embeds: [embed]});
     },
