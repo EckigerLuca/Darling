@@ -5,7 +5,7 @@ const fetch = require('node-fetch')
 
 module.exports = {
     data: new SlashCommandBuilder()
-       .setName('vote')
+       .setName('botvote')
        .setDescription('vote for the bot!'),
     
     async execute (interaction) {
