@@ -9,14 +9,14 @@ module.exports = {
         .setDescription('random raccoon'),
 
     async execute(interaction) {
-        let response = await fetch('http://eckigerluca.com:727/raccoon');
+        let response = await fetch('https://eckigerluca.com/api/raccoon');
         let data = await response.json();
 
         let embed = new MessageEmbed()
             .setTitle('Raccoon!')
             .setColor(color)
             .setImage(data.image)
-            .setFooter('Thank you Henry for the images >..<')
+            .setFooter({text: 'Thank you Henry for the images >..<'})
         
         await interaction.reply({embeds: [embed]})
     }

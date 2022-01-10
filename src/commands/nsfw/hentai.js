@@ -289,7 +289,7 @@ module.exports = {
                             {name: "» 101-125 «", value: REDDIT_ENABLED_HENTAI_SUBREDDITS.slice(100, 125).join('\n'), inline: true},
                             {name: "» 126-150 «", value: REDDIT_ENABLED_HENTAI_SUBREDDITS.slice(125, 150).join('\n'), inline: true}
                         )
-                        .setFooter("Large and lower case is not important, just make sure to spell them correctly!")
+                        .setFooter({text: "Large and lower case is not important, just make sure to spell them correctly!"})
                     const helpEmbed2 = new MessageEmbed()
                             .setTitle('List of subreddits | Page 2')
                             .setColor(color)
@@ -299,7 +299,7 @@ module.exports = {
                                 {name: "» 201-225 «", value: REDDIT_ENABLED_HENTAI_SUBREDDITS.slice(200,225).join('\n'), inline: true},
                                 {name: "» 226-240 «", value: REDDIT_ENABLED_HENTAI_SUBREDDITS.slice(225).join('\n'), inline: true}
                             )
-                            .setFooter("Large and lower case is not important, just make sure to spell them correctly!")
+                            .setFooter({text: "Large and lower case is not important, just make sure to spell them correctly!"})
                     await interaction.reply({embeds: [helpEmbed1], components: [row]})
                     interaction.client.on('interactionCreate', interaction => {
                         if (!interaction.isButton()) return;
@@ -401,7 +401,7 @@ module.exports = {
                         .setDescription(`From [${hentaiDataJson.subredditName}](${hentaiDataJson.subredditUrl})`)
                         .setURL(hentaiDataJson.postUrl)
                         .setImage(hentaiDataJson.imgUrl)
-                        .setFooter(`👍 ${hentaiDataJson.upvotes} 👎 ${hentaiDataJson.downvotes} 💬 ${hentaiDataJson.comments}`)
+                        .setFooter({text: `👍 ${hentaiDataJson.upvotes} 👎 ${hentaiDataJson.downvotes} 💬 ${hentaiDataJson.comments}`})
                     
                     await interaction.reply({embeds: [embed]})
                     if (notfound == true) {

@@ -38,7 +38,7 @@ module.exports = {
             if (input == 'help') {
                 embed.setTitle('List of subreddits')
                     .addField('»» 1-13 ««', REDDIT_ENABLED_MEME_SUBREDDITS.join('\n'))
-                    .setFooter('Page 1/1')
+                    .setFooter({text: 'Page 1/1'})
                 await interaction.reply({ embeds: [embed]});
                 return
 
@@ -61,7 +61,7 @@ module.exports = {
                         .setDescription(`From [r/${subreddit}](${subredditUrl})`)
                         .setURL(memeUrl)
                         .setImage(memeImg)
-                        .setFooter(`👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComents}`)
+                        .setFooter({text: `👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComents}`})
                     
                     let infoEmbed = new MessageEmbed()
                         .setTitle('404 Not Found')
@@ -89,7 +89,7 @@ module.exports = {
                         .setDescription(`From [r/${subreddit}](${subredditUrl})`)
                         .setURL(memeUrl)
                         .setImage(memeImg)
-                        .setFooter(`👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComents}`)
+                        .setFooter({text: `👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComents}`})
                 
                     await interaction.reply({ embeds: [embed] })
                     return
@@ -113,7 +113,7 @@ module.exports = {
                     .setDescription(`From [r/${subreddit}](${subredditUrl})`)
                     .setURL(memeUrl)
                     .setImage(memeImg)
-                    .setFooter(`👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComents}`)
+                    .setFooter({text: `👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComents}`})
 
                 await interaction.reply({ embeds: [embed] })
                 return

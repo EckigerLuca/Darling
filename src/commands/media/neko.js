@@ -34,7 +34,7 @@ module.exports = {
                     .setColor(color)
                     .setTitle('Meow')
                     .setDescription(`[${nekos.url[i].artist_name}](${nekos.url[i].source_url})`)
-                    .setFooter('From nekos.best')
+                    .setFooter({text: 'From nekos.best'})
                     .setImage(nekos.url[i].url)
                 embeds.push(embed)
             }

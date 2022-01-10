@@ -20,7 +20,9 @@ module.exports = {
             if (messageAuthor.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
 
                 if (memberFetched.roles.highest.position >= messageAuthor.roles.highest.position) return interaction.reply({content: "You can't ban that member because their role is higher than yours!", ephemeral: true})
+                try {
                 await member.send(`You have been banned from **${interaction.guild.name}**\nReason: ${reason}`);
+                } catch {console.log("Could not dm member after banning!")}
 
                 await memberFetched.ban({reason: reason});
                 interaction.reply({content: `Banned ${memberFetched.user.tag} successfully!\nReason: ${reason}`})

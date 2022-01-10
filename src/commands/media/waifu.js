@@ -29,7 +29,7 @@ module.exports = {
             const embed = new MessageEmbed()
                 .setColor(color)
                 .setTitle('Random waifu pic?')
-                .setFooter('From waifu.pics')
+                .setFooter({text: 'From waifu.pics'})
                 .setImage(await fetchImage())
         
             

@@ -32,7 +32,7 @@ module.exports = {
                 .setDescription(`Board: lolibooru.moe\nQueried Tag(s): ${query}\nRequested by: ${interaction.member}`)
                 .setColor(color)
                 .setImage(imgUrlEdited)
-                .setFooter("This content is served by an image-search api and Darling is not responsible for any content!")
+                .setFooter({text:"This content is served by an image-search api and Darling is not responsible for any content!"})
 
             await interaction.editReply({embeds: [embed]})
         } else {await interaction.reply({content: 'Please go to a channel that is marked as NSFW!', ephemeral: true})}

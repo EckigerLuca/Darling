@@ -15,7 +15,7 @@ module.exports = {
         let sfwGif = 'https://eckigerluca.com/darling/media/fuck/fuck.gif'
 
         if (interaction.channel.nsfw) {
-            let response = await fetch('http://eckigerluca.com:727/fuck');
+            let response = await fetch('https://eckigerluca.com/api/fuck');
             let data = await response.json();
 
             let embed = new MessageEmbed()

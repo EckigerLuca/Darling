@@ -31,7 +31,7 @@ module.exports = {
                 .setColor(color)
                 .setTitle('Floof!')
                 .setDescription(`[Link if you can't see the image](${img})`)
-                .setFooter('From randomfox.ca')
+                .setFooter({text: 'From randomfox.ca'})
                 .setImage(img)
         
             

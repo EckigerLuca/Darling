@@ -30,7 +30,7 @@ module.exports = {
                 const embed = new MessageEmbed()
                     .setColor(color)
                     .setTitle('Random hentai blowjob')
-                    .setFooter('From waifu.pics')
+                    .setFooter({text: 'From waifu.pics'})
                     .setImage(await fetchImage())
         
             

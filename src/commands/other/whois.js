@@ -36,9 +36,9 @@ module.exports = {
             let avatar = user.displayAvatarURL({size: 1024, format: 'png', dynamic: true})
             const embed = new MessageEmbed()
                 .setDescription(`<@${user.id}>`)
-                .setAuthor(user.username, avatar)
+                .setAuthor({name: String(user.username), iconURL: avatar})
                 .setThumbnail(avatar)
-                .setFooter('User ID: '+user.id)
+                .setFooter({text: `User ID: ${user.id}`})
                 .setColor(color)
                 .addFields(  
                     { name: 'Joined:', value: `<t:${joinDate}:f>\n<t:${joinDate}:R>`, inline: true },
