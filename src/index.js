@@ -20,7 +20,6 @@ if (topGG) {
 		console.log(err)
 	})
 }
-// #region command loading
 
 const folders = fs.readdirSync('./src/commands');
 
@@ -43,10 +42,6 @@ for (const file of eventFiles) {
 	}
 }
 
-// #endregion
-
-// #region command interaction
-
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
 
@@ -67,7 +62,5 @@ client.on('interactionCreate', async interaction => {
 		}
 	}
 });
-
-// #endregion
 
 client.login(token);
