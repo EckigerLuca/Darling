@@ -17,5 +17,9 @@
     "node-fetch": "^2.6.1",
     "topgg-autoposter": "^2.0.0",
     "xml-js": "^1.6.11"
+  },
+  "scripts": {
+    "deploy": "node ./src/deploy-commands.js",
+    "start": "node ./src/index.js"
   }
 }
