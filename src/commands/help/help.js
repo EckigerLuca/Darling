@@ -15,7 +15,7 @@ module.exports = {
             .setColor(color)
             .setTitle('All commands')
             .setDescription('[] = Needed argument\n() = Optional argument')
-            .setFooter(`Bot by ${eckigerluca.username}#${eckigerluca.discriminator}`, eckigerluca_avatar)
+            .setFooter({text: `Bot by ${eckigerluca.username}#${eckigerluca.discriminator}`, iconURL: eckigerluca_avatar})
             .addFields(
                 { name: '❓ Help', value: '`/help`'},
                 //{ name: '🎵 Music', value: '`/play` `/join` `/leave` `/nowplaying` `/pause` `/stop` `/resume` `/volume`'},
