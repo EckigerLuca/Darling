@@ -6,8 +6,9 @@ So I'd prefer if You would just add it to your server with [this](https://eckige
 ### But if You want to host it by yourself,
 rename the `config.json.public` to `config.json` and edit the values. The Bot **needs** the `SERVER MEMBERS INTENT`, so make sure to enable it!
 
-After that, use `npm i` to install all needed packages. When done, run the `index.js` and the bot should be online.
-Do not forget to register the application commands by running the `deploy-commands.js` in the src folder!
+After that, use `npm i` to install all needed packages. When done, register the slash commands by using `npm run deploy` in your console.
+
+You can then start the bot with `npm start` or `node .`
 
 If the bot is online, invite it to the server You want to use it on! (Check the image for permissions).
 
