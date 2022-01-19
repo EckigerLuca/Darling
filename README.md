@@ -6,6 +6,8 @@ So I'd prefer if You would just add it to your server with [this](https://eckige
 ### But if You want to host it by yourself,
 rename the `config.json.public` to `config.json` and edit the values. The Bot **needs** the `SERVER MEMBERS INTENT`, so make sure to enable it!
 
+Make sure that you have a mongo-db database avaiable for bot! The name of the database needs to be `darling` and inside that db a collection called `welcome` is required.
+
 After that, use `npm i` to install all needed packages. When done, register the slash commands by using `npm run deploy` in your console.
 
 You can then start the bot with `npm start` or `node .`
