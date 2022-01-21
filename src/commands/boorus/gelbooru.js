@@ -19,10 +19,10 @@ module.exports = {
             const data = await response.json();
             const randomInt = Math.floor(Math.random() * (Object.keys(data).length - 0) + 0);
 
-            const postId = data[randomInt].id;
+            const postId = data.post[randomInt].id;
 
             const postUrl = `https://gelbooru.com/index.php?page=post&s=view&id=${postId}`;
-            const imgUrl = data[randomInt].file_url;
+            const imgUrl = data.post[randomInt].file_url;
 
             const embed = new MessageEmbed()
                 .setTitle(`Post URL`)
