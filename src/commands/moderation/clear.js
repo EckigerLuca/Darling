@@ -1,7 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
 const { MessageEmbed, Permissions } = require('discord.js');
-const fetch = require('node-fetch');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,28 +10,30 @@ module.exports = {
 
         async execute(interaction) {
             await interaction.deferReply({ ephemeral: true });
-            let amount = interaction.options.getNumber('amount')
+            let amount = interaction.options.getNumber('amount');
             if (interaction.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) {
                 if (amount > 0) {
                     if (amount > 100) {
                         amount = 100;
                     }
-                    let messages = await interaction.channel.messages.fetch({limit: amount})
-                    await interaction.channel.bulkDelete(messages)
+                    const messages = await interaction.channel.messages.fetch({ limit: amount });
+                    await interaction.channel.bulkDelete(messages);
                     const embed = new MessageEmbed()
                         .setTitle(`Deleted ${messages.size} messages! 🧹`)
                         .setColor(color)
-                        .setThumbnail("https://eckigerluca.com/darling/media/cleaning.gif")
-                    await interaction.editReply({embeds: [embed], ephemeral: true})
+                        .setThumbnail("https://eckigerluca.com/darling/media/cleaning.gif");
+                    await interaction.editReply({ embeds: [embed], ephemeral: true });
                     await new Promise(resolve => setTimeout(resolve, 6000));
                     return;
-                } else {
-                    await interaction.editReply({content: "Please define a number that is bigger than 0. Max. = 100", ephemeral: true})
+                }
+                else {
+                    await interaction.editReply({ content: "Please define a number that is bigger than 0. Max. = 100", ephemeral: true });
                     return;
                 }
-            } else {
-                await interaction.editReply({content: "I'm sorry, but you're not allowed to do that!", ephemeral: true})
+            }
+            else {
+                await interaction.editReply({ content: "I'm sorry, but you're not allowed to do that!", ephemeral: true });
                 return;
             }
-    }
+    },
 };

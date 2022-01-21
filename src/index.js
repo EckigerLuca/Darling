@@ -1,6 +1,6 @@
 const fs = require('fs');
-const { Client, Collection, Intents, MessageEmbed } = require('discord.js');
-const { token, color } = require('./data/config.json');
+const { Client, Collection, Intents } = require('discord.js');
+const { token } = require('./data/config.json');
 
 const topGG = false;
 
@@ -10,22 +10,22 @@ client.commands = new Collection();
 if (topGG) {
 	const discordBotListToken = require('./data/config.json');
 	const { AutoPoster } = require('topgg-autoposter');
-	const ap = AutoPoster(`${discordBotListToken}`, client)
+	const ap = AutoPoster(`${discordBotListToken}`, client);
 
 	ap.on('posted', (stats) => {
-		console.log(`Posted stats to Top.gg | ${stats.serverCount} servers`)
-	})
+		console.log(`Posted stats to Top.gg | ${stats.serverCount} servers`);
+	});
 
 	ap.on('error', (err) => {
-		console.log(err)
-	})
+		console.log(err);
+	});
 }
 
 const folders = fs.readdirSync('./src/commands');
 
-for (var folder of folders) {
+for (const folder of folders) {
     const files = fs.readdirSync(`./src/commands/${folder}`);
-    for (var file of files) {
+    for (const file of files) {
         const command = require(`./commands/${folder}/${file}`);
         client.commands.set(command.data.name, command);
     }
@@ -36,7 +36,8 @@ for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
 	if (event.once) {
 		client.once(event.name, (...args) => event.execute(...args));
-	} else {
+	}
+	else {
 		client.on(event.name, (...args) => event.execute(...args));
 	}
 }

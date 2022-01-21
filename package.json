@@ -16,11 +16,13 @@
     "mongodb": "^4.3.0",
     "nekos-best.js": "^4.0.4",
     "node-fetch": "^2.6.1",
-    "topgg-autoposter": "^2.0.0",
-    "xml-js": "^1.6.11"
+    "topgg-autoposter": "^2.0.0"
   },
   "scripts": {
     "deploy": "node ./src/deploy-commands.js",
     "start": "node ./src/index.js"
+  },
+  "devDependencies": {
+    "eslint": "^8.7.0"
   }
 }

@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
 const { MessageEmbed } = require('discord.js');
-const fetch = require('node-fetch')
+const fetch = require('node-fetch');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -9,15 +9,15 @@ module.exports = {
         .setDescription('random raccoon'),
 
     async execute(interaction) {
-        let response = await fetch('https://eckigerluca.com/api/raccoon');
-        let data = await response.json();
+        const response = await fetch('https://eckigerluca.com/api/raccoon');
+        const data = await response.json();
 
-        let embed = new MessageEmbed()
+        const embed = new MessageEmbed()
             .setTitle('Raccoon!')
             .setColor(color)
             .setImage(data.image)
-            .setFooter({text: 'Thank you Henry for the images >..<'})
-        
-        await interaction.reply({embeds: [embed]})
-    }
+            .setFooter({ text: 'Thank you Henry for the images >..<' });
+
+        await interaction.reply({ embeds: [embed] });
+    },
 };

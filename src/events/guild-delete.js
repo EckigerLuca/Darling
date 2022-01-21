@@ -1,4 +1,4 @@
-const {MongoClient} = require('mongodb');
+const { MongoClient } = require('mongodb');
 const { mongodbUri } = require('../data/config.json');
 
 const dbClient = new MongoClient(String(mongodbUri));
@@ -9,16 +9,19 @@ module.exports = {
 	async execute(guild) {
 		const guildId = guild.id;
 		const filter = {
-			_id: guildId
-		}
+			_id: guildId,
+		};
 		try {
 			await dbClient.connect();
 			const db = dbClient.db("darling");
-			let collections = await db.listCollections();
+			const collections = await db.listCollections();
 			await collections.forEach(async c => {
-				let collection = await db.collection(c.name);
-				let result = await collection.deleteOne(filter);
+				const collection = await db.collection(c.name);
+				await collection.deleteOne(filter);
 			});
-		} catch (err) {console.log(err)}
+		}
+		catch (err) {
+			console.log(err);
+		}
 	},
 };

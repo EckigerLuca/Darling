@@ -8,15 +8,17 @@ module.exports = {
 
         if (!command) return;
 
-        if (!interaction.guild) return await interaction.reply({content: "No.", ephemeral: true});
+        if (!interaction.guild) return await interaction.reply({ content: "No.", ephemeral: true });
 
         try {
             await command.execute(interaction);
-        } catch (error) {
+        }
+        catch (error) {
             console.error(error);
             try {
                 await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
-            } catch {
+            }
+            catch {
                 await interaction.editReply({ content: 'There was an error while executing this command!', ephemeral: true });
             }
         }
