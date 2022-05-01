@@ -1,5 +1,5 @@
 # Darling.
-
+<a href="https://top.gg/bot/743150068726628440" target="_blank"><img src="https://top.gg/api/widget/servers/743150068726628440.svg"></a>
 ### This is the code of my bot
 So I'd prefer if You would just add it to your server with [this](https://eckigerluca.com/darling/invite) link.
 
@@ -24,3 +24,6 @@ This bot uses Top.gg. If you don't want to use it, leave the variable `topGG` in
 * [E-Mail](mailto:contact@eckigerluca.com)
 * Discord: `EckigerLuca#0001`
 * My Discord [Server](https://eckigerluca.com/discord)
+
+##
+<a href="https://discord.gg/tpUr7d3" target="_blank"><img src="https://discordapp.com/api/guilds/689756047107293191/widget.png?style=banner2"></a>
