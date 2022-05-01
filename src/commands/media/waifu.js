@@ -11,9 +11,20 @@ module.exports = {
             option.setName('amount')
                 .setDescription('Defines how many images the bot should send')
                 .setRequired(true)
-                .addChoice('One', '1')
-                .addChoice('Five', '5')
-                .addChoice('Ten', '10')),
+                .addChoices(
+                    {
+                        name: 'One',
+                        value: '1',
+                    },
+                    {
+                        name: 'Five',
+                        value: '5',
+                    },
+                    {
+                        name: 'Ten',
+                        value: '10',
+                    },
+                )),
 
         async execute(interaction) {
             const amount = interaction.options.getString('amount');
