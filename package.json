@@ -15,7 +15,7 @@
     "events": "^3.3.0",
     "mongodb": "^4.3.0",
     "nekos-best.js": "^4.0.4",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "topgg-autoposter": "^2.0.0"
   },
   "scripts": {
