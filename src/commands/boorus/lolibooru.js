@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -25,7 +25,7 @@ module.exports = {
             const imgUrl = data[randomInt].file_url;
             const imgUrlEdited = imgUrl.replace(/ /g, '%20');
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setTitle(`Post URL`)
                 .setURL(postUrl)
                 .setDescription(`Board: lolibooru.moe\nQueried Tag(s): ${query}\nRequested by: ${interaction.member}`)

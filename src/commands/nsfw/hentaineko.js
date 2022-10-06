@@ -1,7 +1,7 @@
 /* eslint-disable no-inner-declarations */
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -39,7 +39,7 @@ module.exports = {
                 }
 
                 const real_amount = amount - 1;
-                const embed = new MessageEmbed()
+                const embed = new EmbedBuilder()
                     .setColor(color)
                     .setTitle('Random hentai neko pic?')
                     .setFooter({ text: 'From waifu.pics' })

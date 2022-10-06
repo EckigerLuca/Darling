@@ -2,7 +2,7 @@
 /* eslint-disable no-inner-declarations */
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
-const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 
 function sleep(ms) {
@@ -10,247 +10,192 @@ function sleep(ms) {
 }
 
 const REDDIT_ENABLED_HENTAI_SUBREDDITS = [
-    'A_HentaiTV',
-    'ahegao',
-    'AleatoryHentai',
-    'AmberHentai',
-    'AnalHentai',
-    'animearmpits',
-    'AnimeAss',
-    'Animeasshole',
-    'animeassholes',
-    'animebodysuits',
-    'AnimeBooty',
-    'AnimeFeets',
-    'Animefoot',
-    'AnimeFootFetish',
-    'animehandjobs',
-    'AnimeHeelsAndBoots',
-    'AnimeHighHeels',
-    'animeJOmaterial',
-    'animelegs',
-    'animelegwear',
-    'AnimeLingerie',
-    'animemaids',
-    'animemidriff',
-    'AnimeMILFS',
-    'animemilkers',
-    'animepantsu',
-    'AnimePantyhose',
-    'AnimePasties',
-    'animepointyears',
-    'AnimePussy',
-    'AnimeSeeThrough',
-    'animeshirtgaps',
-    'AnimeStockings',
-    'animethighss',
-    'AnimeTitties',
-    'AraAra',
-    'Artistic_Hentai',
-    'AshiToFutomomo',
-    'AsunaHentai',
-    'Atago',
-    'AverageAnimeTiddies',
-    'AyakaHentai',
-    'AzurlaneHentai',
-    'AzurLaneXXX',
-    'AzurLewd',
-    'AzurTakao',
-    'bakunyuu',
-    'BarbaraNSFW',
-    'BeachHentai',
-    'BeidouNSFW',
-    'BigAnimeTiddies',
-    'BikiniMoe',
-    'BimboHentai',
-    'BlondeHairWaifu',
-    'bluehairhentai',
-    'bunnygirlhentai',
-    'CedehsHentai',
-    'ChurchofBooty',
-    'ChurchOfRikka',
-    'ConfidentHentai',
-    'Cowgirls',
-    'CultureImpact',
-    'CumHentai',
-    'cute_hentai',
-    'DarlingInTheFranXXX',
-    'DateALewd',
-    'deepthroathentai',
-    'dekaihentai',
-    'DoA_Rule34',
-    'ecchi',
-    'Ecchibondage',
-    'ecchitits',
-    'Elegant34',
-    'ElfHentai',
-    'EmbarrassedHentai',
-    'EmiliaHentai',
-    'ErOshiri',
-    'Erza34',
-    'EulaNSFW',
-    'Fairytail_hentai',
-    'FateEcchi',
-    'FateHentai',
-    'Fateishtar',
-    'FateXXX',
-    'FGOcomics',
-    'Fire_Emblem_R34',
-    'fischlnsfw',
-    'Formidable_AZ',
-    'FreeuseHentai',
-    'funpiece',
-    'GanyuNSFW',
-    'GenshinImpactHentai',
-    'GenshinImpactNSFW',
-    'GenshinLewds',
-    'glasshentai',
-    'GloryHo',
-    'grailwhores',
-    'HardcoreHentaiBondage',
-    'HelplessHentai',
-    'Hen_Tai',
-    'hentai',
-    'hentai411',
-    'Hentai4Everyone',
-    'Hentai_feet',
-    'HENTAI_GIF',
-    'hentai_highlights',
-    'HentaiAnal',
-    'HentaiAnaru',
-    'HentaiAnime',
-    'HentaiBlessing',
-    'hentaibondage',
-    'HentaiBreeding',
-    'Hentaibuttplug',
-    'HentaiCameltoe',
-    'HentaiCity',
-    'HentaiCumsluts',
-    'hentaifemdom',
-    'hentaigg',
-    'Hentaiofthedead',
-    'HentaiParadise',
-    'hentaipath',
-    'HentaiPetgirls',
-    'HentaiPixxx',
-    'HentaiSchoolGirls',
-    'HentaiVisualArts',
-    'HentaiVTuberGirls',
-    'hentaiwaifus69',
-    'HentaiWorldInfo',
-    'highschooldxdr34',
-    'Hololewd',
-    'HonkaiImpactRule34',
-    'HQHentai',
-    'HuTaoHentai',
-    'HuTaoNSFW',
-    'ishtarhentai',
-    'IWantToBeHerHentai',
-    'JeanHentai',
-    'Jeanne',
-    'Joshi_Kosei',
-    'KdaNSFW',
-    'kemonomimi',
-    'KeqingNSFW',
-    'KeyholeHentai',
-    'Lewd_Not_Hentai',
-    'LewdAnimeGirls',
-    'LewdGenshinImpact',
-    'LingerieHentai',
-    'LisaHentai',
-    'LoweredPantyhose',
-    'lowlegsheaven',
-    'MaidHentai',
-    'MamaRaikou',
-    'MasturbationHentai',
-    'MidriffHentai',
-    'MikuNakanoNSFW',
-    'milfhentai',
-    'Mona_NSFW',
-    'MonaHentai',
-    'MonsterGirl',
-    'muchihentai',
-    'nakanoitsuki',
-    'Naruto_Hentai',
-    'Nekomimi',
-    'NinoNakanoNSFW',
-    'NintendoWaifus',
-    'NoneHumanMoe',
-    'nsfw_zhentai',
-    'NSFWEcchi',
-    'NurseHentai',
-    'officelady',
-    'OfficialSenpaiHeat',
-    'OniMaidTwins',
-    'Oppai',
-    'oppai_gif',
-    'OppaiLove',
-    'OriginalMoe',
-    'overflowingcum',
-    'overflowingoppai',
-    'OverOppai',
-    'oversizedbreasts',
-    'Paizuri',
-    'pantsu',
-    'PantsuPull',
-    'PublicHentai',
-    'PussySpreadingHentai',
-    'quick_hentai',
-    'QuintupletsHentai',
-    'RaidenMeiNSFW',
-    'RaidenNSFW',
-    'rape_hentai',
-    'ReZeroHentai',
-    'Rikka_Takarada',
-    'RinTohsakaNSFW',
-    'rippedanimelegwear',
-    'RosariaNSFW',
-    'rule34',
-    'Rule34cumsluts',
-    'rule34feet',
-    'Rule34LoL',
-    'RWBYNSFW',
-    'Saber',
-    'saohentai',
-    'serafuku2D',
-    'sex_comics',
-    'SFMCompileClub',
-    'Sheizenokan',
-    'ShokugekiNoSomaNsfw',
-    'SideBoobHentai',
-    'SoakedHentai',
-    'SteamyHentai',
-    'StripHentai',
-    'StuckHentai',
-    'SubwayHentai',
-    'Sukebei',
-    'SurpriseHentai',
-    'Sweatymoe',
-    'swimsuithentai',
-    'Taihou',
-    'Tentai',
-    'thehentaihaus',
-    'ThiccElves',
-    'thick_hentai',
-    'thighdeology',
-    'thighhighhentai',
-    'tohsakahentai',
-    'ToplessHentai',
-    'uncensoredhentai',
-    'Uniform_Hentai',
-    'UpskirtHentai',
-    'VaginaHentai',
-    'VideoGame_Hentai',
-    'VshojoLewds',
-    'waifusgonewild',
-    'WaifusOnCouch',
-    'Waifutights',
-    'WesternHentai',
-    'XrayHentai',
-    'YaeMikoNSFW',
-    'ZeroTwoBooty',
-    'ZeroTwoHentai',
-    ];
+   "ahegao",
+   "AmberHentai",
+   "AnalHentai",
+   "animearmpits",
+   "animebodysuits",
+   "AnimeBooty",
+   "AnimeFeets",
+   "AnimeFootFetish",
+   "animehandjobs",
+   "AnimeHeelsAndBoots",
+   "AnimeHighHeels",
+   "animelegs",
+   "animelegwear",
+   "AnimeLingerie",
+   "animemaids",
+   "animemidriff",
+   "AnimeMILFS",
+   "animepantsu",
+   "AnimePantyhose",
+   "animepointyears",
+   "AnimePussy",
+   "AnimeSeeThrough",
+   "animeshirtgaps",
+   "AnimeStockings",
+   "AnimeTitties",
+   "AraAra",
+   "Artistic_Hentai",
+   "AshiToFutomomo",
+   "AsunaHentai",
+   "Atago",
+   "AverageAnimeTiddies",
+   "AzurLaneXXX",
+   "AzurLewd",
+   "bakunyuu",
+   "BarbaraNSFW",
+   "BeachHentai",
+   "BeidouNSFW",
+   "BigAnimeTiddies",
+   "BikiniMoe",
+   "BimboHentai",
+   "BlondeHairWaifu",
+   "bluehairhentai",
+   "bunnygirlhentai",
+   "CedehsHentai",
+   "ChurchofBooty",
+   "ChurchOfRikka",
+   "ConfidentHentai",
+   "CultureImpact",
+   "CumHentai",
+   "cute_hentai",
+   "DarlingInTheFranXXX",
+   "deepthroathentai",
+   "dekaihentai",
+   "DoA_Rule34",
+   "ecchi",
+   "Elegant34",
+   "ElfHentai",
+   "EmbarrassedHentai",
+   "EmiliaHentai",
+   "EulaNSFW",
+   "FateEcchi",
+   "FateHentai",
+   "Fateishtar",
+   "FateXXX",
+   "FGOcomics",
+   "Fire_Emblem_R34",
+   "Formidable_AZ",
+   "FreeuseHentai",
+   "funpiece",
+   "GanyuNSFW",
+   "GenshinImpactHentai",
+   "GenshinImpactNSFW",
+   "GenshinLewds",
+   "glasshentai",
+   "GloryHo",
+   "grailwhores",
+   "HardcoreHentaiBondage",
+   "HelplessHentai",
+   "Hen_Tai",
+   "hentai",
+   "hentai411",
+   "Hentai_feet",
+   "HentaiAnal",
+   "HentaiAnaru",
+   "HentaiBlessing",
+   "hentaibondage",
+   "HentaiBreeding",
+   "Hentaibuttplug",
+   "HentaiCameltoe",
+   "hentaifemdom",
+   "Hentaiofthedead",
+   "HentaiPetgirls",
+   "HentaiPixxx",
+   "HentaiSchoolGirls",
+   "HentaiVTuberGirls",
+   "hentaiwaifus69",
+   "HentaiWorldInfo",
+   "highschooldxdr34",
+   "Hololewd",
+   "HonkaiImpactRule34",
+   "HuTaoNSFW",
+   "ishtarhentai",
+   "IWantToBeHerHentai",
+   "Jeanne",
+   "Joshi_Kosei",
+   "kemonomimi",
+   "KeqingNSFW",
+   "KeyholeHentai",
+   "Lewd_Not_Hentai",
+   "LewdAnimeGirls",
+   "LewdGenshinImpact",
+   "LingerieHentai",
+   "lowlegsheaven",
+   "MaidHentai",
+   "MamaRaikou",
+   "MasturbationHentai",
+   "MidriffHentai",
+   "MikuNakanoNSFW",
+   "milfhentai",
+   "Mona_NSFW",
+   "MonsterGirl",
+   "muchihentai",
+   "nakanoitsuki",
+   "Naruto_Hentai",
+   "Nekomimi",
+   "NinoNakanoNSFW",
+   "NintendoWaifus",
+   "NoneHumanMoe",
+   "nsfw_zhentai",
+   "NurseHentai",
+   "officelady",
+   "OfficialSenpaiHeat",
+   "OniMaidTwins",
+   "oppai_gif",
+   "OppaiLove",
+   "OriginalMoe",
+   "overflowingoppai",
+   "OverOppai",
+   "oversizedbreasts",
+   "Paizuri",
+   "pantsu",
+   "PublicHentai",
+   "QuintupletsHentai",
+   "RaidenMeiNSFW",
+   "RaidenNSFW",
+   "rape_hentai",
+   "ReZeroHentai",
+   "rippedanimelegwear",
+   "RosariaNSFW",
+   "rule34",
+   "Rule34cumsluts",
+   "rule34feet",
+   "Rule34LoL",
+   "RWBYNSFW",
+   "Saber",
+   "saohentai",
+   "serafuku2D",
+   "sex_comics",
+   "SFMCompileClub",
+   "SoakedHentai",
+   "StuckHentai",
+   "Sukebei",
+   "Sweatymoe",
+   "swimsuithentai",
+   "Taihou",
+   "Tentai",
+   "ThiccElves",
+   "thick_hentai",
+   "thighdeology",
+   "thighhighhentai",
+   "tohsakahentai",
+   "ToplessHentai",
+   "uncensoredhentai",
+   "Uniform_Hentai",
+   "UpskirtHentai",
+   "VaginaHentai",
+   "VideoGame_Hentai",
+   "VshojoLewds",
+   "waifusgonewild",
+   "WaifusOnCouch",
+   "Waifutights",
+   "WesternHentai",
+   "XrayHentai",
+   "YaeMikoNSFW",
+   "ZeroTwoHentai",
+];
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -262,25 +207,25 @@ module.exports = {
                 .setRequired(false)),
 
         async execute(interaction) {
-            let row = new MessageActionRow()
+            let row = new ActionRowBuilder()
                 .addComponents(
-                    new MessageButton()
+                    new ButtonBuilder()
                         .setCustomId('hentai1')
                         .setEmoji('1️⃣')
-                        .setStyle('PRIMARY'),
-                    new MessageButton()
+                        .setStyle('Primary'),
+                    new ButtonBuilder()
                         .setCustomId('hentai2')
                         .setEmoji('2️⃣')
-                        .setStyle('PRIMARY'),
+                        .setStyle('Primary'),
                 );
             if (interaction.channel.nsfw) {
 
                 const input = interaction.options.getString('input');
-                let subreddit = 'lulw';
+                let subreddit = '';
                 let notfound;
 
                 if (input == 'help') {
-                    const helpEmbed1 = new MessageEmbed()
+                    const helpEmbed1 = new EmbedBuilder()
                         .setTitle('List of subreddits | Page 1')
                         .setColor(color)
                         .addFields(
@@ -292,14 +237,12 @@ module.exports = {
                             { name: "» 126-150 «", value: REDDIT_ENABLED_HENTAI_SUBREDDITS.slice(125, 150).join('\n'), inline: true },
                         )
                         .setFooter({ text: "Large and lower case is not important, just make sure to spell them correctly!" });
-                    const helpEmbed2 = new MessageEmbed()
+                    const helpEmbed2 = new EmbedBuilder()
                             .setTitle('List of subreddits | Page 2')
                             .setColor(color)
                             .addFields(
                                 { name: "» 151-175 «", value: REDDIT_ENABLED_HENTAI_SUBREDDITS.slice(150, 175).join('\n'), inline: true },
-                                { name: "» 176-200 «", value: REDDIT_ENABLED_HENTAI_SUBREDDITS.slice(175, 200).join("\n"), inline: true },
-                                { name: "» 201-225 «", value: REDDIT_ENABLED_HENTAI_SUBREDDITS.slice(200, 225).join('\n'), inline: true },
-                                { name: "» 226-240 «", value: REDDIT_ENABLED_HENTAI_SUBREDDITS.slice(225).join('\n'), inline: true },
+                                { name: "» 176-185 «", value: REDDIT_ENABLED_HENTAI_SUBREDDITS.slice(175, 185).join("\n"), inline: true },
                             )
                             .setFooter({ text: "Large and lower case is not important, just make sure to spell them correctly!" });
                     await interaction.reply({ embeds: [helpEmbed1], components: [row] });
@@ -316,17 +259,17 @@ module.exports = {
                     });
 
                     await sleep(60000);
-                    row = new MessageActionRow()
+                    row = new ActionRowBuilder()
                         .addComponents(
-                            new MessageButton()
-                                .setCustomId('1')
+                            new ButtonBuilder()
+                                .setCustomId('hentai1')
                                 .setEmoji('1️⃣')
-                                .setStyle('PRIMARY')
+                                .setStyle('Primary')
                                 .setDisabled(true),
-                            new MessageButton()
-                                .setCustomId('2')
+                            new ButtonBuilder()
+                                .setCustomId('hentai2')
                                 .setEmoji('2️⃣')
-                                .setStyle('PRIMARY')
+                                .setStyle('Primary')
                                 .setDisabled(true),
                         );
                     await interaction.editReply({ components: [row] });
@@ -350,6 +293,14 @@ module.exports = {
                         await interaction.reply({ content: "I dont know what, but something bad happened here. Try again and if it's still not working create an issue on GitHub:\nhttps://eckigerluca.com/darling/github", ephemeral: true });
                     }
                 }
+
+                interaction.commandData = {
+                    name: interaction.commandName,
+                    options: [interaction.options],
+                    other: [{
+                        subreddit: subreddit,
+                    }],
+                };
 
                 async function getHentai() {
                     const response = await fetch(`https://reddit.com/r/${subreddit}/random.json`);
@@ -402,7 +353,7 @@ module.exports = {
                 }
                 else {
 
-                    const embed = new MessageEmbed()
+                    const embed = new EmbedBuilder()
                         .setColor(color)
                         .setTitle(hentaiDataJson.title)
                         .setDescription(`From [${hentaiDataJson.subredditName}](${hentaiDataJson.subredditUrl})`)
@@ -412,14 +363,13 @@ module.exports = {
 
                     await interaction.reply({ embeds: [embed] });
                     if (notfound == true) {
-                        const infoEmbed = new MessageEmbed()
+                        const infoEmbed = new EmbedBuilder()
                             .setTitle('404 Not Found')
                             .setDescription("Seems like, that you've tried to get something from a subreddit that is not in the list!\nThat's why I decided to throw random shit..\nAnyway, you can see all supported subreddits with `/hentai help`")
                             .setColor(color);
                         await interaction.followUp({ embeds: [infoEmbed], ephemeral: true });
                     }
                 }
-
             }
             else { await interaction.reply({ content: 'Please go to a channel that is marked as NSFW!', ephemeral: true }); return; }
     },

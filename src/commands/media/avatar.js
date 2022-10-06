@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,7 +16,7 @@ module.exports = {
                 user = interaction.user;
             }
             const avatar = user.displayAvatarURL({ size: 1024, format: 'png', dynamic: true });
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setColor(color)
                 .setDescription(`You requested ${user}'s avatar`)
                 .setImage(avatar);

@@ -1,7 +1,7 @@
 /* eslint-disable no-inner-declarations */
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -38,7 +38,7 @@ module.exports = {
                 booruResult = await getBooru();
             } while (booruResult.imgUrl.includes('mp4'));
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setTitle(`Post URL`)
                 .setURL(booruResult.postUrl)
                 .setDescription(`Board: rule34.xxx\nQueried Tag(s): ${query}\nRequested by: ${interaction.member}`)

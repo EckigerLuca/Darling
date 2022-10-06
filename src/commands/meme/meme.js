@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 
 const REDDIT_ENABLED_MEME_SUBREDDITS = [
@@ -15,7 +15,6 @@ const REDDIT_ENABLED_MEME_SUBREDDITS = [
     'memes',
     'PrequelMemes',
     'terriblefacebookmemes',
-    'teenagers',
     'wholesomememes',
 ];
 
@@ -29,14 +28,14 @@ module.exports = {
                 .setRequired(false)),
 
         async execute(interaction) {
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setColor(color);
 
             const input = interaction.options.getString('input');
 
             if (input == 'help') {
                 embed.setTitle('List of subreddits')
-                    .addField('»» 1-13 ««', REDDIT_ENABLED_MEME_SUBREDDITS.join('\n'))
+                    .addField('»» 1-12 ««', REDDIT_ENABLED_MEME_SUBREDDITS.join('\n'))
                     .setFooter({ text: 'Page 1/1' });
                 await interaction.reply({ embeds: [embed] });
                 return;
@@ -63,15 +62,22 @@ module.exports = {
                         .setImage(memeImg)
                         .setFooter({ text: `👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComents}` });
 
-                    const infoEmbed = new MessageEmbed()
+                    const infoEmbed = new EmbedBuilder()
                         .setTitle('404 Not Found')
                         .setDescription("Seems like, that you've tried to get something from a subreddit that is not in the list!\nThat's why I decided to throw random shit..\nAnyway, you can see all supported subreddits with `/meme help`")
                         .setColor(color);
 
                     await interaction.reply({ embeds: [embed] });
                     await interaction.followUp({ embeds: [infoEmbed], ephemeral: true });
-                    return;
 
+                    interaction.commandData = {
+                        name: interaction.commandName,
+                        options: [interaction.options],
+                        other: [{
+                            subreddit: subreddit,
+                        }],
+                    };
+                    return;
                 }
                 else if (REDDIT_ENABLED_MEME_SUBREDDITS.map(list => list.toLowerCase()).includes(input.toLowerCase())) {
                     const subreddit = input;
@@ -94,6 +100,14 @@ module.exports = {
                         .setFooter({ text: `👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComents}` });
 
                     await interaction.reply({ embeds: [embed] });
+
+                    interaction.commandData = {
+                        name: interaction.commandName,
+                        options: [interaction.options],
+                        other: [{
+                            subreddit: subreddit,
+                        }],
+                    };
                     return;
                 }
 
@@ -119,6 +133,14 @@ module.exports = {
                     .setFooter({ text: `👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComents}` });
 
                 await interaction.reply({ embeds: [embed] });
+
+                interaction.commandData = {
+                    name: interaction.commandName,
+                    options: [interaction.options],
+                    other: [{
+                        subreddit: subreddit,
+                    }],
+                };
                 return;
             }
     },

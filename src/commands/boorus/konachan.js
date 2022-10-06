@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -23,7 +23,7 @@ module.exports = {
             const postId = data[randomInt].id;
             const postUrl = `https://konachan.com/post/show/${postId}`;
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setTitle(`Post URL`)
                 .setURL(postUrl)
                 .setDescription(`Board: konachan.com\nQueried Tag(s): ${query}\nRequested by: ${interaction.member}`)

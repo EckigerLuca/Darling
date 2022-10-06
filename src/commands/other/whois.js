@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -33,7 +33,7 @@ module.exports = {
             const memberRoles = await getMemberRoles();
 
             const avatar = user.displayAvatarURL({ size: 1024, format: 'png', dynamic: true });
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setDescription(`<@${user.id}>`)
                 .setAuthor({ name: String(user.username), iconURL: avatar })
                 .setThumbnail(avatar)

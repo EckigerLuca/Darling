@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
-const { MessageEmbed, Permissions } = require('discord.js');
+const { EmbedBuilder, PermissionsBitField } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -17,7 +17,7 @@ module.exports = {
 
         async execute(interaction) {
             if (interaction.options.getSubcommand() === 'bot') {
-                const embed = new MessageEmbed()
+                const embed = new EmbedBuilder()
                     .setTitle('Invite link')
                     .setDescription('[Click me ヽ(✿ﾟ▽ﾟ)ノ](https://eckigerluca.com/darling/invite)')
                     .setColor(color);
@@ -25,7 +25,7 @@ module.exports = {
                 return;
             }
             else if (interaction.options.getSubcommand() === 'server') {
-                if (interaction.member.permissions.has(Permissions.FLAGS.CREATE_INSTANT_INVITE)) {
+                if (interaction.member.permissions.has(PermissionsBitField.Flags.CreateInstantInvite)) {
                     const invite = interaction.channel.createInvite({ unique: true, maxAge: 300 });
                     await interaction.reply({ content: `Here is your link: ${await invite}\nNote: This invite is usable for five minutes!`, ephemeral: true });
                 }

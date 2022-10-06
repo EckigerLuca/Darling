@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -18,14 +18,13 @@ module.exports = {
             const response = await fetch('https://eckigerluca.com/api/fuck');
             const data = await response.json();
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setDescription(`${interaction.user} bangs the shit out of ${user}`)
                 .setColor(color)
                 .setImage(data.image);
             await interaction.reply({ embeds: [embed] });
-        }
- else {
-            const embed = new MessageEmbed()
+        } else {
+            const embed = new EmbedBuilder()
                 .setDescription(`${interaction.user} is doing lewd things to ${user}`)
                 .setColor(color)
                 .setImage(sfwGif);

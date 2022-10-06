@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -38,7 +38,7 @@ module.exports = {
 
             const real_amount = amount - 1;
             const img = await fetchImage();
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setColor(color)
                 .setTitle('Meow!')
                 .setDescription(`[Link if you can't see the image](${img})`)

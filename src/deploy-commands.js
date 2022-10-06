@@ -2,6 +2,7 @@ const fs = require('fs');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const { clientId, token } = require('./data/config.json');
+const logger = require('silly-logger');
 
 const commands = [];
 
@@ -23,9 +24,9 @@ const rest = new REST({ version: '9' }).setToken(token);
 			Routes.applicationCommands(clientId),
 			{ body: commands },
 		);
-		console.log('Successfully registered application commands.');
+		logger.success('Successfully registered application commands.');
 	}
 	catch (error) {
-		console.error(error);
+		logger.error(error);
 	}
 })();

@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -65,7 +65,7 @@ module.exports = {
 
         const boosts = guild.premiumSubscriptionCount;
 
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setColor(color)
             .setThumbnail(guild.iconURL())
             .setTitle('Stats of the Server')

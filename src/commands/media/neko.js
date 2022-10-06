@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const { fetchNeko } = require('nekos-best.js');
 
 module.exports = {
@@ -40,7 +40,7 @@ module.exports = {
             const nekos = await fetchImage();
             const embeds = [];
             for (let i = 0; i <= real_amount; i++) {
-                const embed = new MessageEmbed()
+                const embed = new EmbedBuilder()
                     .setColor(color)
                     .setTitle('Meow')
                     .setDescription(`[${nekos.url[i].artist_name}](${nekos.url[i].source_url})`)

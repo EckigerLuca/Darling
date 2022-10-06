@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { Permissions } = require('discord.js');
+const { PermissionsBitField } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,7 +10,7 @@ module.exports = {
         async execute(interaction) {
             const userID = interaction.options.getString('userid');
             const messageAuthor = await interaction.guild.members.fetch(interaction.member.id);
-            if (messageAuthor.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
+            if (messageAuthor.permissions.has(PermissionsBitField.Flags.BanMembers)) {
                 const guild = await interaction.guild.fetch();
                 await guild.members.unban(userID).then((user) => {
                     interaction.reply({ content: `Successfully unbanned ${user.tag} from the server!` });

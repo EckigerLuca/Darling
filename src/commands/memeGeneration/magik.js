@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -15,11 +15,11 @@ module.exports = {
         if (target === null) {
             target = interaction.user;
         }
-        const avatar = target.displayAvatarURL({ size: 512, format: 'png', dynamic: true });
+        const avatar = target.displayAvatarURL({ size: 512, format: 'png', dynamic: false });
         const response = await fetch(`https://nekobot.xyz/api/imagegen?type=magik&image=${avatar}`);
         const data = await response.json();
 
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setTitle('Magik')
             .setColor(color)
             .setImage(data.message);

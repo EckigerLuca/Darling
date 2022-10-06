@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,7 +11,7 @@ module.exports = {
         const servers = interaction.client.guilds.cache.size;
         const eckigerluca = await interaction.client.users.fetch('173374602389618688');
         const eckigerluca_avatar = eckigerluca.displayAvatarURL({ size: 1024, format: 'png', dynamic: true });
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setTitle('Hey!')
             .setColor(color)
             .setDescription('This page here is just existing to share some information about the bot, so read it if you have time for it lol')

@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { Permissions } = require('discord.js');
+const { PermissionsBitField } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -15,7 +15,7 @@ module.exports = {
             const memberFetched = await interaction.guild.members.fetch(member.id);
             const messageAuthor = await interaction.guild.members.fetch(interaction.member.id);
 
-            if (messageAuthor.permissions.has(Permissions.FLAGS.KICK_MEMBERS)) {
+            if (messageAuthor.permissions.has(PermissionsBitField.Flags.KickMembers)) {
 
                 if (memberFetched.roles.highest.position >= messageAuthor.roles.highest.position) return interaction.reply({ content: "You can't kick that member because their role is higher than yours!", ephemeral: true });
                 try {

@@ -1,11 +1,20 @@
 const fs = require('fs');
-const { Client, Collection, Intents } = require('discord.js');
-const { token } = require('./data/config.json');
+const { Client, Collection, GatewayIntentBits } = require('discord.js');
+const { token, mongodbUri } = require('./data/config.json');
+const { MongoClient } = require('mongodb');
+const logger = require('silly-logger');
 
 const topGG = false;
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_VOICE_STATES] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
 client.commands = new Collection();
+
+const dbClient = new MongoClient(String(mongodbUri));
+(async function dbSetup() {
+	await dbClient.connect();
+	client.dbClient = dbClient;
+	logger.success("Connected to database!");
+} ());
 
 if (topGG) {
 	const discordBotListToken = require('./data/config.json');
@@ -13,11 +22,11 @@ if (topGG) {
 	const ap = AutoPoster(`${discordBotListToken}`, client);
 
 	ap.on('posted', (stats) => {
-		console.log(`Posted stats to Top.gg | ${stats.serverCount} servers`);
+		logger.success(`Posted stats to Top.gg | ${stats.serverCount} servers`);
 	});
 
 	ap.on('error', (err) => {
-		console.log(err);
+		logger.error(err);
 	});
 }
 

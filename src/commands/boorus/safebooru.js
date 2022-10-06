@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -26,7 +26,7 @@ module.exports = {
             const postUrl = `https://safebooru.org/index.php?page=post&s=view&id=${postId}`;
             const imgUrl = `https://safebooru.org/images/${postDirectory}/${postImgName}`;
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setTitle(`Post URL`)
                 .setURL(postUrl)
                 .setDescription(`Board: safebooru.org\nQueried Tag(s): ${query}\nRequested by: ${interaction.member}`)

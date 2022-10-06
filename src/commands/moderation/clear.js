@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
-const { MessageEmbed, Permissions } = require('discord.js');
+const { EmbedBuilder, PermissionsBitField } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,14 +11,14 @@ module.exports = {
         async execute(interaction) {
             await interaction.deferReply({ ephemeral: true });
             let amount = interaction.options.getNumber('amount');
-            if (interaction.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) {
+            if (interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages)) {
                 if (amount > 0) {
                     if (amount > 100) {
                         amount = 100;
                     }
                     const messages = await interaction.channel.messages.fetch({ limit: amount });
                     await interaction.channel.bulkDelete(messages);
-                    const embed = new MessageEmbed()
+                    const embed = new EmbedBuilder()
                         .setTitle(`Deleted ${messages.size} messages! 🧹`)
                         .setColor(color)
                         .setThumbnail("https://eckigerluca.com/darling/media/cleaning.gif");

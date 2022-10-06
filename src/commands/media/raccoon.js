@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
         const response = await fetch('https://eckigerluca.com/api/raccoon');
         const data = await response.json();
 
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setTitle('Raccoon!')
             .setColor(color)
             .setImage(data.image)
