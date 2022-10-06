@@ -1,0 +1,105 @@
+<head>
+	<link rel="stylesheet" href="https://getbootstrap.com/docs/5.1/examples/dashboard/dashboard.css">
+	<link rel="stylesheet" href="../../public/css/index.css">
+	<style>
+		.nav-link {
+			transition: font-weight 0.5s ease-in-outs;
+		}
+		.nav-link:hover {
+			color: rgb(170, 169, 169) !important;
+			cursor: pointer;
+		}
+		#logout:hover {
+			color: red !important;
+		}
+		@media screen and (max-width: 767px){
+			#sidebarMenu {
+				margin-top: -2rem !important;
+				padding-top: 0 !important;
+			}
+		}
+		.accordion-s, .accordion-flush-s, .accordion-item-s, .accordion-button-s {
+			background-color: #131517 !important;
+			color: white !important;
+			box-shadow: none !important;
+			border: none !important;
+		}
+		.accordion-button::after {
+			background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%234e5051'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
+		}
+	</style>
+	<link rel="icon" type="image/png" href="../public/assets/favicon.png">
+	<title>Darling. | <%- guild.name %>'s Dashboard </title>
+</head>
+
+<body class="bg-dark">
+	<header class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow" style="background-color: #131517;">
+		<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/">
+			Darling.
+		</a>
+		<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+		  	<span class="navbar-toggler-icon"></span>
+		</button>
+	</header>
+	  
+	<div class="container-fluid">
+		<div class="row">
+		  	<nav id="sidebarMenu" class="mb-auto col-md-3 col-lg-2 d-md-block sidebar collapse" style="background-color: #131517;">
+				<div class="position-sticky pt-3">
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<hr style="margin-left: 1rem; margin-right: 1rem;">
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-white" href="/dashboard">
+								Your Servers
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-white" href="/dashboard/<%- guild.id %>">
+								<%- guild.name %>'s  Dashboard
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<hr style="margin-left: 1rem; margin-right: 1rem;">
+						</li>
+
+						<li class="nav-item">
+							<div class="accordion accordion-flush accordion-s accordion-flush-s" id="Features">
+								<div class="accordion-item accordion-item-s">
+									<h2 class="accordion-header" id="heading-ServerManagement">
+										<button class="accordion-button accordion-button-s" type="button" data-bs-toggle="collapse" data-bs-target="#ServerManagement" aria-expanded="true" aria-controls="ServerManagement">
+											Server Management
+										</button>
+									</h2>
+									<div id="ServerManagement" class="accordion-collapse collapse show" aria-labelledby="heading-ServerManagement">
+										<div class="accordion-body">
+											<a class="nav-link text-white" href="/dashboard/<%- guild.id %>/welcome">
+												Welcome
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+
+						<li class="nav-item">
+							<hr style="margin-left: 1rem; margin-right: 1rem;">
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link text-white" id="logout" href="/logout">
+								Logout
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<hr style="margin-left: 1rem; margin-right: 1rem;">
+						</li>
+					</ul>
+				</div>
+		  	</nav>
+		</div>
+	</div>
+</body>

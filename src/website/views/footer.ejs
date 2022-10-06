@@ -1,0 +1,67 @@
+<footer class="bd-footer py-5 mt-5 bg-dark" id="footer-whole">
+	<div class="container py-5">
+		<div class="row" id="footer-content">
+			<div class="col-lg-3 offset-lg-2 mb-3">
+				<a href="/" class="d-inline-flex align-items-center mb-2 link-light text-decoration-none">
+					<img src="../public/assets/favicon.png" width="80" alt="Logo">
+					<span style="margin-left: 0.7em; font-size: 2em;"><b>Darling.</b></span>
+				</a>
+				<ul class="list-unstyled small text-muted">
+					<li class="mb-2 text-light">
+						Designed and built with all the love of
+						<a class="text-decoration-none link-light" href="https://eckigerluca.com"><b>EckigerLuca</b></a>.
+					</li>
+					<li class="mb-2 text-light">
+						Code licensed
+						<a class="text-decoration-none link-light" href="https://github.com/EckigerLuca/Darling/blob/master/LICENSE" target="_blank"><b>MIT</b></a>.
+					</li>
+					<li class="mb-2 text-light">
+						<a class="text-decoration-none link-light" href="https://www.pixiv.net/en/artworks/85612659" target="_blank"><b>Artwork</b></a>
+						by
+						<a class="text-decoration-none link-light" href="https://www.pixiv.net/en/users/36083362" target="_blank"><b>ShiChi</b></a>.
+					</li>
+				</ul>
+			</div>
+			<div class="col-6 col-lg-3 offset-lg-1 mb-3">
+				<h5>Links</h5>
+				<ul class="list-unstyled">
+					<li class="mb-1">
+						<a class="text-decoration-none link-light" href="/">Home</a>
+					</li>
+					<li class="mb-1">
+						<a class="text-decoration-none link-light" href="/dashboard">Dashboard</a>
+					</li>
+					<li class="mb-1">
+						<a class="text-decoration-none link-light" href="<%- botconfig.domain %>/vote" target="_blank">Vote</a>
+					</li>
+					<li class="mb-1">
+						<a class="text-decoration-none link-light" href="<%- botconfig.domain %>/support" target="_blank">Support</a>	
+					</li>
+					<li class="mb-1">
+						<a class="text-decoration-none link-light" href="https://github.com/eckigerluca/darling" target="_blank">GitHub</a>
+					</li>
+					<li class="mb-1">
+						<a class="text-decoration-none link-light" href="mailto:contact@darling-bot.xyz">E-Mail</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-6 col-lg-2 mb-3">
+				<h5>Socials</h5>
+				<ul class="list-unstyled">
+					<li class="mb-2">
+						<a class="text-decoration-none link-light" href="<%- botconfig.domain %>/support" target="_blank">Discord Server</a>
+					</li>
+					<li class="mb-2">
+						<a class="btn btn-primary" href="<%- botconfig.domain %>/invite" target="_blank">Invite me!</a>
+					</li>
+					<li class="mb-1" style="color: #212529">
+						<button type="button" class="btn" onclick="secret()" data-bs-toggle="modal" data-bs-target="#secretModal">Secret!</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row text-center mt-3" id="footer-copy">
+			<a class="text-decoration-none link-light" href="https://eckigerluca.com">&copy; EckigerLuca <%= year = new Date().getFullYear() %></a>
+		</div>
+	</div>
+</footer>

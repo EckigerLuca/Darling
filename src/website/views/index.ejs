@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<%- await include('header.ejs'); %>
+<%- await include('imports.ejs'); %>
+<%- await include('error.ejs'); %>
+
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/png" href="../public/assets/favicon.png">
+	<link rel="stylesheet" href="../public/css/index.css">
+	<meta name="keywords" content="darling, Discord, bot, anime, waifu, dashboard, moderation">
+	<!-- Primary Meta Tags -->
+	<title>Darling. - Discord Bot</title>
+	<meta name="title" content="Darling. - Discord Bot">
+	<meta name="description" content="Make your Discord Server better with Darling. | Fast, modern and constantly updated">
+
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="<%- botconfig.domain %>">
+	<meta property="og:title" content="Darling. - Discord Bot">
+	<meta property="og:description" content="Make your Discord Server better with Darling. | Fast, modern and constantly updated">
+	<meta property="og:image" content="<%- botconfig.domain %>/public/assets/avatar512.jpg">
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="<%- botconfig.domain %>">
+	<meta property="twitter:title" content="Darling. - Discord Bot">
+	<meta property="twitter:description" content="Make your Discord Server better with Darling. | Fast, modern and constantly updated">
+	<meta property="twitter:image" content="<%- botconfig.domain %>/public/assets/avatar512.jpg">
+	<meta content="#618eb1" data-react-helmet="true" name="theme-color"/>
+	<title>Darling. | Home</title>
+	<style>
+		#darling:hover {
+			text-decoration-color: #618eb1;
+			transition: text-decoration-color 0.2s ease-in-out;
+			
+		}
+		#darling {
+			text-decoration-color: white;
+			transition: text-decoration-color 0.2s ease-in-out;
+		}
+		#darling:hover > #darlingDot{
+			color: #618eb1;
+			transition: color 0.2s ease-in-out;
+		}
+		#darling > #darlingDot {
+			color: white;
+			transition: color 0.2s ease-in-out;
+		}
+
+
+		#landing {
+			display: grid;
+			place-items: center;
+			align-content: center;
+		}
+
+		.hidden {
+			opacity: 0;
+			transform: translateZ(-100%);
+			transition: all 1s;
+		}
+
+		.show {
+			opacity: 1;
+			transform: translateZ(0);
+		}
+
+		@media(prefers-reduced-motion) {
+			.hidden {
+				transition: none;
+			}
+		}
+
+		comment {
+			color: #8d969e !important;
+		}
+
+	</style>
+	<script defer src="../public/js/scrollAnimation.js"></script>
+</head>
+
+<body>
+	<div class="hidden vh-100" id="landing">
+		<div class="container ml-3 mr-3">
+			<div class="row row-cols-1 row-cols-md-2 mb-5">
+				<div class="col">
+					<div class="position-relative top-50 start-50 translate-middle text-center mt-3">
+						<h1 class="display-5">Welcome to <u id="darling">Darling<span id="darlingDot">.</span></u></h1>
+						<p class="lead">
+							Make your Discord Server better with <u id="darling">Darling<span id="darlingDot">.</span></u> | Fast, modern and constantly updated
+							<br>
+							<a class="btn btn-primary mt-3 mb-2 me-2" href="<%- botconfig.domain %>/invite" target="_blank">Invite me!</a>
+							<a class="btn btn-secondary mt-3 mb-2 ms-2" href="<%- botconfig.domain %>/support" target="_blank">Support Server</a>
+							<br>
+							or
+							<br>
+							<a class="btn btn-success mt-3" href="<%- botconfig.domain %>/dashboard"><i class="bi bi-gear-fill"></i> Bot Dashboard</a>
+						</p>
+						<i>Scroll down for features or click <a class="text-white" href="#features">here</a></i>
+					</div>
+				</div>
+				<div class="col">
+					<center>
+						<img class="img-fluid shadow" src="../public/assets/artwork.png" alt="Artwork">
+					</center>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="bg-dark" id="features">
+		<div class="container mt-5 ml-3 mr-3">
+			<div class="row row-cols-2 row-cols-lg-6 mt-3 mb-3">
+				<div class="col mt-4 mb-4">
+					<center>
+						<div class="position-relative" style="width: 15vh; height:15vh; border-radius: 12px; background-color: #36393f;">
+							<div class="position-absolute top-50 start-50 translate-middle">
+								<h2><b><%= servers %></b></h2>
+								<p><i>Servers</i></p>
+							</div>
+						</div>
+					</center>
+				</div>
+				<div class="col mt-4 mb-4">
+					<center>
+						<div class="position-relative" style="width: 15vh; height:15vh; border-radius: 12px; background-color: #36393f;">
+							<div class="position-absolute top-50 start-50 translate-middle">
+								<h2><b><%= users %></b></h2>
+								<p><i>Users</i></p>
+							</div>
+						</div>
+					</center>
+				</div>
+				<div class="col mt-4 mb-4">
+					<center>
+						<a href="/vote" target="_blank" rel="noopener noreferrer" class="text-decoration-none link-light">
+							<div class="position-relative" style="width: 15vh; height:15vh; border-radius: 12px; background-color: #36393f;">
+								<div class="position-absolute top-50 start-50 translate-middle">
+									<h2><b><%= votes %></b></h2>
+									<p><i>Votes</i></p>
+								</div>
+							</div>
+						</a>
+					</center>
+				</div>
+
+				<div class="col mt-4 mb-4" style="border-left: 0.12em solid white;">
+					<center>
+						<a href="https://github.com/eckigerluca/darling" target="_blank" rel="noopener noreferrer" class="text-decoration-none link-light">
+							<div class="position-relative" style="width: 15vh; height:15vh; border-radius: 12px; background-color: #36393f;">
+								<div class="position-absolute top-50 start-50 translate-middle">
+									<h2><b>2.0.0</b></h2>
+									<p><i>Version</i></p>
+								</div>
+							</div>
+						</a>
+					</center>
+				</div>
+				<div class="col mt-4 mb-4">
+					<center>
+						<a href="/support" target="_blank" rel="noopener noreferrer" class="text-decoration-none link-light">
+							<div class="position-relative" style="width: 15vh; height:15vh; border-radius: 12px; background-color: #36393f;">
+								<div class="position-absolute top-50 start-50 translate-middle">
+									<h2><b>Support</b></h1>
+								</div>
+							</div>
+						</a>
+					</center>
+				</div>
+				<div class="col mt-4 mb-4">
+					<center>
+						<a href="/invite" target="_blank" rel="noopener noreferrer" class="text-decoration-none link-light">
+							<div class="position-relative" style="width: 15vh; height:15vh; border-radius: 12px; background-color: #36393f;">
+								<div class="position-absolute top-50 start-50 translate-middle">
+									<h2><b>Invite</b></h2>
+								</div>
+							</div>
+						</a>
+					</center>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="mt-5">
+		<div class="container ml-3 mr-3">
+			<div class="hidden row row-cols-1 row-cols-md-2 mb-3">
+				<div class="col text-center">
+					<img class="img-fluid shadow rounded-3" src="../public/assets/index/welcome.png" alt="welcome embed">
+				</div>
+				<div class="col">
+					<div class="position-relative top-50 start-50 translate-middle text-center">
+						<h1 class="display-6">Grow your Community</h1>
+						<p class="lead">
+							Fun commands to keep your community entertained.
+							<br>
+							Use the fully customizable <kbd>welcome messages</kbd> to greet new members warmly.
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="hidden row row-cols-1 row-cols-md-2 mb-3">
+				<div class="col">
+					<div class="position-relative top-50 start-50 translate-middle text-center">
+						<h1 class="display-6">External Images</h1>
+						<p class="lead">
+							Use one of the many Image-APIs to interact with your members, for example by waving or hugging them.
+							<br>
+							There are also meme or anime ( ͡° ͜ʖ ͡°) commands, try them out!
+						</p>
+					</div>
+				</div>
+				<div class="col text-center">
+					<img class="img-fluid shadow rounded-3" src="../public/assets/index/hug.png" alt="roleplay hug command">
+				</div>
+			</div>
+
+			<div class="hidden row row-cols-1">
+				<div class="col text-center">
+					<h1 class="display-5">With the BEST Web Dashboard</h1>
+					<p class="lead fst-italic"><comment>This is the developers opinion and shouldn't be taken too serious.</comment></p>
+				</div>
+				<div class="col text-center">
+					<img class="img-fluid shadow rounded-3" src="../public/assets/index/dashboard.png" alt="dashboard">
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+<%- await include('footer.ejs'); %>
+<%- await include('secret.ejs'); %>

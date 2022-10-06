@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<%- await include('../../imports.ejs'); %>
+<%- await include('../../error.ejs'); %>
+<%- await include('../sidebar.ejs'); %>
+<link rel="icon" type="image/png" href="../../public/assets/favicon.png">
+
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../../public/css/discord.css">
+	<title>Welcome</title>
+	<style>
+		@media screen and (max-width: 767px) {
+			main {
+				margin-left: 2rem !important;
+				margin-right: 2rem !important;
+			}
+		}
+		.list-group-item {
+			border: var(--bs-list-group-border-width) solid rgba(255, 255, 255, 0.13);
+		}
+		.form-select:disabled, .form-control:disabled {
+			background-color: #181b1e !important;
+			color: #807f7f !important;
+		}
+		.form-select, .form-control {
+			border-color: #3e4145 !important;
+		}
+	</style>
+	<%
+	let toggle;
+	const dbClient = bot.dbClient;
+	const db = dbClient.db("darling");
+	const collection = db.collection("welcome");
+	const filter = {
+		_id: guild.id,
+	};
+	const checkResult = await collection.findOne(filter);
+	let welcomeEnabled;
+	let channelId;
+	let message;
+	let headline;
+	let thumbnail;
+	let image;
+	let color;
+	let dm;
+	let role;
+	if (checkResult == null) { 
+		welcomeEnabled = false;
+		channelId = "unset";
+		headline = "unset";
+		message = "unset";
+		thumbnail = false;
+		image = [false ,"unset"];
+		color = "#618eb1";
+		dm = [false, "unset"];
+		role = [false, "unset"];
+
+	} else {
+		welcomeEnabled = checkResult.enabled;
+		channelId = checkResult.channelId;
+		headline = checkResult.headline;
+		message = checkResult.message;
+		thumbnail = checkResult.thumbnail;
+		image = checkResult.image;
+		color = checkResult.color;
+		dm = checkResult.dm;
+		role = checkResult.role;
+	}
+
+	if (message == "unset") {
+		message = "";
+	}
+	if (headline == "unset") {
+		headline = "";
+	}
+
+	if (image[1] == "unset") {
+		image[1] = "";
+	}
+	if (image[0] == false) {
+		image[0] = "";
+		image[2] = "";
+	} else if (image[0] == true) {
+		image[0] = "checked";
+		image[2] = "required";
+	}
+
+	let thumbnailYes;
+	let thumbnailNo;
+	if (thumbnail == false) {
+		thumbnailYes = "";
+		thumbnailNo = "checked";
+	} else if (thumbnail == true) {
+		thumbnailYes = "checked";
+		thumbnailNo = "";
+	}
+
+	if (dm[0] == false) {
+		dm[0] = "";
+		dm[2] = "";
+	} else if (dm[0] == true) {
+		dm[0] = "checked";
+		dm[2] = "required";
+	}
+	if (dm[1] == "unset") {
+		dm[1] = "";
+	}
+	
+	if (role[0] == false) {
+		role[0] = "";
+		role[2] = "";
+	} else if (role[0] == true) {
+		role[0] = "checked";
+		role[2] = "required";
+	}
+	if (role[1] == "unset") {
+		role[1] = "";
+	}
+
+
+	const channels = await guild.channels.fetch();
+	let channel;
+	if (channelId !== "unset") {
+		channel = await guild.channels.fetch(channelId);
+	} else {
+		channel = "unset";
+		channel.name = "unset";
+		channel.id = "unset";
+	}
+
+	let guildChannels = {};
+	let num = 0;
+	channels.forEach(channel => {
+		if (channel.type == "GUILD_TEXT") {
+			num++;
+			guildChannels[num] = [channel.name, channel.id];
+		}
+	})
+
+	try {
+		
+		const roles = await guild.roles.fetch();
+		let cRole;
+		if (role[1] !== "unset") {
+			cRole = await guild.roles.fetch(role[1]);
+		} else {
+			cRole = "unset";
+			cRole.name = "unset";
+			cRole.id = "unset";
+		}
+
+		let guildRoles1 = {};
+		let num1 = 0;
+		const botHighestRole = await guild.members.me.roles.highest;
+
+		roles.forEach(role => {
+			if (role.rawPosition !== 0) {
+				if (guild.roles.comparePositions(botHighestRole, role) > 0) {
+					num1++;
+					guildRoles1[role.rawPosition] = [role.name, role.id];
+				}
+			}
+		})
+
+		let guildRoles = {};
+		const guildRoles1Length = Object.keys(guildRoles1).length
+		for (let num2 = 0; num2 < guildRoles1Length; num2++) {
+			const element = guildRoles1[guildRoles1Length-num2];
+			guildRoles[num2] = [element[0], element[1]]
+		}
+	} catch (error) {
+		return res.redirect("/?error=" + encodeURIComponent("There was an error getting your guild roles. Try again or re-add the bot to your server."));
+	}
+
+	if (welcomeEnabled == true) {
+		toggle = "checked";
+	} else {
+		toggle = ""
+	}
+
+	let formActiveOrPassive;
+	if (welcomeEnabled == true) {
+		formActiveOrPassive = ""
+	} else {
+		formActiveOrPassive = "disabled"
+	}
+
+	const eckigerluca = await bot.users.fetch("173374602389618688");
+	const eckigerluca_avatar = eckigerluca.displayAvatarURL({ size: 512, format: 'png', dynamic: true});
+
+	user = await bot.users.fetch(user.id);
+
+	%>
+	<script>
+		function welcomeToggle() {
+			const welcomeToggleForm = document.getElementById("welcomeToggleForm");
+			const toggle = document.getElementById("welcomeToggler");
+			const isChecked = toggle.checked
+			if (isChecked) {
+				welcomeToggleForm.submit();
+			} else {
+				toggle.checked = true;
+				toggle.value = "off";
+				welcomeToggleForm.submit();
+			}
+		}
+
+		function hiddenStuff(fn) {
+			switch (fn) {
+				case "all": case "img": {
+					function showImageURL() {
+						const button = document.getElementById("welcomeImageCheck");
+						const HDbutton = document.getElementById("welcomeImageCheckHD")
+						let vis = "none";
+						if (button.checked) {
+							vis = "block";
+							button.value = "true";
+							document.getElementById("welcomeImageURL").required = true;
+							HDbutton.checked = false;
+						} else {
+							button.value = "false";
+							document.getElementById("welcomeImageURL").required = false;
+							button.checked = false;
+							HDbutton.checked = true;
+						}
+						document.getElementById("welcomeImage").style.display = vis;
+					}
+					showImageURL()
+					if (fn == "img") {
+						break;
+					}
+				}
+				case "all": case "dm":  {
+					function showDm() {
+						const button = document.getElementById("welcomeDmCheck");
+						const HDbutton = document.getElementById("welcomeDmCheckHD")
+						let vis = "none";
+						if (button.checked) {
+							vis = "block";
+							button.value = "true";
+							document.getElementById("welcomeDmText").required = true;
+							HDbutton.checked = false;
+						} else {
+							button.value = "false";
+							document.getElementById("welcomeDmText").required = false;
+							button.checked = false;
+							HDbutton.checked = true;
+						}
+						document.getElementById("welcomeDm").style.display = vis;
+					}
+					showDm()
+					if (fn == "dm") {
+						break;
+					}
+				}
+				case "all": case "role":  {
+					function showRole() {
+						const button = document.getElementById("welcomeRoleCheck");
+						const HDbutton = document.getElementById("welcomeRoleCheckHD")
+						let vis = "none";
+						if (button.checked) {
+							vis = "block";
+							button.value = "true";
+							document.getElementById("welcomeRole").required = true;
+							HDbutton.checked = false;
+						} else {
+							button.value = "false";
+							document.getElementById("welcomeRole").required = false;
+							button.checked = false;
+							HDbutton.checked = true;
+						}
+						document.getElementById("welcomeRoleCon").style.display = vis;
+					}
+					showRole()
+					if (fn == "role") {
+						break;
+					}
+				}
+			}
+		}
+
+		window.onload = function() {
+			hiddenStuff("all");
+			previewEmbed();
+		}
+
+		function previewEmbed() {
+			const embedTitle = document.getElementsByClassName("discord-embed-title")[0];
+			const embedDescription = document.getElementsByClassName("discord-embed-description")[0];
+			const embedThumbnail = document.getElementsByClassName("discord-embed-thumbnail")[0];
+			const embedImage = document.getElementsByClassName("discord-embed-image")[0];
+			const embedColor = document.getElementsByClassName("discord-embed-left-border")[0];
+
+			let inputTitle = document.getElementById("welcomeEmbedHeadline").value;
+			let inputDescription = document.getElementById("welcomeEmbedText").value;
+			let inputThumbnailStatus;
+			let inputImageStatus;
+			const inputImageValue = document.getElementById("welcomeImageURL").value;
+			const inputColor = document.getElementById("welcomeEmbedColor").value;
+
+			if (document.getElementById("welcomeThumbnailYes").checked) {
+				inputThumbnailStatus = true;
+			} else {
+				inputThumbnailStatus = false;
+			}
+
+			if (document.getElementById("welcomeImage").style.display == "block") {
+				inputImageStatus = true;
+			} else {
+				inputImageStatus = false;
+			}
+
+			inputTitle = inputTitle.replace("${memberName}", "Discord User");
+			inputTitle = inputTitle.replace("${memberNumber}", "123");
+			inputTitle = inputTitle.replace("${serverName}", "Super Cool Discord Server");
+
+			inputDescription = inputDescription.replaceAll("${memberMention}", "**@Discord User**");
+			inputDescription = inputDescription.replaceAll("${memberName}", "Discord User");
+			inputDescription = inputDescription.replaceAll("${memberNumber}", "123");
+			inputDescription = inputDescription.replaceAll("${serverName}", "Super Cool Discord Server");
+
+			inputDescription = inputDescription.replaceAll(/\*(.*?)\*/g, match => {
+				if (match.startsWith("**")) return match;
+				match = `<i>${match.slice(1,-1)}</i>`;
+				return match;
+			});
+			inputDescription = inputDescription.replaceAll(/_(.*?)_/g, match => {
+				if (match.startsWith("__")) return match;
+				match = `<i>${match.slice(1,-1)}</i>`;
+				return match;
+			});
+			inputDescription = inputDescription.replaceAll(/\*\*(.*?)\*\*/g, match => {
+				match = `<b>${match.slice(2,-2)}</b>`;
+				return match;
+			});
+			inputDescription = inputDescription.replaceAll(/__(.*?)__/g, match => {
+				match = `<u>${match.slice(2,-2)}</u>`;
+				return match;
+			});
+			inputDescription = inputDescription.replaceAll(/~~(.*?)~~/g, match => {
+				match = `<s>${match.slice(2,-2)}</s>`;
+				return match;
+			});
+
+
+			embedTitle.innerText = `${inputTitle}`;
+			embedDescription.innerHTML = `${inputDescription}`;
+
+			if (inputThumbnailStatus == true) {
+				embedThumbnail.style.display = "";
+			} else {
+				embedThumbnail.style.display = "none";
+			}
+
+			if (inputImageStatus == true) {
+				embedImage.style.display = "";
+			} else {
+				embedImage.style.display = "none";
+			}
+
+			if (inputImageValue !== "") {
+				embedImage.src = inputImageValue;
+			} else {
+				embedImage.src = "https://www.schulz-grafik.de/wp-content/uploads/2018/03/placeholder.png"
+			}
+
+			embedColor.style["background-color"] = inputColor;
+		}
+
+	</script>
+</head>
+<body>
+	<main class="col-md-9 ms-md-auto col-lg-10 px-md-4 bg-dark text-white mt-3">
+		<div class="row mb-3">
+			<div class="col">
+				<h4>Welcome</h4>
+				<h6>Greet new members!</h6>
+			</div>
+			<div class="col d-flex justify-content-end align-items-center">
+				<form method="post" id="welcomeToggleForm">
+					<div class="form-check form-switch">
+						<input class="form-check-input" name="welcomeToggler" type="checkbox" role="switch" id="welcomeToggler" style="width: 3rem; height: 1.5rem;" onclick="welcomeToggle()" <%= toggle %>>
+						<label class="form-check-label" for="welcomeToggler"></label>
+					</div>
+				</form>
+			</div>
+		</div>
+		<hr class="row">
+		<div>
+			<form method="post" id="welcomeInformationForm" class="row g-md-3 mb-3" onsubmit="document.getElementById('roleDefaultOption').disabled=false;">
+				<div class="mb-3 col-md-4">
+					<h5>Welcome Channel</h5>
+					<select name="welcomeChannel" id="welcomeChannel" class="form-select bg-dark text-white" required <%= formActiveOrPassive %> >
+						<% if (channel !== "unset") { %>
+							<option selected value="<%= channel.id %>"># <%= channel.name %></option>
+						<% } else { %>
+							<option disabled selected value="">--- Choose a channel ---</option>
+						<% } %> 
+						<% for( let index = 1; index <= Object.keys(guildChannels).length; index++ ) { %>
+							<% if (guildChannels[index][1] !== channel.id) { %>
+								<option value="<%= guildChannels[index][1] %>"># <%= guildChannels[index][0] %></option>
+							<% } %>
+						<% } %>
+					</select>
+				</div>
+				<hr>
+				<div class="col-lg-8">
+					<div class="col-md-11">
+						<h5>Embed Options</h5>
+						<p>
+							Use <code>${memberMention}</code> to mention the member (won't work in the headline), <code>${memberName}</code> for the name of the new member, <code>${serverName}</code> for the name of your server and <code>${memberNumber}</code> to get the number of the new member. <br>
+							Text styling, aka. Markdown, as on Discord also works: <br>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item bg-dark text-white"><i>Italic</i> » <code>*Italic*</code> / <code>_Italic_</code></li>
+								<li class="list-group-item bg-dark text-white"><b>Bold</b> » <code>**Bold**</code></li>
+								<li class="list-group-item bg-dark text-white"><u>Underlined</u> » <code>__Underlined__</code></li>
+								<li class="list-group-item bg-dark text-white"><s>Strikethrough</s> » <code>~~Strikedthrough~~</code></li>
+								<li class="list-group-item bg-dark text-white">
+									For more check <a href="https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline-" target="_blank">here</a>
+									<br>
+									Note: Codeblocks, Block Quotes and so on also work, but they won't be displayed here.
+									<br>
+									New Lines will most likely not be shown in the preview. They will be in the final embed though.
+								</li>
+							</ul>
+						</p>
+					</div>
+					<br>
+					<div class="mb-2 col-md-6">
+						<label for="welcomeEmbedHeadline" class="form-label">Headline of the Embed</label>
+						<input type="text" name="welcomeEmbedHeadline" class="form-control bg-dark text-white" id="welcomeEmbedHeadline" value="<%= headline %>" required <%= formActiveOrPassive %> onkeydown="return event.key != 'Enter';" oninput="previewEmbed()">
+					</div>
+					<br>
+					<div class="mb-2 col-md-6">
+						<label for="welcomeEmbedText" class="form-label">Text of the Embed</label>
+						<textarea type="text" name="welcomeEmbedText" class="form-control bg-dark text-white" id="welcomeEmbedText" rows="5" <%= formActiveOrPassive %> required oninput="previewEmbed()"><%= message %></textarea>
+					</div>
+					<br>
+					<div class="mb-2 col-md-6">
+						<p style="font-size: .875rem; margin-bottom: .5rem;">Show new member's profile picture as the embed thumbnail</p>
+						<div class="form-check form-check-inline" style="margin-left: 1rem;">
+							<input class="form-check-input" name="welcomeThumbnail" type="radio" id="welcomeThumbnailYes" value="true" <%= formActiveOrPassive %> <%= thumbnailYes %> oninput="previewEmbed()">
+							<label class="form-check-label" for="welcomeThumbnailYes">Yes</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" name="welcomeThumbnail" type="radio" id="welcomeThumbnailNo" value="false" <%= formActiveOrPassive %> <%= thumbnailNo %> oninput="previewEmbed()">
+							<label class="form-check-label" for="welcomeThumbnailNo">No</label>
+						</div>
+					</div>
+					<br>
+					<div class="mb-2 col-md-6">
+						<p style="font-size: .875rem; margin-bottom: .5rem;">Custom Image</p>
+						<input type="checkbox" name="welcomeImageCheck" id="welcomeImageCheckHD" style="display: none;" value="off">
+						<input style="margin-left: 1rem; margin-right: .5rem;" type="checkbox" name="welcomeImageCheck" id="welcomeImageCheck" class="form-check-input" onclick="hiddenStuff('img'); previewEmbed();" <%= formActiveOrPassive %> <%= image[0] %>>
+						<label for="welcomeImageCheck" class="form-check-label">(Check to enable)</label>
+						<div id="welcomeImage" style="display:none; margin-left: 1rem;">
+							<label style="margin-top: .5rem;" class="form-label" for="welcomeImageURL">Image URL</label>
+							<input type="text" name="welcomeImageURL" class="form-control bg-dark text-white" id="welcomeImageURL" value="<%= image[1] %>" placeholder="https://example.com/image.png" <%= image[2] %>  <%= formActiveOrPassive %> onkeydown="return event.key != 'Enter';" oninput="previewEmbed()">
+						</div>
+					</div>
+					<br>
+					<div class="mb-2 col-md-6">
+						<label for="welcomeEmbedColor" class="form-label">Color of the Embed</label>
+						<input type="color" name="welcomeEmbedColor" id="welcomeEmbedColor" class="form-control form-control-color bg-dark text-white" value="<%= color %>" <%= formActiveOrPassive %> required oninput="previewEmbed()">
+					</div>
+					<hr>
+					<div class="mb-2 col-md-6">
+						<h5>Direct Message new Member</h5>
+						<input type="checkbox" name="welcomeDmCheck" id="welcomeDmCheckHD" style="display: none;" value="off">
+						<input style="margin-left: 1rem; margin-right: .5rem;" type="checkbox" name="welcomeDmCheck" id="welcomeDmCheck" class="form-check-input" onclick="hiddenStuff('dm')" <%= formActiveOrPassive %> <%= dm[0] %> oninput="previewEmbed()">
+						<label for="welcomeDmCheck" class="form-check-label">(Check to enable)</label>
+						<div id="welcomeDm" style="display:none; margin-left: 1rem;">
+							<label style="margin-top: .5rem;" class="form-label" for="welcomeDm">Direct Message (Same Markdown as for the embed)</label>
+							<textarea type="text" name="welcomeDmText" class="form-control bg-dark text-white" id="welcomeDmText" rows="5" <%= formActiveOrPassive %> <%= dm[2] %> oninput="previewEmbed()"><%= dm[1] %></textarea>
+						</div>
+					</div>
+					<hr>
+					<div class="mb-2 col-md-6">
+						<h5>Assign a role to the new Member</h5>
+						<input type="checkbox" name="welcomeRoleCheck" id="welcomeRoleCheckHD" style="display: none;" value="off">
+						<input style="margin-left: 1rem; margin-right: .5rem;" type="checkbox" name="welcomeRoleCheck" id="welcomeRoleCheck" class="form-check-input" onclick="hiddenStuff('role')" <%= formActiveOrPassive %> <%= role[0] %>>
+						<label for="welcomeRoleCheck" class="form-check-label">(Check to enable)</label>
+						<div id="welcomeRoleCon" style="display:none; margin-left: 1rem;">
+							<select style="margin-top: 1rem;" name="welcomeRole" id="welcomeRole" class="form-select bg-dark text-white" <%= role[2] %>  <%= formActiveOrPassive %>>
+								<% if (role[0] !== "") { %>
+								 <option selected value="<%= cRole.id %>">@ <%= cRole.name %></option>
+								<% } else { %>
+									<option id="roleDefaultOption" disabled selected value="">--- Choose a Role ---</option>
+								<% } %>
+								<% for( let num3 = 0; num3 < Object.keys(guildRoles).length; num3++ ) { %>
+									<% if (guildRoles[num3][1] !== role[1]) { %>
+										<option value="<%= guildRoles[num3][1] %>"><%= guildRoles[num3][0] %></option>
+									<% } %>
+								<% } %>
+							</select>
+						</div>
+					</div>
+					<hr>
+					<div class="mb-2 col-md-6">
+						<button type="submit" class="btn btn-success" <%= formActiveOrPassive %>>Save Changes</button>
+					</div>
+				</div>
+				<div class="col-lg-4" style="border-left: 0.1em solid white;">
+					<h5>Preview</h5>
+					<% if (formActiveOrPassive == "") { %>
+					<div class="discord-messages">
+						<div class="discord-message">
+							<div class="discord-message-content">
+								<div class="discord-message-body">
+									<div class="discord-embed">
+										<div class="discord-embed-left-border" style="background-color: #618eb1;"></div>
+										<div class="discord-embed-container">
+											<div class="discord-embed-content">
+												<div>
+													<div class="discord-embed-title">
+														Some Title
+													</div>
+													<div class="discord-embed-description"> Some description here </div>
+													<div class="discord-embed-fields">
+														<div class="discord-embed-field">
+															<div class="discord-embed-field-title"></div>
+														</div>
+														<div class="discord-embed-field">
+															<div class="discord-embed-field-title"></div>
+														</div>
+													</div>
+													<img class="discord-embed-image" src="https://cloud.eckigerluca.com/s/2HoiSKtTG7n32Sy/preview" alt="">
+												</div>
+												<img class="discord-embed-thumbnail" src="<%= `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=128` %>" alt="">
+											</div>
+											<div class="discord-embed-footer">
+												<img class="discord-embed-footer-icon" src="<%= eckigerluca_avatar %> " alt="">
+												<span>
+													<span>Bot by EckigerLuca#0001</span>
+													<span class="discord-embed-footer-separator"> • </span>
+													<span>
+														<%
+															const date = new Date();
+															const month = date.getMonth() + 1;
+															const day = date.getDate();
+															const year = date.getFullYear();
+														%>
+														<%= `${month}/${day}/${year}` %> 
+													</span>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<% } else { %>
+						<p>Enable this function first to see a preview!</p>
+					<% } %>
+				</div>
+			</form>
+		</div>
+	</main>
+</body>
+</html>

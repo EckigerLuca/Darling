@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<%- await include('../imports.ejs'); %>
+<%- await include('../error.ejs'); %>
+<%- await include('sidebar.ejs'); %>
+
+<% 
+	let toggle;
+	const dbClient = bot.dbClient;
+	const db = dbClient.db("darling");
+	const collection = db.collection("welcome");
+	const filter = {
+		_id: guild.id,
+	};
+	const checkResult = await collection.findOne(filter);
+	if (checkResult == null) {
+		toggle = "";
+	} else {
+		if (checkResult.enabled == true) {
+			toggle = "checked";
+		} else {
+			toggle = "";
+		}
+	}
+%> 
+
+<script>
+	function welcomeToggle() {
+			const welcomeToggleForm = document.getElementById("welcomeToggleForm-settings");
+			const toggle = document.getElementById("welcomeToggler-settings");
+			const isChecked = toggle.checked
+			if (isChecked) {
+				welcomeToggleForm.submit();
+			} else {
+				toggle.checked = true;
+				toggle.value = "off";
+				welcomeToggleForm.submit();
+			}
+		}
+</script>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		@media screen and (max-width: 767px) {
+			main {
+				margin-left: 2rem !important;
+				margin-right: 2rem !important;
+			}
+		}
+
+		.accordion-m, .accordion-item-m, .accordion-button-m {
+			background-color: #1d2125 !important;
+			color: white !important;
+			box-shadow: none !important;
+			border-radius: 10px !important;
+			border-color: #1d2125 !important;
+		}
+	</style>
+</head>
+
+<main class="col-md-9 ms-md-auto col-lg-10 px-md-4 bg-dark text-white mt-3">
+	<div>
+		<h4>Welcome to the Dashboard!</h5>
+		<h6>
+			From here, you can manage some of the bot's features.
+			<br>
+			Click on the name of the function to manage them. You can enable/disable them here too!
+		</h6>
+	</div>
+	<hr>
+	<div>
+		<div class="accordion accordion-m" id="botFeatures">
+			<div class="accordion-item accordion-item-m">
+				<h2 class="accordion-header" id="heading-ServerManagement2">
+					<button class="accordion-button accordion-button-m" type="button" data-bs-toggle="collapse" data-bs-target="#ServerManagement2" aria-expanded="true" aria-controls="ServerManagement2">
+						Server Management
+					</button>
+				</h2>
+				<div id="ServerManagement2" class="accordion-collapse collapse show" aria-labelledby="heading-ServerManagement2">
+					<div class="accordion-body container-fluid">
+						<div class="row">
+							<div class="col">
+								<a class="nav-link text-white" href="/dashboard/<%- guild.id %>/welcome">
+									Welcome
+								</a>
+							</div>
+							<div class="col d-flex justify-content-end">
+								<form method="post" id="welcomeToggleForm-settings">
+									<div class="form-check form-switch">
+										<input class="form-check-input" name="welcomeToggler-settings" type="checkbox" role="switch" id="welcomeToggler-settings" style="width: 3rem; height: 1.5rem;" onclick="welcomeToggle()" <%= toggle %>>
+										<label class="form-check-label" for="welcomeToggler-settings"></label>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<%- await include('../header.ejs'); %>
+<%- await include('../imports.ejs'); %>
+<%- await include('../error.ejs'); %>
+<link rel="icon" type="image/png" href="../public/assets/favicon.png">
+
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../public/css/index.css">
+	<title>Darling. | Dashboard</title>
+	<style>
+		#card-text-dash {
+			margin-bottom: -1rem;
+		}
+		#card-container {
+			max-width: 55rem;
+			margin: auto;
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<div class="d-flex justify-content-center head pt-5">
+			<h1><b>Dashboard</b></h1>
+		</div>
+		<div class="d-flex justify-content-center head pb-3" style="margin-left: 1rem; margin-right: 1rem;">
+			<p>
+				With the Dashboard you can manage the Settings of each single guild!
+			</p>
+		</div>
+
+		<% if (user && user.id) { %>
+			<div class="row row-cols-1 row-cols-md-3 g-4" id="card-container" style="display: flex; flex-wrap: wrap; size: 10rem;">
+				<% 
+				let guilds = {
+					"onGuild": [],
+					"notOnGuild": [],
+				};
+				const allBotGuilds = await bot.guilds.fetch()
+				user.guilds.filter(guild => {
+					if (new Permissions(guild.permissions_new).has(Permissions.Flags.Administrator)) return guild;
+				}).forEach(guild => {
+					if (allBotGuilds.has(guild.id)) {
+						guilds["onGuild"].push(guild);
+					} else {
+						guilds["notOnGuild"].push(guild);
+					}
+				});
+				%>
+				<% guilds["onGuild"].forEach(guild => { %>
+					<div class="col d-flex align-items-stretch justify-content-center mb-3">
+						<div class="card text-white bg-dark">
+							<!-- Guild Icon or "default" icon -->
+							<%- guild.icon ? `<img src="https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}?size=256" class="card-img-top" style="max-width: 15rem; width: 15rem;">` : `<img class="card-img-top" src="../../public/assets/discord-icon.png" style="max-width: 15rem; width: 15rem;">` %>
+							<div class="d-flex flex-column card-body">
+								<ul class="list-unstyled text-muted small" style="max-width: 13rem;">
+									<li class="text-white text-center">
+										<h5 class="card-title"><%= guild.name %></h5>
+									</li>
+									<li class="text-center">
+										<p class="card-footer" id="card-text-dash" style="background-color: transparent;">
+											<button class="btn btn-success" type="button" onclick="location.href='<%- botconfig.domain %>/dashboard/<%- guild.id %>'">
+												Manage Guild
+											</button>
+										</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				<% }) %>
+				<% guilds["notOnGuild"].forEach(guild => { %>
+					<div class="col d-flex align-items-stretch justify-content-center mb-3">
+						<div class="card text-white bg-dark">
+							<!-- Guild Icon or "default" icon -->
+							<%- guild.icon ? `<img src="https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}?size=256" class="card-img-top" style="max-width: 15rem; width: 15rem;">` : `<img class="card-img-top" src="../../public/assets/discord-icon.png" style="max-width: 15rem; width: 15rem;">` %>
+							<div class="d-flex flex-column card-body">
+								<ul class="list-unstyled text-muted small" style="max-width: 13rem;">
+									<li class="text-white text-center">
+										<h5 class="card-title"><%= guild.name %></h5>
+									</li>
+									<li class="text-center">
+										<p class="card-footer" id="card-text-dash" style="background-color: transparent;">
+											<button class="btn btn-info" type="button" onclick="location.href='<%= `https://discordapp.com/oauth2/authorize?client_id=${bot.user.id}&permissions=8&scope=bot%20applications.commands&guild_id=${guild.id}&response_type=code&redirect_uri=${encodeURIComponent(`${callback}`)}` %>'">
+												Invite Me!
+											</button>
+										</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				<% }) %>
+			</div>
+		<% } else { %>
+			<p>Please login first!</p>
+		<% } %>
+	</section>
+</body>
+</html>

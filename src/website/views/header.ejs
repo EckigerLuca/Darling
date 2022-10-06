@@ -1,0 +1,38 @@
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="../public/assets/favicon.png" alt="logo" width="30" class="d-inline-block align-text-top">
+            Darling.
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="<%- botconfig.domain %>/dashboard">Dashboard</a>
+                <a class="nav-link" href="<%- botconfig.domain %>/vote" target="_blank">Vote</a>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="margin-right: 1em;" href="" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Discord Links
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end animate slideIn" aria-labelledby="navbarDropdownMenuLink" style="margin-bottom: 1em;">
+                        <li><a class="dropdown-item" href="<%- botconfig.domain %>/invite">Invite</a></li>
+                        <li><a class="dropdown-item" href="<%- botconfig.domain %>/support" target="_blank">Support Server</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <% if(user && user.id) { %>
+                        <button class="btn btn-danger" type="button" onclick="location.href='<%- botconfig.domain %>/logout'">Logout</button>
+                    <% } else { %>
+                        <button class="btn btn-success" type="button" onclick="location.href='<%- botconfig.domain %>/login'">Login</button>
+                    <% } %>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
