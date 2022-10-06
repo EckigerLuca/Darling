@@ -1,3 +1,5 @@
+const logger = require("silly-logger");
+
 module.exports = {
 	name: 'interactionCreate',
 	once: false,
@@ -10,16 +12,23 @@ module.exports = {
 
         if (!interaction.guild) return await interaction.reply({ content: "No.", ephemeral: true });
 
+        if (interaction.commandData == undefined) {
+            interaction.commandData = {
+                name: interaction.commandName,
+                options: [interaction.options],
+            };
+        }
+
         try {
             await command.execute(interaction);
         }
         catch (error) {
-            console.error(error);
+            logger.error(error);
             try {
-                await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+                await interaction.reply({ content: `There was an error while executing this command!\nJoin the Support Server and send us the error message:\n \`\`\`js\n ${JSON.stringify(interaction.commandData, null, 4)} \`\`\` \`\`\`js\n${error}\`\`\` \n https://discord.com/invite/tpUr7d3 `, ephemeral: true });
             }
             catch {
-                await interaction.editReply({ content: 'There was an error while executing this command!', ephemeral: true });
+                await interaction.editReply({ content: `There was an error while executing this command!\nJoin the Support Server and send us the error message:\n \`\`\`js\n ${JSON.stringify(interaction.commandData, null, 4)} \`\`\` \`\`\`js\n${error}\`\`\` \n https://discord.com/invite/tpUr7d3 `, ephemeral: true });
             }
         }
 	},

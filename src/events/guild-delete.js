@@ -1,4 +1,5 @@
 const { MongoClient } = require('mongodb');
+const logger = require('silly-logger');
 const { mongodbUri } = require('../data/config.json');
 
 const dbClient = new MongoClient(String(mongodbUri));
@@ -21,7 +22,7 @@ module.exports = {
 			});
 		}
 		catch (err) {
-			console.log(err);
+			logger.error(err);
 		}
 	},
 };
