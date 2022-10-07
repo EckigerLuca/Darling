@@ -140,6 +140,7 @@
 		}
 	})
 
+	let guildRoles = {};
 	try {
 		
 		const roles = await guild.roles.fetch();
@@ -165,7 +166,6 @@
 			}
 		})
 
-		let guildRoles = {};
 		const guildRoles1Length = Object.keys(guildRoles1).length
 		for (let num2 = 0; num2 < guildRoles1Length; num2++) {
 			const element = guildRoles1[guildRoles1Length-num2];
