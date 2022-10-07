@@ -134,12 +134,11 @@
 	let guildChannels = {};
 	let num = 0;
 	channels.forEach(channel => {
-		if (channel.type == "GUILD_TEXT") {
+		if (channel.type == 0) {
 			num++;
 			guildChannels[num] = [channel.name, channel.id];
 		}
 	})
-
 	let guildRoles = {};
 	try {
 		
