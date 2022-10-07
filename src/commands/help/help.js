@@ -20,7 +20,7 @@ module.exports = {
                 embed.addFields(
                     { name: '❓ Help', value: '`/help`' },
                     { name: '🔨 Moderation', value: '`/ban` `/kick` `/unban` `/clear` `/serverstats`' },
-                    { name: '👋 Welcome', value: '`/welcome setup` `/welcome enable` `/welcom disable`' },
+                    { name: '👋 Welcome', value: '`/welcome setup` `/welcome enable` `/welcome disable`' },
                     { name: '🖼️ Media', value: '`/cat` `/fox` `/dog` `/raccoon` `/avatar` `/waifu` `/neko`' },
                     { name: '📸 Image Generation', value: '`/lolilicense`' },
                     { name: '🤣 Memes', value: '`/meme` `/meme help` `/adidas`' },
@@ -35,7 +35,7 @@ module.exports = {
                 embed.addFields(
                     { name: '❓ Help', value: '`/help`' },
                     { name: '🔨 Moderation', value: '`/ban` `/kick` `/unban` `/clear` `/serverstats`' },
-                    { name: '👋 Welcome', value: '`/welcome setup` `/welcome enable` `/welcom disable`' },
+                    { name: '👋 Welcome', value: '`/welcome setup` `/welcome enable` `/welcome disable`' },
                     { name: '🖼️ Media', value: '`/cat` `/fox` `/dog` `/raccoon` `/avatar` `/waifu` `/neko`' },
                     { name: '📸 Image Generation', value: '`/lolilicense`' },
                     { name: '🤣 Memes', value: '`/meme` `/meme help` `/adidas`' },
