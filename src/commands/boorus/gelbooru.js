@@ -17,7 +17,7 @@ module.exports = {
 
             const response = await fetch(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&tags=${query}`);
             const data = await response.json();
-            const randomInt = Math.floor(Math.random() * (Object.keys(data).length - 0) + 0);
+            const randomInt = Math.floor(Math.random() * (Object.keys(data.post).length - 0) + 0);
 
             const postId = data.post[randomInt].id;
 
