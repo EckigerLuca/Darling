@@ -1,6 +1,5 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageAttachment } = require('discord.js');
-const Canvas = require('@napi-rs/canvas');
+const { SlashCommandBuilder, AttachmentBuilder, MessageAttachment } = require('discord.js');
+const { createCanvas, GlobalFonts, loadImage } = require('@napi-rs/canvas');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,11 +10,12 @@ module.exports = {
         await interaction.deferReply();
         const user = interaction.user.username;
 
-        const canvas = Canvas.createCanvas(1080, 611);
+        const canvas = createCanvas(1080, 611);
         const context = canvas.getContext('2d');
-        Canvas.registerFont('src/data/media/fonts/GOTHICB.TTF', { family: 'Century Gothic' });
+		GlobalFonts.registerFromPath('src/data/media/fonts/GOTHICB.TTF', 'Century Gothic');
+        // Canvas.registerFont('src/data/media/fonts/GOTHICB.TTF', { family: 'Century Gothic' });
 
-        const lolilicense = await Canvas.loadImage('src/data/media/images/license.jpg');
+        const lolilicense = await loadImage('src/data/media/images/license.jpg');
         context.drawImage(lolilicense, 0, 0, canvas.width, canvas.height);
 
         context.font = '20pt "Century Gothic"';
@@ -24,7 +24,7 @@ module.exports = {
         context.fillText(user, 450, 128);
 
 
-        const attachment = new MessageAttachment(canvas.toBuffer(), 'lolilicense.jpg');
+        const attachment = new AttachmentBuilder(await canvas.encode('jpeg'), { name: 'lolilicense.jpg' });
         interaction.editReply({ files: [attachment] });
     },
 };

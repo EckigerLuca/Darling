@@ -1,12 +1,12 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionsBitField } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits, PermissionsBitField } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('kick')
         .setDescription('kick a member')
         .addUserOption(option => option.setName('user').setDescription('Select a user to kick').setRequired(true))
-        .addStringOption(option => option.setName('reason').setDescription('Define a reason').setRequired(false)),
+        .addStringOption(option => option.setName('reason').setDescription('Define a reason').setRequired(false))
+		.setDefaultMemberPermissions(PermissionFlagsBits.KickMembers),
 
         async execute(interaction) {
             const member = interaction.options.getUser('user');

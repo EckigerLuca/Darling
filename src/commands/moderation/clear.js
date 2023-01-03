@@ -1,12 +1,12 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
-const { EmbedBuilder, PermissionsBitField } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits, PermissionsBitField, EmbedBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('clear')
         .setDescription('deletes a specified amount of messages in a channel')
-        .addNumberOption(option => option.setName('amount').setDescription('define amount of messages to delete').setRequired(true)),
+        .addNumberOption(option => option.setName('amount').setDescription('define amount of messages to delete').setRequired(true))
+		.setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
 
         async execute(interaction) {
             await interaction.deferReply({ ephemeral: true });

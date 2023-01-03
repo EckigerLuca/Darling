@@ -19,7 +19,7 @@ const dbClient = new MongoClient(String(mongodbUri));
 if (topGG) {
 	const discordBotListToken = require('./data/config.json');
 	const { AutoPoster } = require('topgg-autoposter');
-	const ap = AutoPoster(`${discordBotListToken}`, client);
+	const ap = AutoPoster(`${String(discordBotListToken)}`, client);
 
 	ap.on('posted', (stats) => {
 		logger.success(`Posted stats to Top.gg | ${stats.serverCount} servers`);

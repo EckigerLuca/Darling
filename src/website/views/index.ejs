@@ -1,16 +1,11 @@
 <!DOCTYPE html>
-<%- await include('header.ejs'); %>
-<%- await include('imports.ejs'); %>
-<%- await include('error.ejs'); %>
-
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="icon" type="image/png" href="../public/assets/favicon.png">
-	<link rel="stylesheet" href="../public/css/index.css">
-	<meta name="keywords" content="darling, Discord, bot, anime, waifu, dashboard, moderation">
+	<meta name="keywords" content="darling, Discord, bot, anime, waifu, dashboard, moderation, discord bot">
 	<!-- Primary Meta Tags -->
 	<title>Darling. - Discord Bot</title>
 	<meta name="title" content="Darling. - Discord Bot">
@@ -30,6 +25,12 @@
 	<meta property="twitter:description" content="Make your Discord Server better with Darling. | Fast, modern and constantly updated">
 	<meta property="twitter:image" content="<%- botconfig.domain %>/public/assets/avatar512.jpg">
 	<meta content="#618eb1" data-react-helmet="true" name="theme-color"/>
+
+	<link rel="stylesheet" href="../public/css/bootstrap.css">
+	<link rel="stylesheet" href="../public/css/index.css">
+	<script src="../public/js/popper.min.js"></script>
+	<script src="../public/js/bootstrap.bundle.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 	<title>Darling. | Home</title>
 	<style>
 		#darling:hover {
@@ -78,11 +79,22 @@
 			color: #8d969e !important;
 		}
 
+		.custom-tooltip {
+			--bs-tooltip-bg: #121314;
+		}
+
 	</style>
 	<script defer src="../public/js/scrollAnimation.js"></script>
+	<script>
+		window.onload = () => {
+			const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+			const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+		}	
+	</script>
 </head>
 
 <body>
+	<%- await include('header.ejs'); %>
 	<div class="hidden vh-100" id="landing">
 		<div class="container ml-3 mr-3">
 			<div class="row row-cols-1 row-cols-md-2 mb-5">
@@ -127,8 +139,8 @@
 				<div class="col mt-4 mb-4">
 					<center>
 						<div class="position-relative" style="width: 15vh; height:15vh; border-radius: 12px; background-color: #36393f;">
-							<div class="position-absolute top-50 start-50 translate-middle">
-								<h2><b><%= users %></b></h2>
+							<div class="position-absolute top-50 start-50 translate-middle"> 
+								<h2><b data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-title="<%= users %>"><%= (users / 1000).toFixed(1) %>K</b></h2>
 								<p><i>Users</i></p>
 							</div>
 						</div>
@@ -152,7 +164,7 @@
 						<a href="https://github.com/eckigerluca/darling" target="_blank" rel="noopener noreferrer" class="text-decoration-none link-light">
 							<div class="position-relative" style="width: 15vh; height:15vh; border-radius: 12px; background-color: #36393f;">
 								<div class="position-absolute top-50 start-50 translate-middle">
-									<h2><b>2.0.0</b></h2>
+									<h2><b>2.1.0</b></h2>
 									<p><i>Version</i></p>
 								</div>
 							</div>
@@ -234,3 +246,4 @@
 </html>
 <%- await include('footer.ejs'); %>
 <%- await include('secret.ejs'); %>
+<%- await include('error.ejs'); %>

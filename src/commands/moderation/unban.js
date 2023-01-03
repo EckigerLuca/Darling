@@ -1,11 +1,11 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionsBitField } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits, PermissionsBitField } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('unban')
         .setDescription('unban a user')
-        .addStringOption(option => option.setName('userid').setDescription('UserID that you want to unban').setRequired(true)),
+        .addStringOption(option => option.setName('userid').setDescription('UserID that you want to unban').setRequired(true))
+		.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
 
         async execute(interaction) {
             const userID = interaction.options.getString('userid');

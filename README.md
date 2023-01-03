@@ -9,7 +9,7 @@ rename the `config.json.public` to `config.json` (found under `src/data`) and ed
 Make sure that you have a mongo-db database avaiable for bot! The name of the database needs to be `darling` and inside that db a collection called `welcome` is required.
 
 New with Version 2.0 is a Web Dashboard, which can't be disabled! <br>
-Set it up by changing the values in the `settings.json` (found under `src/website`) as needed. Client ID and Secret are found at the OAuth2 Section of your Application. You also need to add your Domain and Callback URL to the Redirects.
+Set it up by renaming the `settings.json.public` (found under `src/website`) to `settings.json` and changing the values in the as needed. Client ID and Secret are found at the OAuth2 Section of your Application. You also need to add your Domain and Callback URL to the Redirects.
 
 After that, use `npm i` to install all needed packages. When done, register the slash commands by using `npm run deploy` in your console.
 

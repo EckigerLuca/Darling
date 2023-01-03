@@ -12,6 +12,7 @@ const settings = require('./settings.json');
 const logger = require('silly-logger');
 const favicon = require('serve-favicon');
 const fetch = require('node-fetch');
+const compression = require('compression');
 
 module.exports = client => {
 	// website config backend
@@ -57,6 +58,9 @@ module.exports = client => {
 	}));
 
 	app.use(favicon(path.join(__dirname, 'public/assets', 'favicon.ico')));
+
+	// compression
+	app.use(compression());
 
 	// loading public
 	app.use('/public', express.static(__dirname + '/public'));
@@ -187,7 +191,7 @@ module.exports = client => {
 		if (!member.permissions.has(discord.PermissionsBitField.Flags.Administrator)) return res.redirect("/?error=" + encodeURIComponent("You are not allowed to manage that guild!"));
 		if (!req.isAuthenticated() || !req.user) return res.redirect("/login");
 
-		// check if welcome was enabled via the dashboard
+		// check if welcome was enabled via the guild dashboard
 		if (req.body["welcomeToggler-settings"]) {
 			const dbClient = client.dbClient;
 			const db = dbClient.db("darling");
@@ -449,6 +453,20 @@ module.exports = client => {
 
 	app.get("/invite", (req, res) => {
 		return res.redirect("https://discord.com/oauth2/authorize?client_id=743150068726628440&permissions=8&scope=bot%20applications.commands");
+	});
+
+	app.get("/terms-of-service", async (req, res) => {
+		const html = await ejs.renderFile('./src/website/views/terms-of-service.ejs', {
+			req: req,
+			user: req.isAuthenticated() ? req.user : null,
+			bot: client,
+			Permissions: discord.PermissionsBitField,
+			botconfig: settings.website,
+			callback: settings.config.callback,
+			async: true,
+		});
+
+		res.send(html);
 	});
 
 	const http = require('http').createServer(app);

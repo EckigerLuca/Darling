@@ -1,0 +1,12 @@
+{
+	"website": {
+		"support": "SUPPORT DISCORD SERVER LINK HERE",
+		"domain": "http://localhost:5991"
+	},
+	"config": {
+		"port": 5991,
+		"callback": "http://localhost:5991/callback",
+		"clientID": "CLIENTID HERE",
+		"secret": "CLIENT SECRET HERE"
+	}
+}

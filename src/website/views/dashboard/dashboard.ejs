@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<%- await include('../header.ejs'); %>
-<%- await include('../imports.ejs'); %>
 <%- await include('../error.ejs'); %>
-<link rel="icon" type="image/png" href="../public/assets/favicon.png">
-
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="../public/css/index.css">
+	<link rel="stylesheet" href="../../public/css/bootstrap.css">
+	<script src="../../public/js/bootstrap.bundle.js"></script>
+	<link rel="stylesheet" href="../../public/css/index.css">
+	<link rel="icon" type="image/png" href="../../public/assets/favicon.png">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 	<title>Darling. | Dashboard</title>
 	<style>
+		body {
+			background-color: #36393f;
+		}
 		#card-text-dash {
 			margin-bottom: -1rem;
 		}
@@ -22,6 +25,7 @@
 	</style>
 </head>
 <body>
+	<%- await include('../header.ejs'); %>
 	<section>
 		<div class="d-flex justify-content-center head pt-5">
 			<h1><b>Dashboard</b></h1>

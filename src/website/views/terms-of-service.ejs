@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/png" href="../public/assets/favicon.png">
+	
+	<link rel="stylesheet" href="../public/css/bootstrap.css">
+	<link rel="stylesheet" href="../public/css/index.css">
+	<script src="../public/js/popper.min.js"></script>
+	<script src="../public/js/bootstrap.bundle.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+	<title>Darling. | Terms of Service</title>
+	
+	<style>
+		.tos-inner {
+			background-color: #212529;
+		}
+		#date {
+			color: #3dd5f3;
+		}
+	</style>
+</head>
+<body>
+	<div style="min-height: 100vh;">
+		<%- await include('header.ejs'); %>
+		<div class="container">
+			<div class="row">
+				<div class="col-12 mt-4 mb-4">
+					<h1 class="display-4">Terms of Service</h1>
+					<div class="tos-inner rounded-3 p-3">
+						<p class="lead">By inviting <i>Darling.</i> to your Discord Server or logging into our website (https://darling-bot.xyz) you agree that you have read, understood and accepted these terms. You are also responsible for informing the members in your Discord Server about these terms. If you do not agree with any of these terms, you are prohibited from using or adding any version of <i>Darling.</i> to your server.</p>
+
+						<h2 class="display-6">Disclaimer</h2>
+						<p class="lead">
+							You are strictly prohibited from using <i>Darling.</i> against the <a href="https://discord.com/terms" target="_blank" rel="noopener noreferrer">Terms of Service of Discord</a> or for illegal purposes. We are doing our best to prevent these activities, while trying to provide the best user experience as possible. If you find people or communities using <i>Darling.</i> against the ToS of Discord or even for illegal activities, please send us an E-Mail to <a href="mailto:contact@darling-bot.xyz">contact@darling-bot.xyz</a>
+						</p>
+
+						<h2 class="display-6">Proprietary Rights</h2>
+						<p class="lead">
+							We (<i>Darling.</i> or more specifically Luca Petrovic) own and retain all rights for public available data. We grant you the permission to use this available data for your own needs, but strictly disallow any commercial use. You therefore shall not sell, license or otherwise commercialize the data except if the permission was expressly granted to you.
+						</p>
+
+						<h2 class="display-6">Availability</h2>
+						<ul class="lead">
+							<li><i>Darling.</i> is provided as-is. There are no guarantees that it will be available in the future, and its purpose or availability may be changed at any time.</li>
+							<li>User related data may be deleted at any time.</li>
+							<li>User related data is non-transferable between Discord Accounts.</li>
+							<li>Access to all or specific features of <i>Darling.</i> may be revoked, for all or a specific user, at any time.</li>
+						</ul>
+
+						<p class="lead">Last Updated: <span id="date">03.01.2023</span></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<%- await include('footer.ejs'); %>
+</body>
+</html>
