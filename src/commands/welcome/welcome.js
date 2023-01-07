@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
-const { EmbedBuilder, PermissionsBitField } = require('discord.js');
+const { EmbedBuilder, PermissionsBitField, PermissionFlagsBits } = require('discord.js');
 const { website } = require('../../website/settings.json');
 
 module.exports = {
@@ -18,7 +18,9 @@ module.exports = {
         .addSubcommand(subcommand =>
             subcommand
                 .setName("disable")
-                .setDescription("Disable the welcome function on your server")),
+                .setDescription("Disable the welcome function on your server"))
+		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+		.setDMPermission(false),
 
     async execute(interaction) {
         const dbClient = interaction.client.dbClient;

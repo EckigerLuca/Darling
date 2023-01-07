@@ -13,7 +13,8 @@ module.exports = {
         .addSubcommand(subcommand =>
             subcommand
                 .setName('server')
-                .setDescription('Server Invite Link')),
+                .setDescription('Server Invite Link'))
+		.setDMPermission(false),
 
         async execute(interaction) {
             if (interaction.options.getSubcommand() === 'bot') {

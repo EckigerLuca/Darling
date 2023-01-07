@@ -6,7 +6,8 @@ module.exports = {
         .setDescription('ban a member')
         .addUserOption(option => option.setName('user').setDescription('Select a user to ban').setRequired(true))
         .addStringOption(option => option.setName('reason').setDescription('Define a reason').setRequired(false))
-		.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
+		.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
+		.setDMPermission(false),
 
         async execute(interaction) {
             const member = interaction.options.getUser('user');

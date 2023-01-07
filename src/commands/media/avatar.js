@@ -8,7 +8,8 @@ module.exports = {
         .setDescription('returns your or the avatar of someone else')
         .addUserOption(option =>
             option.setName('user')
-                .setDescription('Tag a user to get their avatar')),
+                .setDescription('Tag a user to get their avatar'))
+		.setDMPermission(false),
 
         async execute(interaction) {
             let user = interaction.options.getUser('user');

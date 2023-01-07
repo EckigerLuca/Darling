@@ -11,7 +11,8 @@ module.exports = {
                 .setName('number')
                 .setDescription('returns a random number')
                 .addNumberOption(option => option.setName('start').setDescription('Start of Range'))
-                .addNumberOption(option => option.setName('end').setDescription('End of Range'))),
+                .addNumberOption(option => option.setName('end').setDescription('End of Range')))
+		.setDMPermission(false),
 
         async execute(interaction) {
             let startRange = interaction.options.getNumber('start');

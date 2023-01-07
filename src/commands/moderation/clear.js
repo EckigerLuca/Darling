@@ -6,7 +6,8 @@ module.exports = {
         .setName('clear')
         .setDescription('deletes a specified amount of messages in a channel')
         .addNumberOption(option => option.setName('amount').setDescription('define amount of messages to delete').setRequired(true))
-		.setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
+		.setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
+		.setDMPermission(false),
 
         async execute(interaction) {
             await interaction.deferReply({ ephemeral: true });

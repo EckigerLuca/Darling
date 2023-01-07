@@ -5,7 +5,8 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('ping')
-        .setDescription("Returns the Bot's ping!"),
+        .setDescription("Returns the Bot's ping!")
+		.setDMPermission(false),
 
         async execute(interaction) {
             const embed = new EmbedBuilder()

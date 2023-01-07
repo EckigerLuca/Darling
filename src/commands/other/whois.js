@@ -8,7 +8,8 @@ module.exports = {
         .setDescription('returns information about you or')
         .addUserOption(option =>
             option.setName('user')
-                .setDescription('Tag a user to get information about them')),
+                .setDescription('Tag a user to get information about them'))
+		.setDMPermission(false),
 
         async execute(interaction) {
             let user = interaction.options.getUser('user');

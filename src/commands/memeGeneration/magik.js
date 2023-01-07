@@ -7,7 +7,8 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('magik')
         .setDescription('create magik')
-        .addUserOption(option => option.setName('target').setDescription('user to magik').setRequired(false)),
+        .addUserOption(option => option.setName('target').setDescription('user to magik').setRequired(false))
+		.setDMPermission(false),
 
     async execute(interaction) {
         await interaction.deferReply();

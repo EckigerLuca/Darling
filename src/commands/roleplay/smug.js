@@ -7,7 +7,8 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('smug')
         .setDescription("I don't like where this is going")
-        .addStringOption(option => option.setName('extra').setDescription('learn2read')),
+        .addStringOption(option => option.setName('extra').setDescription('learn2read'))
+		.setDMPermission(false),
 
     async execute(interaction) {
         let extra = interaction.options.getString('extra');

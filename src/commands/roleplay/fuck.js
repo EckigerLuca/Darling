@@ -7,7 +7,8 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('fuck')
         .setDescription('bang someone really hard')
-        .addUserOption(option => option.setName('target').setDescription('the person you want to bang').setRequired(true)),
+        .addUserOption(option => option.setName('target').setDescription('the person you want to bang').setRequired(true))
+		.setDMPermission(false),
 
     async execute(interaction) {
         const user = interaction.options.getUser('target');

@@ -25,7 +25,8 @@ module.exports = {
                         name: 'Ten',
                         value: '10',
                     },
-                )),
+                ))
+		.setDMPermission(false),
 
         async execute(interaction) {
             if (interaction.channel.nsfw) {

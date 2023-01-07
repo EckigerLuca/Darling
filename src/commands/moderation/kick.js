@@ -6,7 +6,8 @@ module.exports = {
         .setDescription('kick a member')
         .addUserOption(option => option.setName('user').setDescription('Select a user to kick').setRequired(true))
         .addStringOption(option => option.setName('reason').setDescription('Define a reason').setRequired(false))
-		.setDefaultMemberPermissions(PermissionFlagsBits.KickMembers),
+		.setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
+		.setDMPermission(false),
 
         async execute(interaction) {
             const member = interaction.options.getUser('user');

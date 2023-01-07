@@ -4,8 +4,9 @@ const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
-       .setName('botvote')
-       .setDescription('vote for the bot!'),
+		.setName('botvote')
+		.setDescription('vote for the bot!')
+		.setDMPermission(false),
 
     async execute(interaction) {
         const embed = new EmbedBuilder()

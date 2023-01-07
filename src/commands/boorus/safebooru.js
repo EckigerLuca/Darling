@@ -7,7 +7,8 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('safebooru')
         .setDescription('search safebooru.org board')
-        .addStringOption(option => option.setName('tags').setDescription('tags to search for').setRequired(true)),
+        .addStringOption(option => option.setName('tags').setDescription('tags to search for').setRequired(true))
+		.setDMPermission(false),
 
     async execute(interaction) {
         if (interaction.channel.nsfw) {

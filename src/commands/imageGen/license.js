@@ -1,10 +1,11 @@
-const { SlashCommandBuilder, AttachmentBuilder, MessageAttachment } = require('discord.js');
+const { SlashCommandBuilder, AttachmentBuilder } = require('discord.js');
 const { createCanvas, GlobalFonts, loadImage } = require('@napi-rs/canvas');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('lolilicense')
-        .setDescription('get a qualified loli license'),
+        .setDescription('get a qualified loli license')
+		.setDMPermission(false),
 
     async execute(interaction) {
         await interaction.deferReply();

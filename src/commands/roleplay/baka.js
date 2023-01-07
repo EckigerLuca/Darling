@@ -7,7 +7,8 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('baka')
         .setDescription("ДЕБИЛ")
-        .addStringOption(option => option.setName('extra').setDescription('learn2read')),
+        .addStringOption(option => option.setName('extra').setDescription('learn2read'))
+		.setDMPermission(false),
 
     async execute(interaction) {
         async function fetchImage() {

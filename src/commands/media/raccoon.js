@@ -6,7 +6,8 @@ const fetch = require('node-fetch');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('raccoon')
-        .setDescription('random raccoon'),
+        .setDescription('random raccoon')
+		.setDMPermission(false),
 
     async execute(interaction) {
         const response = await fetch('https://eckigerluca.com/api/raccoon');

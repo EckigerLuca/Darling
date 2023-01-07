@@ -5,7 +5,8 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('botinfo')
-        .setDescription('Shows some information about the bot'),
+        .setDescription('Shows some information about the bot')
+		.setDMPermission(false),
 
     async execute(interaction) {
         const servers = interaction.client.guilds.cache.size;

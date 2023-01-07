@@ -25,7 +25,8 @@ module.exports = {
         .addStringOption(option =>
             option.setName('input')
                 .setDescription('Put in `help` or the name of a subreddit here that is in the list')
-                .setRequired(false)),
+                .setRequired(false))
+		.setDMPermission(false),
 
         async execute(interaction) {
             const embed = new EmbedBuilder()

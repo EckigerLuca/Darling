@@ -24,7 +24,8 @@ module.exports = {
                         name: 'Ten',
                         value: '10',
                     },
-                )),
+                ))
+		.setDMPermission(false),
 
         async execute(interaction) {
             const amount = interaction.options.getString('amount');

@@ -5,7 +5,8 @@ module.exports = {
         .setName('unban')
         .setDescription('unban a user')
         .addStringOption(option => option.setName('userid').setDescription('UserID that you want to unban').setRequired(true))
-		.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
+		.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
+		.setDMPermission(false),
 
         async execute(interaction) {
             const userID = interaction.options.getString('userid');

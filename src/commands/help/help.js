@@ -5,7 +5,8 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('help')
-        .setDescription('Shows all commands'),
+        .setDescription('Shows all commands')
+		.setDMPermission(false),
 
     async execute(interaction) {
         const eckigerluca = await interaction.client.users.fetch('173374602389618688');
