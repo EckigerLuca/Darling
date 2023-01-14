@@ -19,6 +19,10 @@
 				</div>
 				<div class="modal-body" style="color: #842029; border-top: 1px solid #f5c2c7;">
 					<%= req.query.error %>
+					<% if (req.query.errorID == "welcomeRoleError") { %>
+						<br>
+						<center><img src="../public/assets/roles.png" alt="Bot Roles"></center>
+					<% } %>
 				</div>
 			</div>
 		</div>

@@ -8,6 +8,7 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const Strategy = require('passport-discord').Strategy;
 const botConfig = require('../data/config.json');
+const version = require('../../package.json').version;
 const settings = require('./settings.json');
 const logger = require('silly-logger');
 const favicon = require('serve-favicon');
@@ -122,6 +123,7 @@ module.exports = client => {
 			servers: await client.guilds.cache.size,
 			users: users,
 			votes: votes,
+			version: version,
 			async: true,
 		});
 
