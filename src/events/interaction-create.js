@@ -24,12 +24,24 @@ module.exports = {
         }
         catch (error) {
             logger.error(error);
-            try {
-                await interaction.reply({ content: `There was an error while executing this command!\nJoin the Support Server and send us the error message:\n \`\`\`js\n ${JSON.stringify(interaction.commandData, null, 4)} \`\`\` \`\`\`js\n${error}\`\`\` \n https://discord.com/invite/tpUr7d3 `, ephemeral: true });
-            }
-            catch {
-                await interaction.editReply({ content: `There was an error while executing this command!\nJoin the Support Server and send us the error message:\n \`\`\`js\n ${JSON.stringify(interaction.commandData, null, 4)} \`\`\` \`\`\`js\n${error}\`\`\` \n https://discord.com/invite/tpUr7d3 `, ephemeral: true });
-            }
+			try {
+				try {
+					await interaction.reply({ content: `There was an error while executing this command!\nJoin the Support Server and send us the error message:\n \`\`\`js\n ${JSON.stringify(interaction.commandData, null, 4)} \`\`\` \`\`\`js\n${error}\`\`\` \n https://discord.com/invite/tpUr7d3 `, embeds: [], ephemeral: true });
+				}
+				catch {
+					await interaction.editReply({ content: `There was an error while executing this command!\nJoin the Support Server and send us the error message:\n \`\`\`js\n ${JSON.stringify(interaction.commandData, null, 4)} \`\`\` \`\`\`js\n${error}\`\`\` \n https://discord.com/invite/tpUr7d3 `, embeds: [], ephemeral: true });
+				}
+			}
+			// eslint-disable-next-line no-inline-comments
+			catch (err) {
+				logger.error(err);
+				try {
+					await interaction.reply({ content: `There was an error while executing this command, but there was another error sending the error message!\n Please contact us and include the following information: \`command name, options, time of execution\` \n https://discord.com/invite/tpUr7d3 `, embeds: [], ephemeral: true });
+				}
+				catch {
+					await interaction.editReply({ content: `There was an error while executing this command, but there was another error sending the error message!\n Please contact us and include the following information: \`command name, options, time of execution\` \n https://discord.com/invite/tpUr7d3 `, embeds: [], ephemeral: true });
+				}
+			}
         }
 	},
 };
