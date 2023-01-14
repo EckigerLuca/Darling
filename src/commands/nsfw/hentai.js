@@ -2,7 +2,7 @@
 /* eslint-disable no-inner-declarations */
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const fetch = require('node-fetch');
 
 function sleep(ms) {
@@ -217,11 +217,11 @@ module.exports = {
                     new ButtonBuilder()
                         .setCustomId('hentai1')
                         .setEmoji('1️⃣')
-                        .setStyle('Primary'),
+                        .setStyle(ButtonStyle.Primary),
                     new ButtonBuilder()
                         .setCustomId('hentai2')
                         .setEmoji('2️⃣')
-                        .setStyle('Primary'),
+                        .setStyle(ButtonStyle.Primary),
                 );
             if (interaction.channel.nsfw) {
 
@@ -253,6 +253,8 @@ module.exports = {
                     await interaction.reply({ embeds: [helpEmbed1], components: [row] });
                     interaction.client.on('interactionCreate', newInteraction => {
                         if (!newInteraction.isButton()) return;
+						if (newInteraction.user.id != interaction.member.user.id) return;
+						if (!newInteraction.customId.startsWith('hentai')) return;
                         switch (newInteraction.customId) {
                             case "hentai1": {
                                 return newInteraction.update({ embeds: [helpEmbed1], components: [row] });
@@ -269,12 +271,12 @@ module.exports = {
                             new ButtonBuilder()
                                 .setCustomId('hentai1')
                                 .setEmoji('1️⃣')
-                                .setStyle('Primary')
+                                .setStyle(ButtonStyle.Primary)
                                 .setDisabled(true),
                             new ButtonBuilder()
                                 .setCustomId('hentai2')
                                 .setEmoji('2️⃣')
-                                .setStyle('Primary')
+                                .setStyle(ButtonStyle.Primary)
                                 .setDisabled(true),
                         );
                     await interaction.editReply({ components: [row] });

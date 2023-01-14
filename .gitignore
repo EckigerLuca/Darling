@@ -4,3 +4,5 @@ config.json
 test.js.old
 .vscode
 settings.json
+special/
+note.txt
