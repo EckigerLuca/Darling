@@ -19,11 +19,12 @@ module.exports = {
 
             if (interaction.channel.nsfw) {
                 embed.addFields(
-                    { name: '❓ Help', value: '`/help`' },
+                    { name: '❓ Help', value: '`/help` `/support`' },
                     { name: '🔨 Moderation', value: '`/ban` `/kick` `/unban` `/clear` `/serverstats`' },
                     { name: '👋 Welcome', value: '`/welcome setup` `/welcome enable` `/welcome disable`' },
                     { name: '🖼️ Media', value: '`/cat` `/fox` `/dog` `/raccoon` `/avatar` `/waifu` `/neko`' },
-                    { name: '📸 Image Generation', value: '`/lolilicense`' },
+					{ name: '👤 Profiles', value: '`/profile view` `/profile edit` `/marry` `/divorce`' },
+					{ name: '📸 Image Generation', value: '`/lolilicense`' },
                     { name: '🤣 Memes', value: '`/meme` `/meme help` `/adidas`' },
                     { name: '😂 Meme Generation', value: '`/magik (@member)`' },
                     { name: '🎭 Roleplay', value: '`/baka` `/bite` `/blush` `/bored` `/cry` `/cuddle` `/dance` `/facepalm` `/feed` `/happy` `/highfive` `/hug` `/kiss` `/laugh` `/pat` `/poke` `/pout` `/shrug` `/slap` `/sleep` `/smile` `/smug` `/stare` `/think` `/tickle` `/wave` `/wink` `/fuck`' },
@@ -34,11 +35,12 @@ module.exports = {
             }
             else {
                 embed.addFields(
-                    { name: '❓ Help', value: '`/help`' },
+                    { name: '❓ Help', value: '`/help` `/support`' },
                     { name: '🔨 Moderation', value: '`/ban` `/kick` `/unban` `/clear` `/serverstats`' },
                     { name: '👋 Welcome', value: '`/welcome setup` `/welcome enable` `/welcome disable`' },
                     { name: '🖼️ Media', value: '`/cat` `/fox` `/dog` `/raccoon` `/avatar` `/waifu` `/neko`' },
-                    { name: '📸 Image Generation', value: '`/lolilicense`' },
+					{ name: '👤 Profiles', value: '`/profile view` `/profile edit` `/marry` `/divorce`' },
+					{ name: '📸 Image Generation', value: '`/lolilicense`' },
                     { name: '🤣 Memes', value: '`/meme` `/meme help` `/adidas`' },
                     { name: '😂 Meme Generation', value: '`/magik (@member)`' },
                     { name: '🎭 Roleplay', value: '`/baka` `/bite` `/blush` `/bored` `/cry` `/cuddle` `/dance` `/facepalm` `/feed` `/happy` `/highfive` `/hug` `/kiss` `/laugh` `/pat` `/poke` `/pout` `/shrug` `/slap` `/sleep` `/smile` `/smug` `/stare` `/think` `/tickle` `/wave` `/wink` ||`/fuck`||' },
