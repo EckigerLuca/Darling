@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
 const { EmbedBuilder } = require('discord.js');
-const { fetchNeko } = require('nekos-best.js');
+const { fetchRandom } = require ('nekos-best.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -33,20 +33,26 @@ module.exports = {
             amount = parseInt(amount);
 
             async function fetchImage() {
-                const response = await fetchNeko('nekos', parseInt(amount));
-                return response;
+                const response = await fetchRandom('neko');
+                return response.results[0];
             }
 
             const real_amount = amount - 1;
-            const nekos = await fetchImage();
+            const nekos = [];
+
+			for (let i = 0; i <= real_amount; i++) {
+				const neko = await fetchImage();
+				nekos.push(neko);
+			}
+
             const embeds = [];
             for (let i = 0; i <= real_amount; i++) {
                 const embed = new EmbedBuilder()
                     .setColor(color)
                     .setTitle('Meow')
-                    .setDescription(`[${nekos.url[i].artist_name}](${nekos.url[i].source_url})`)
+					.setDescription(`[${nekos[i].artist_name}](${nekos[i].source_url})`)
                     .setFooter({ text: 'From nekos.best' })
-                    .setImage(nekos.url[i].url);
+                    .setImage(nekos[i].url);
                 embeds.push(embed);
             }
 
