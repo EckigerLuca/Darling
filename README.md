@@ -6,7 +6,7 @@ So I'd prefer if You would just add it to your server with [this](https://eckige
 ### But if You want to host it by yourself,
 rename the `config.json.public` to `config.json` (found under `src/data`) and edit the values. The Bot **needs** the `SERVER MEMBERS INTENT`, so make sure to enable it!
 
-Make sure that you have a mongo-db database avaiable for bot! The name of the database needs to be `darling` and inside that db a collection called `welcome` is required.
+Make sure that you have a mongo-db database avaiable for bot! The name of the database needs to be `darling` and inside that db the following collections are required: `welcome` `users`
 
 New with Version 2.0 is a Web Dashboard, which can't be disabled! <br>
 Set it up by renaming the `settings.json.public` (found under `src/website`) to `settings.json` and changing the values in the as needed. Client ID and Secret are found at the OAuth2 Section of your Application. You also need to add your Domain and Callback URL to the Redirects.
