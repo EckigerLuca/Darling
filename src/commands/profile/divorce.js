@@ -24,7 +24,7 @@ module.exports = {
 		const userDivorceConfirmationEmbed = new EmbedBuilder()
 			.setTitle('Divorce Confirmation')
 			.setDescription(`Are you sure, that you want to end your marriage with ${partner}?\nClick one of the buttons below to confirm. Starting now, you have 30 seconds to decide.`)
-			.setThumbnail(partner.displayAvatarURL({ dynamic: true }))
+			.setThumbnail(partner.displayAvatarURL({ forceStatic: false }))
 			.setColor(color)
 			.setTimestamp();
 

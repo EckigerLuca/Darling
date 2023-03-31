@@ -10,7 +10,7 @@ module.exports = {
 
     async execute(interaction) {
         const eckigerluca = await interaction.client.users.fetch('173374602389618688');
-        const eckigerluca_avatar = eckigerluca.displayAvatarURL({ size: 1024, format: 'png', dynamic: true });
+        const eckigerluca_avatar = eckigerluca.displayAvatarURL({ size: 1024, extension: 'png', forceStatic: false });
         const embed = new EmbedBuilder()
             .setColor(color)
             .setTitle('All commands')

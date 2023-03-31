@@ -38,7 +38,7 @@ module.exports = {
 		const userConfirmEmbed = new EmbedBuilder()
 			.setTitle("Proposal Confirmation")
 			.setDescription(`Are you sure you want to marry ${target}?\nClick on one of the buttons below to confirm. Starting now, you have 30 seconds to decide.`)
-			.setThumbnail(target.displayAvatarURL({ dynamic: true }))
+			.setThumbnail(target.displayAvatarURL({ forceStatic: false }))
 			.setColor(color)
 			.setTimestamp();
 

@@ -76,8 +76,8 @@ module.exports = {
 
 				const embed = new EmbedBuilder()
 					.setColor(findResult.color)
-					.setThumbnail(target.displayAvatarURL({ size: 1024, format: 'png', dynamic: true }))
-					.setAuthor({ name: `Profile of ${target.user.username}#${target.user.discriminator}`, iconURL: target.displayAvatarURL({ size: 1024, format: 'png', dynamic: true }) })
+					.setThumbnail(target.displayAvatarURL({ size: 1024, extension: 'png', forceStatic: false }))
+					.setAuthor({ name: `Profile of ${target.user.username}#${target.user.discriminator}`, iconURL: target.displayAvatarURL({ size: 1024, extension: 'png', forceStatic: false }) })
 					.setFooter({ text: 'Edit your profile with /profile edit' })
 					.setDescription(profileDescription);
 				embed.addFields({ name: "» Description:", value: findResult.description });

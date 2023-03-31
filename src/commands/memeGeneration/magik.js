@@ -16,7 +16,7 @@ module.exports = {
         if (target === null) {
             target = interaction.user;
         }
-        const avatar = target.displayAvatarURL({ size: 512, format: 'png', dynamic: false });
+        const avatar = target.displayAvatarURL({ size: 512, extension: 'jpg', forceStatic: true });
         const response = await fetch(`https://nekobot.xyz/api/imagegen?type=magik&image=${avatar}`);
         const data = await response.json();
 

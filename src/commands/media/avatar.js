@@ -16,7 +16,7 @@ module.exports = {
             if (user === null) {
                 user = interaction.user;
             }
-            const avatar = user.displayAvatarURL({ size: 1024, format: 'png', dynamic: true });
+            const avatar = user.displayAvatarURL({ size: 1024, extension: 'png', forceStatic: false });
             const embed = new EmbedBuilder()
                 .setColor(color)
                 .setDescription(`You requested ${user}'s avatar`)

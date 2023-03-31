@@ -20,7 +20,7 @@ module.exports = {
 			const collection = db.collection("welcome");
 			const result = await collection.findOne(filter);
 			const eckigerluca = await member.client.users.fetch('173374602389618688');
-			const eckigerluca_avatar = eckigerluca.displayAvatarURL({ size: 1024, format: 'png', dynamic: true });
+			const eckigerluca_avatar = eckigerluca.displayAvatarURL({ size: 1024, extension: 'png', forceStatic: false });
 			if (result) {
 				if (result.enabled == true) {
 					const memberMention = `<@${member.user.id}>`;
@@ -50,7 +50,7 @@ module.exports = {
 						.setColor(result.color);
 
 					if (result.thumbnail == true) {
-						embed.setThumbnail(member.displayAvatarURL({ size: 512, format: 'png', dynamic: true }));
+						embed.setThumbnail(member.displayAvatarURL({ size: 512, extension: 'png', forceStatic: false }));
 					}
 					if (result.image[0] == true) {
 						embed.setImage(result.image[1]);

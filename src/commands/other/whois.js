@@ -33,7 +33,7 @@ module.exports = {
             }
             const memberRoles = await getMemberRoles();
 
-            const avatar = user.displayAvatarURL({ size: 1024, format: 'png', dynamic: true });
+            const avatar = user.displayAvatarURL({ size: 1024, extension: 'png', forceStatic: false });
             const embed = new EmbedBuilder()
                 .setDescription(`<@${user.id}>`)
                 .setAuthor({ name: String(user.username), iconURL: avatar })
