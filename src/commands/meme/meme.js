@@ -36,7 +36,7 @@ module.exports = {
 
             if (input == 'help') {
                 embed.setTitle('List of subreddits')
-                    .addField('»» 1-12 ««', REDDIT_ENABLED_MEME_SUBREDDITS.join('\n'))
+                    .addFields({ name: '»» 1-12 ««', value: REDDIT_ENABLED_MEME_SUBREDDITS.join('\n') })
                     .setFooter({ text: 'Page 1/1' });
                 await interaction.reply({ embeds: [embed] });
                 return;
