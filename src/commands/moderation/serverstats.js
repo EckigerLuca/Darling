@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, ChannelType } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -13,14 +13,14 @@ module.exports = {
 
         async function getTextChannels() {
             const all_channels = await interaction.guild.channels.fetch();
-            const text_channels = all_channels.filter(channels => channels.type == 'GUILD_TEXT').size;
+            const text_channels = all_channels.filter(channels => channels.type === ChannelType.GuildText).size;
             return text_channels;
         }
         const no_text_channels = await getTextChannels();
 
         async function getVoiceChannels() {
             const all_channels = await interaction.guild.channels.fetch();
-            const voice_channels = all_channels.filter(channels => channels.type == 'GUILD_VOICE').size;
+            const voice_channels = all_channels.filter(channels => channels.type === ChannelType.GuildVoice).size;
             return voice_channels;
         }
         const no_voice_channels = await getVoiceChannels();
