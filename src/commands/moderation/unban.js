@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionFlagsBits, PermissionsBitField } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -9,9 +9,14 @@ module.exports = {
 		.setDMPermission(false),
 
         async execute(interaction) {
+            if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.BanMembers)) {
+                await interaction.reply({ content: "I am missing permission to do that!", ephemeral: true });
+                return;
+            }
+
             const userID = interaction.options.getString('userid');
             const messageAuthor = await interaction.guild.members.fetch(interaction.member.id);
-            if (messageAuthor.permissions.has(PermissionsBitField.Flags.BanMembers)) {
+            if (messageAuthor.permissions.has(PermissionFlagsBits.BanMembers)) {
                 const guild = await interaction.guild.fetch();
                 await guild.members.unban(userID).then((user) => {
                     interaction.reply({ content: `Successfully unbanned ${user.tag} from the server!` });
