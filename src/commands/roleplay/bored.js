@@ -7,12 +7,9 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('bored')
         .setDescription("show the world how bored you are")
-        .addStringOption(option => option.setName('extra').setDescription('learn2read'))
 		.setDMPermission(false),
 
     async execute(interaction) {
-        let extra = interaction.options.getString('extra');
-
         async function fetchImage() {
             const response = await fetchRandom('bored');
             return response.results[0].url;
@@ -20,9 +17,6 @@ module.exports = {
 
         const img = await fetchImage();
 
-        if (!extra) {
-            extra = '';
-        }
         const embed = new EmbedBuilder()
             .setDescription(`${interaction.user} is bored so do something or they will stab you`)
             .setColor(color)
