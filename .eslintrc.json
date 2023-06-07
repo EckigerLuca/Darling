@@ -13,6 +13,7 @@
 		"comma-style": "error",
 		"curly": ["error", "multi-line", "consistent"],
 		"dot-location": ["error", "property"],
+		"eol-last": "error",
 		"handle-callback-err": "off",
 		"keyword-spacing": "error",
 		"max-nested-callbacks": ["error", { "max": 4 }],
