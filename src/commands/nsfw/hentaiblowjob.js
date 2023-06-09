@@ -28,34 +28,31 @@ module.exports = {
                 ))
 		.setDMPermission(false),
 
-        async execute(interaction) {
-            if (interaction.channel.nsfw) {
-                const amount = interaction.options.getString('amount');
-
-                async function fetchImage() {
-                    const response = await fetch('https://api.waifu.pics/nsfw/blowjob');
-                    const data = await response.json();
-                    const img_url = data.url;
-                    return img_url;
-                }
-
-                const real_amount = amount - 1;
-                const embed = new EmbedBuilder()
-                    .setColor(color)
-                    .setTitle('Random hentai blowjob')
-                    .setFooter({ text: 'From waifu.pics' })
-                    .setImage(await fetchImage());
-
-
-                await interaction.reply({ embeds: [embed] });
-                for (let i = 0; i < real_amount; i++){
-                    embed.setImage(await fetchImage());
-                    await interaction.followUp({ embeds: [embed] });
-            }
-        }
-        else {
+    async execute(interaction) {
+        if (!interaction.channel.nsfw) {
             await interaction.reply({ content: 'Please go to a channel that is marked as NSFW!', ephemeral: true });
             return;
         }
+        await interaction.deferReply();
+        const amount = parseInt(interaction.options.getString('amount'));
+
+        async function fetchImage() {
+            const response = await fetch('https://api.waifu.pics/nsfw/blowjob');
+            const data = await response.json();
+            const img_url = data.url;
+            return img_url;
+        }
+
+        const embeds = [];
+        for (let i = 0; i < amount; i++) {
+            const embed = new EmbedBuilder()
+                .setColor(color)
+                .setTitle('Random hentai blowjob')
+                .setFooter({ text: 'From waifu.pics' })
+                .setImage(await fetchImage());
+            embeds.push(embed);
+        }
+
+        await interaction.editReply({ embeds: embeds });
     },
 };
