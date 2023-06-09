@@ -1,5 +1,5 @@
 /* eslint-disable no-inner-declarations */
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const { italic, SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
 const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch');
@@ -19,24 +19,33 @@ module.exports = {
 
             async function getBooru() {
                 const response = await fetch(`https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&json=1&tags=${query}`);
-                const data = await response.json();
-                const randomInt = Math.floor(Math.random() * (Object.keys(data).length - 0) + 0);
+                let data;
+                try {
+                    data = await response.json();
+                    const randomInt = Math.floor(Math.random() * (Object.keys(data).length - 0) + 0);
 
-                const postId = data[randomInt].id;
+                    const postId = data[randomInt].id;
 
-                const postUrl = `https://rule34.xxx/index.php?page=post&s=view&id=${postId}`;
-                const imgUrl = data[randomInt].file_url;
+                    const postUrl = `https://rule34.xxx/index.php?page=post&s=view&id=${postId}`;
+                    const imgUrl = data[randomInt].file_url;
 
-                const result = {
-                    "postUrl": postUrl,
-                    "imgUrl": imgUrl,
-                };
-                return result;
+                    const result = {
+                        "postUrl": postUrl,
+                        "imgUrl": imgUrl,
+                    };
+                    return result;
+                    } catch {
+                        return;
+                    }
             }
             let booruResult;
 
             do {
                 booruResult = await getBooru();
+                if (!booruResult) {
+                    interaction.editReply(`I'm so sorry but I can't find anything with the tag(s) ${italic(query)}`);
+                    return;
+                }
             } while (booruResult.imgUrl.includes('mp4'));
 
             const embed = new EmbedBuilder()
@@ -49,6 +58,8 @@ module.exports = {
 
             await interaction.editReply({ embeds: [embed] });
         }
- else {await interaction.reply({ content: 'Please go to a channel that is marked as NSFW!', ephemeral: true });}
+        else {
+            await interaction.reply({ content: 'Please go to a channel that is marked as NSFW!', ephemeral: true });
+        }
     },
 };
