@@ -24,7 +24,7 @@ module.exports = {
                 { name: "Code", value: "https://github.com/eckigerluca/darling", inline: true },
                 { name: "Support", value: "The **Bot Support** is on my [Server](https://eckigerluca.com/discord).\nBut you can also support **me** on [Patreon](https://patreon.com/eckigerluca) or [Ko-Fi](https://ko-fi.com/eckigerluca)", inline: false },
             )
-            .setFooter({ text: "Bot by EckigerLuca#0001", iconURL: eckigerluca_avatar })
+            .setFooter({ text: `Bot by ${eckigerluca.username}`, iconURL: eckigerluca_avatar })
             .setAuthor({ name: "EckigerLuca", iconURL: eckigerluca_avatar, url: "https://github.com/EckigerLuca/" });
         await interaction.reply({ embeds: [embed] });
     },
