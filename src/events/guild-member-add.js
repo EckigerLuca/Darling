@@ -45,7 +45,7 @@ module.exports = {
 					const embed = new EmbedBuilder()
 						.setTitle(result.headline)
 						.setDescription(result.message)
-						.setFooter({ text: `Bot by ${eckigerluca.username}#${eckigerluca.discriminator}`, iconURL: eckigerluca_avatar })
+						.setFooter({ text: `Bot by ${eckigerluca.username}`, iconURL: eckigerluca_avatar })
 						.setTimestamp()
 						.setColor(result.color);
 

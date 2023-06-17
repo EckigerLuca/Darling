@@ -15,7 +15,7 @@ module.exports = {
             .setColor(color)
             .setTitle('All commands')
             .setDescription(`[] = Needed argument\n() = Optional argument\n[Web Dashboard](${(require('../../website/settings.json')).website.domain}/dashboard)`)
-            .setFooter({ text: `Bot by ${eckigerluca.username}#${eckigerluca.discriminator}`, iconURL: eckigerluca_avatar });
+            .setFooter({ text: `Bot by ${eckigerluca.username}`, iconURL: eckigerluca_avatar });
 
             if (interaction.channel.nsfw) {
                 embed.addFields(
