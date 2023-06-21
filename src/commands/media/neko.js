@@ -27,35 +27,29 @@ module.exports = {
                 ))
 		.setDMPermission(false),
 
-        async execute(interaction) {
-            await interaction.deferReply();
-            let amount = interaction.options.getString('amount');
-            amount = parseInt(amount);
+    async execute(interaction) {
+        let amount = interaction.options.getString('amount');
+        amount = parseInt(amount);
 
-            async function fetchImage() {
-                const response = await fetchRandom('neko');
-                return response.results[0];
-            }
+        async function fetchImage() {
+            const response = await fetchRandom('neko');
+            return response.results[0];
+        }
 
-            const real_amount = amount - 1;
-            const nekos = [];
+        const fetches = Array.from(Array(amount), () => fetchImage());
+        const nekos = await Promise.all(fetches);
+        const embeds = [];
 
-			for (let i = 0; i <= real_amount; i++) {
-				const neko = await fetchImage();
-				nekos.push(neko);
-			}
+        nekos.forEach((neko) => {
+            const embed = new EmbedBuilder()
+                .setColor(color)
+                .setTitle('Meow')
+                .setDescription(`[${neko.artist_name}](${neko.source_url})`)
+                .setFooter({ text: 'From nekos.best' })
+                .setImage(neko.url);
+            embeds.push(embed);
+        });
 
-            const embeds = [];
-            for (let i = 0; i <= real_amount; i++) {
-                const embed = new EmbedBuilder()
-                    .setColor(color)
-                    .setTitle('Meow')
-					.setDescription(`[${nekos[i].artist_name}](${nekos[i].source_url})`)
-                    .setFooter({ text: 'From nekos.best' })
-                    .setImage(nekos[i].url);
-                embeds.push(embed);
-            }
-
-            await interaction.editReply({ embeds: embeds });
+        await interaction.reply({ embeds: embeds });
     },
 };

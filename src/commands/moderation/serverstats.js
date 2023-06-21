@@ -16,38 +16,23 @@ module.exports = {
             const text_channels = all_channels.filter(channels => channels.type === ChannelType.GuildText).size;
             return text_channels;
         }
-        const no_text_channels = await getTextChannels();
 
         async function getVoiceChannels() {
             const all_channels = await interaction.guild.channels.fetch();
             const voice_channels = all_channels.filter(channels => channels.type === ChannelType.GuildVoice).size;
             return voice_channels;
         }
-        const no_voice_channels = await getVoiceChannels();
 
         async function getRealMembers() {
             const all_members = await interaction.guild.members.fetch();
             const humans = all_members.sweep(member => !member.user.bot);
             return humans;
         }
-        const real_members = await getRealMembers();
 
         async function getBotMembers() {
             const all_members = await interaction.guild.members.fetch();
             const bots = all_members.sweep(member => member.user.bot);
             return bots;
-        }
-        const bot_members = await getBotMembers();
-
-        const members = guild.memberCount;
-        const date_created = guild.createdTimestamp;
-        const afk_timeout = guild.afkTimeout / 60;
-        let afk_channel;
-        if (guild.afkChannel == null) {
-            afk_channel = 'None';
-        }
-        else {
-            afk_channel = guild.afkChannel;
         }
 
         async function getGuildEmotes() {
@@ -55,16 +40,36 @@ module.exports = {
             const amount = all_emojis.size;
             return amount;
         }
-        const emotes = await getGuildEmotes();
 
         async function getGuildRoles() {
             const all_roles = await guild.roles.fetch();
             const amount = all_roles.size;
             return amount;
         }
-        const roles = await getGuildRoles();
+
+        const fetches = [
+            getTextChannels(),
+            getVoiceChannels(),
+            getRealMembers(),
+            getBotMembers(),
+            getGuildEmotes(),
+            getGuildRoles(),
+        ];
+        const resolves = await Promise.all(fetches);
+
+        // order must match with fetches array
+        const no_text_channels = resolves[0];
+        const no_voice_channels = resolves[1];
+        const real_members = resolves[2];
+        const bot_members = resolves[3];
+        const emotes = resolves[4];
+        const roles = resolves[5];
 
         const boosts = guild.premiumSubscriptionCount;
+        const members = guild.memberCount;
+        const date_created = guild.createdTimestamp;
+        const afk_timeout = guild.afkTimeout / 60;
+        const afk_channel = guild.afkChannel ?? 'None';
 
         const embed = new EmbedBuilder()
             .setColor(color)
