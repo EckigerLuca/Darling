@@ -4,6 +4,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { color } = require('../../data/config.json');
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const fetch = require('node-fetch');
+const logger = require('silly-logger');
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -313,28 +314,66 @@ module.exports = {
                     const response = await fetch(`https://reddit.com/r/${subreddit}/random.json`);
                     const data = await response.json();
 
-                    const permalink = data[0].data.children[0].data.permalink;
-                    const subredditName = data[0].data.children[0].data.subreddit_name_prefixed;
-                    const hentaiUrl = `https://reddit.com${permalink}`;
-                    let hentaiImg = data[0].data.children[0].data.url;
-                    const hentaiTitle = data[0].data.children[0].data.title;
-                    const hentaiUpvotes = data[0].data.children[0].data.ups;
-                    const hentaiDownvotes = data[0].data.children[0].data.downs;
-                    const hentaiNumComents = data[0].data.children[0].data.num_comments;
-                    const hentaiSubredditUrl = `https://reddit.com/r/${data[0].data.children[0].data.subreddit}`;
-                    const isVideo = data[0].data.children[0].data.is_video;
+					let permalink;
+					let subredditName;
+					let hentaiUrl;
+					let hentaiImg;
+					let hentaiTitle;
+					let hentaiUpvotes;
+					let hentaiDownvotes;
+					let hentaiNumComents;
+					let hentaiSubredditUrl;
+					let isVideo;
 
-                    if (data[0].data.children[0].data.is_gallery == true) {
-                        const ImgCode = data[0].data.children[0].data.gallery_data.items[0].media_id;
-                        let ImgType;
-                        if (data[0].data.children[0].data.media_metadata[ImgCode].m == "image/jpg") {
-                            ImgType = "jpg";
-                        }
-                        else if (data[0].data.children[0].data.media_metadata[ImgCode].m == "image/png") {
-                            ImgType = "png";
-                        }
-                        hentaiImg = `https://i.redd.it/${ImgCode}.${ImgType}`;
-                    }
+					if (data.kind == 'Listing') {
+						const post = data.data.children[Math.floor(Math.random() * data.data.dist) - 1].data;
+						logger.debug(post);
+						permalink = post.permalink;
+						subredditName = post.subreddit_name_prefixed;
+						hentaiUrl = `https://reddit.com${permalink}`;
+						hentaiImg = post.url;
+						hentaiTitle = post.title;
+						hentaiUpvotes = post.ups;
+						hentaiDownvotes = post.downs;
+						hentaiNumComents = post.num_comments;
+						hentaiSubredditUrl = `https://reddit.com/r/${post.subreddit}`;
+						isVideo = post.is_video;
+
+						if (post.is_gallery == true) {
+							const ImgCode = post.gallery_data.items[0].media_id;
+							let ImgType;
+							if (post.media_metadata[ImgCode].m == "image/jpg") {
+								ImgType = "jpg";
+							}
+							else if (post.media_metadata[ImgCode].m == "image/png") {
+								ImgType = "png";
+							}
+							hentaiImg = `https://i.redd.it/${ImgCode}.${ImgType}`;
+						}
+					} else {
+						permalink = data[0].data.children[0].data.permalink;
+						subredditName = data[0].data.children[0].data.subreddit_name_prefixed;
+						hentaiUrl = `https://reddit.com${permalink}`;
+						hentaiImg = data[0].data.children[0].data.url;
+						hentaiTitle = data[0].data.children[0].data.title;
+						hentaiUpvotes = data[0].data.children[0].data.ups;
+						hentaiDownvotes = data[0].data.children[0].data.downs;
+						hentaiNumComents = data[0].data.children[0].data.num_comments;
+						hentaiSubredditUrl = `https://reddit.com/r/${data[0].data.children[0].data.subreddit}`;
+						isVideo = data[0].data.children[0].data.is_video;
+
+						if (data[0].data.children[0].data.is_gallery == true) {
+							const ImgCode = data[0].data.children[0].data.gallery_data.items[0].media_id;
+							let ImgType;
+							if (data[0].data.children[0].data.media_metadata[ImgCode].m == "image/jpg") {
+								ImgType = "jpg";
+							}
+							else if (data[0].data.children[0].data.media_metadata[ImgCode].m == "image/png") {
+								ImgType = "png";
+							}
+							hentaiImg = `https://i.redd.it/${ImgCode}.${ImgType}`;
+						}
+					}
 
                     const hentaiData = {
                         'permalink': permalink,
