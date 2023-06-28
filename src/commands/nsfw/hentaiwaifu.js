@@ -33,7 +33,6 @@ module.exports = {
             await interaction.reply({ content: 'Please go to a channel that is marked as NSFW!', ephemeral: true });
             return;
         }
-        await interaction.deferReply();
         const amount = parseInt(interaction.options.getString('amount'));
 
         async function fetchImage() {
@@ -43,16 +42,19 @@ module.exports = {
             return img_url;
         }
 
+        const fetches = Array.from(Array(amount), () => fetchImage());
+        const images = await Promise.all(fetches);
         const embeds = [];
-        for (let i = 0; i < amount; i++) {
+
+        images.forEach((img) => {
             const embed = new EmbedBuilder()
                 .setColor(color)
                 .setTitle('Random hentai waifu pic?')
                 .setFooter({ text: 'From waifu.pics' })
-                .setImage(await fetchImage());
+                .setImage(img);
             embeds.push(embed);
-        }
+        });
 
-        await interaction.editReply({ embeds: embeds });
+        await interaction.reply({ embeds: embeds });
     },
 };

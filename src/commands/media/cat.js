@@ -37,10 +37,11 @@ module.exports = {
             return img_url;
         }
 
+        const fetches = Array.from(Array(amount), () => fetchImage());
+        const images = await Promise.all(fetches);
         const embeds = [];
 
-        for (let i = 0; i < amount; i++) {
-            const img = await fetchImage();
+        images.forEach((img) => {
             const embed = new EmbedBuilder()
                 .setColor(color)
                 .setTitle('Meow!')
@@ -48,7 +49,7 @@ module.exports = {
                 .setImage(img)
                 .setFooter({ text: 'From cataas.com' });
             embeds.push(embed);
-        }
+        });
 
         await interaction.reply({ embeds: embeds });
     },
