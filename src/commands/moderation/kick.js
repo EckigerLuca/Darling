@@ -10,31 +10,48 @@ module.exports = {
 		.setDMPermission(false),
 
         async execute(interaction) {
-            const member = interaction.options.getUser('user');
+            const user = interaction.options.getUser('user');
             const reason = interaction.options.getString('reason') || "No reason provided.";
+            const member = await interaction.guild.members.fetch(user.id);
+            const messageAuthor = await interaction.guild.members.fetch(interaction.member.id);
+            const authorIsServerOwner = messageAuthor.id === interaction.guild.ownerId;
+            const clientMember = interaction.guild.members.me;
 
-            if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.KickMembers)) {
+            if (!clientMember.permissions.has(PermissionFlagsBits.KickMembers)) {
                 await interaction.reply({ content: "I am missing permission to do that!", ephemeral: true });
                 return;
             }
+            else if (!messageAuthor.permissions.has(PermissionFlagsBits.KickMembers)) {
+                await interaction.reply({ content: "You're not allowed to do that!", ephemeral: true });
+                return;
+            }
 
-            const memberFetched = await interaction.guild.members.fetch(member.id);
-            const messageAuthor = await interaction.guild.members.fetch(interaction.member.id);
+            if (clientMember === member) {
+                await interaction.reply({ content: "I can't kick myself silly!", ephemeral: true });
+                return;
+            }
+            else if (member.id === interaction.guild.ownerId) {
+                await interaction.reply({ content: "You can't kick the server owner silly!", ephemeral: true });
+                return;
+            }
 
-            if (messageAuthor.permissions.has(PermissionFlagsBits.KickMembers)) {
+            if (member.roles.highest.position >= clientMember.roles.highest.position) {
+                await interaction.reply({ content: "I can't kick that member because their role is higher than mine!", ephemeral: true });
+                return;
+            }
+            else if (member.roles.highest.position >= messageAuthor.roles.highest.position && !authorIsServerOwner) {
+                await interaction.reply({ content: "You can't kick that member because their role is higher than yours!", ephemeral: true });
+                return;
+            }
 
-                if (memberFetched.roles.highest.position >= messageAuthor.roles.highest.position) return interaction.reply({ content: "You can't kick that member because their role is higher than yours!", ephemeral: true });
-                try {
+            try {
                 await member.send(`You have been kicked from **${interaction.guild.name}**\nReason: ${reason}`);
-                }
-                catch {
-                    console.log("could not dm kicked member");
-                }
-                await memberFetched.kick(reason);
-                interaction.reply({ content: `Kicked ${memberFetched.user.tag} successfully!\nReason: ${reason}` });
             }
-            else {
-                await interaction.reply({ content: "You're not allowed to do that!", ephemeral: true }); return;
+            catch {
+                console.log("Could not dm kicked member");
             }
+
+            await member.kick(reason);
+            interaction.reply({ content: `Kicked ${member.user.tag} successfully!\nReason: ${reason}` });
         },
 };
