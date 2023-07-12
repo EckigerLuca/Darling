@@ -52,6 +52,6 @@ module.exports = {
             }
 
             await member.kick(reason);
-            interaction.reply({ content: `Kicked ${member.user.tag} successfully!\nReason: ${reason}` });
+            interaction.reply({ content: `Kicked ${member.username} successfully!\nReason: ${reason}` });
         },
 };
