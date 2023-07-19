@@ -30,7 +30,8 @@
   "scripts": {
     "test": "echo \"Do you really need this?\" && exit 0",
     "deploy": "node ./src/deploy-commands.js",
-    "start": "node ./src/index.js"
+    "start": "node ./src/index.js",
+    "dev": "supervisor ./src/index.js"
   },
   "devDependencies": {
     "eslint": "^8.7.0",
