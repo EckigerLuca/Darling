@@ -10,13 +10,13 @@ module.exports = {
             subcommand
                 .setName('number')
                 .setDescription('returns a random number')
-                .addNumberOption(option => option.setName('start').setDescription('Start of Range'))
-                .addNumberOption(option => option.setName('end').setDescription('End of Range')))
+                .addIntegerOption(option => option.setName('start').setDescription('Start of Range'))
+                .addIntegerOption(option => option.setName('end').setDescription('End of Range')))
 		.setDMPermission(false),
 
         async execute(interaction) {
-            let startRange = interaction.options.getNumber('start');
-            let endRange = interaction.options.getNumber('end');
+            let startRange = interaction.options.getInteger('start');
+            let endRange = interaction.options.getInteger('end');
             if (startRange == null) {
                 startRange = 1;
             }
