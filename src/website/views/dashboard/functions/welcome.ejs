@@ -311,9 +311,9 @@
 				inputImageStatus = false;
 			}
 
-			inputTitle = inputTitle.replace("${memberName}", "Discord User");
-			inputTitle = inputTitle.replace("${memberNumber}", "123");
-			inputTitle = inputTitle.replace("${serverName}", "Super Cool Discord Server");
+			inputTitle = inputTitle.replaceAll("${memberName}", "Discord User");
+			inputTitle = inputTitle.replaceAll("${memberNumber}", "123");
+			inputTitle = inputTitle.replaceAll("${serverName}", "Super Cool Discord Server");
 
 			inputDescription = inputDescription.replaceAll("${memberMention}", "**@Discord User**");
 			inputDescription = inputDescription.replaceAll("${memberName}", "Discord User");

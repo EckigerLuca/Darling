@@ -28,19 +28,19 @@ module.exports = {
 					const memberNumber = member.guild.memberCount;
 					const serverName = member.guild.name;
 
-					result.headline = result.headline.replace("${memberName}", memberName);
-					result.headline = result.headline.replace("${memberNumber}", memberNumber);
-					result.headline = result.headline.replace("${serverName}", serverName);
+					result.headline = result.headline.replaceAll("${memberName}", memberName);
+					result.headline = result.headline.replaceAll("${memberNumber}", memberNumber);
+					result.headline = result.headline.replaceAll("${serverName}", serverName);
 
-					result.message = result.message.replace("${memberMention}", memberMention);
-					result.message = result.message.replace("${memberName}", memberName);
-					result.message = result.message.replace("${memberNumber}", memberNumber);
-					result.message = result.message.replace("${serverName}", serverName);
+					result.message = result.message.replaceAll("${memberMention}", memberMention);
+					result.message = result.message.replaceAll("${memberName}", memberName);
+					result.message = result.message.replaceAll("${memberNumber}", memberNumber);
+					result.message = result.message.replaceAll("${serverName}", serverName);
 
-					result.dm[1] = result.dm[1].replace("${memberMention}", memberMention);
-					result.dm[1] = result.dm[1].replace("${memberName}", memberName);
-					result.dm[1] = result.dm[1].replace("${memberNumber}", memberNumber);
-					result.dm[1] = result.dm[1].replace("${serverName}", serverName);
+					result.dm[1] = result.dm[1].replaceAll("${memberMention}", memberMention);
+					result.dm[1] = result.dm[1].replaceAll("${memberName}", memberName);
+					result.dm[1] = result.dm[1].replaceAll("${memberNumber}", memberNumber);
+					result.dm[1] = result.dm[1].replaceAll("${serverName}", serverName);
 
 					const embed = new EmbedBuilder()
 						.setTitle(result.headline)
