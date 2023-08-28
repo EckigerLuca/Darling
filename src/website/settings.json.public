@@ -7,6 +7,8 @@
 		"port": 5991,
 		"callback": "http://localhost:5991/callback",
 		"clientID": "CLIENTID HERE",
-		"secret": "CLIENT SECRET HERE"
+		"secret": "CLIENT SECRET HERE",
+		"privacyPolicy": "PRIVACY POLICY HERE",
+		"legalName": "YOUR LEGAL NAME HERE"
 	}
 }

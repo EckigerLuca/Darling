@@ -28,7 +28,7 @@ module.exports = client => {
 		clientID: settings.config.clientID,
 		clientSecret: settings.config.secret,
 		callbackURL: settings.config.callback,
-		scope: ["identify", "guilds", "guilds.join"],
+		scope: ["identify", "guilds"],
 	},
 	(accessToken, refreshToken, profile, done) => {
 		process.nextTick(()=>done(null, profile));
@@ -106,12 +106,22 @@ module.exports = client => {
 		});
 
 		let votes = 0;
-		const response = await fetch(new URL(`https://top.gg/api/bots/${botConfig.clientId}`), {
-			method: 'GET',
-			headers: { 'Authorization': botConfig.discordBotListToken },
-		});
-		const data = await response.json();
-		votes = data.points ? data.points : 0;
+		const controller = new AbortController();
+		const timeout = setTimeout(() => controller.abort(), 5000);
+		try {
+			const response = await fetch(new URL(`https://top.gg/api/bots/${botConfig.clientId}`), {
+				method: 'GET',
+				headers: { 'Authorization': botConfig.discordBotListToken },
+				signal: controller.signal,
+			});
+			const data = await response.json();
+			votes = data.points ? data.points : 0;
+		} catch (e) {
+			logger.error(e);
+		} finally {
+			clearTimeout(timeout);
+			votes = "top.gg down";
+		}
 
 		const html = await ejs.renderFile('./src/website/views/index.ejs', {
 			req: req,
@@ -463,6 +473,27 @@ module.exports = client => {
 			user: req.isAuthenticated() ? req.user : null,
 			bot: client,
 			Permissions: discord.PermissionsBitField,
+			botconfig: settings.website,
+			callback: settings.config.callback,
+			legalName: settings.config.legalName,
+			async: true,
+		});
+
+		res.send(html);
+	});
+
+	app.get("/privacy-policy", async (req, res) => {
+		res.redirect(settings.config.privacyPolicy);
+	});
+
+	/*
+	Custom Error Section
+	*/
+	// 404
+	app.use(async (req, res) => {
+		res.status(404);
+		const html = await ejs.renderFile('./src/website/views/errors/404.ejs', {
+			req: req,
 			botconfig: settings.website,
 			callback: settings.config.callback,
 			async: true,
