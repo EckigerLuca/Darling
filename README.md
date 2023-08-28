@@ -1,5 +1,9 @@
 # Darling.
+
 <a href="https://top.gg/bot/743150068726628440" target="_blank"><img src="https://top.gg/api/widget/servers/743150068726628440.svg"></a>
+<a href="https://github.com/EckigerLuca/Darling/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square"></a>
+<a href="https://EckigerLuca/Darling"><img src="https://img.shields.io/badge/dynamic/json?color=blueviolet&label=Version&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2FEckigerLuca%2FDarling%2Fmaster%2Fpackage.json&style=flat-square"></a>
+
 ### This is the code of my bot
 So I'd prefer if You would just add it to your server with [this](https://eckigerluca.com/darling/invite) link.
 
