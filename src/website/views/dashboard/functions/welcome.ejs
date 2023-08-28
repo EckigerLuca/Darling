@@ -8,6 +8,8 @@
 	<link rel="stylesheet" href="../../../public/css/discord.css">
 	<link rel="shortcut icon" href="../../../public/assets/favicon.png" type="image/x-icon">
 	<script src="../../../public/js/bootstrap.bundle.js"></script>
+	<script src="../../../public/js/purify/purify.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 	<title>Darling. | <%- guild.name %>'s Welcome Function </title>
 	<style>
@@ -187,7 +189,7 @@
 	}
 
 	const eckigerluca = await bot.users.fetch("173374602389618688");
-	const eckigerluca_avatar = eckigerluca.displayAvatarURL({ size: 512, format: 'png', dynamic: true});
+	const eckigerluca_avatar = eckigerluca.displayAvatarURL({ size: 512, extension: 'png', forceStatic: false});
 
 	user = await bot.users.fetch(user.id);
 
@@ -286,6 +288,12 @@
 		}
 
 		function previewEmbed() {
+			marked.setOptions({
+				renderer: new marked.Renderer(),
+				gfm: true,
+				breaks: true,
+			});
+
 			const embedTitle = document.getElementsByClassName("discord-embed-title")[0];
 			const embedDescription = document.getElementsByClassName("discord-embed-description")[0];
 			const embedThumbnail = document.getElementsByClassName("discord-embed-thumbnail")[0];
@@ -320,32 +328,33 @@
 			inputDescription = inputDescription.replaceAll("${memberNumber}", "123");
 			inputDescription = inputDescription.replaceAll("${serverName}", "Super Cool Discord Server");
 
-			inputDescription = inputDescription.replaceAll(/\*(.*?)\*/g, match => {
-				if (match.startsWith("**")) return match;
-				match = `<i>${match.slice(1,-1)}</i>`;
-				return match;
-			});
-			inputDescription = inputDescription.replaceAll(/_(.*?)_/g, match => {
-				if (match.startsWith("__")) return match;
-				match = `<i>${match.slice(1,-1)}</i>`;
-				return match;
-			});
-			inputDescription = inputDescription.replaceAll(/\*\*(.*?)\*\*/g, match => {
-				match = `<b>${match.slice(2,-2)}</b>`;
-				return match;
-			});
-			inputDescription = inputDescription.replaceAll(/__(.*?)__/g, match => {
-				match = `<u>${match.slice(2,-2)}</u>`;
-				return match;
-			});
-			inputDescription = inputDescription.replaceAll(/~~(.*?)~~/g, match => {
-				match = `<s>${match.slice(2,-2)}</s>`;
-				return match;
-			});
+			// inputDescription = inputDescription.replaceAll(/\*(.*?)\*/g, match => {
+			// 	if (match.startsWith("**")) return match;
+			// 	match = `<i>${match.slice(1,-1)}</i>`;
+			// 	return match;
+			// });
+			// inputDescription = inputDescription.replaceAll(/_(.*?)_/g, match => {
+			// 	if (match.startsWith("__")) return match;
+			// 	match = `<i>${match.slice(1,-1)}</i>`;
+			// 	return match;
+			// });
+			// inputDescription = inputDescription.replaceAll(/\*\*(.*?)\*\*/g, match => {
+			// 	match = `<b>${match.slice(2,-2)}</b>`;
+			// 	return match;
+			// });
+			// inputDescription = inputDescription.replaceAll(/__(.*?)__/g, match => {
+			// 	match = `<u>${match.slice(2,-2)}</u>`;
+			// 	return match;
+			// });
+			// inputDescription = inputDescription.replaceAll(/~~(.*?)~~/g, match => {
+			// 	match = `<s>${match.slice(2,-2)}</s>`;
+			// 	return match;
+			// });
 
+			// inputDescription = marked.parse(inputDescription);
 
 			embedTitle.innerText = `${inputTitle}`;
-			embedDescription.innerHTML = `${inputDescription}`;
+			embedDescription.innerHTML = DOMPurify.sanitize(marked.parse(inputDescription));
 
 			if (inputThumbnailStatus == true) {
 				embedThumbnail.style.display = "";
@@ -420,9 +429,7 @@
 								<li class="list-group-item bg-dark text-white">
 									For more check <a href="https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline-" target="_blank">here</a>
 									<br>
-									Note: Codeblocks, Block Quotes and so on also work, but they won't be displayed here.
-									<br>
-									New Lines will most likely not be shown in the preview. They will be in the final embed though.
+									Note: Codeblocks, Block Quotes and so on also work, but they won't be displayed here correctly.
 								</li>
 							</ul>
 						</p>
@@ -533,7 +540,7 @@
 											<div class="discord-embed-footer">
 												<img class="discord-embed-footer-icon" src="<%= eckigerluca_avatar %> " alt="">
 												<span>
-													<span>Bot by EckigerLuca#0001</span>
+													<span>Bot by EckigerLuca</span>
 													<span class="discord-embed-footer-separator"> • </span>
 													<span>
 														<%
