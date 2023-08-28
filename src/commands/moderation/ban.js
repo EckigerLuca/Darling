@@ -10,30 +10,48 @@ module.exports = {
 		.setDMPermission(false),
 
         async execute(interaction) {
-            const member = interaction.options.getUser('user');
+            const user = interaction.options.getUser('user');
             const reason = interaction.options.getString('reason') || "No reason provided.";
+            const member = await interaction.guild.members.fetch(user.id);
+            const messageAuthor = await interaction.guild.members.fetch(interaction.member.id);
+            const authorIsServerOwner = messageAuthor.id === interaction.guild.ownerId;
+            const clientMember = interaction.guild.members.me;
 
-            if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.BanMembers)) {
+            if (!clientMember.permissions.has(PermissionFlagsBits.BanMembers)) {
                 await interaction.reply({ content: "I am missing permission to do that!", ephemeral: true });
                 return;
             }
+            else if (!messageAuthor.permissions.has(PermissionFlagsBits.BanMembers)) {
+                await interaction.reply({ content: "You're not allowed to do that!", ephemeral: true });
+                return;
+            }
 
-            const memberFetched = await interaction.guild.members.fetch(member.id);
-            const messageAuthor = await interaction.guild.members.fetch(interaction.member.id);
+            if (clientMember === member) {
+                await interaction.reply({ content: "I can't ban myself silly!", ephemeral: true });
+                return;
+            }
+            else if (member.id === interaction.guild.ownerId) {
+                await interaction.reply({ content: "You can't ban the server owner silly!", ephemeral: true });
+                return;
+            }
 
-            if (messageAuthor.permissions.has(PermissionFlagsBits.BanMembers)) {
+            if (member.roles.highest.position >= clientMember.roles.highest.position) {
+                await interaction.reply({ content: "I can't ban that member becuse their role is higher than mine!", ephemeral: true });
+                return;
+            }
+            else if (member.roles.highest.position >= messageAuthor.roles.highest.position && !authorIsServerOwner) {
+                await interaction.reply({ content: "You can't ban that member because their role is higher than yours!", ephemeral: true });
+                return;
+            }
 
-                if (memberFetched.roles.highest.position >= messageAuthor.roles.highest.position) return interaction.reply({ content: "You can't ban that member because their role is higher than yours!", ephemeral: true });
-                try {
+            try {
                 await member.send(`You have been banned from **${interaction.guild.name}**\nReason: ${reason}`);
-                }
-                catch {console.log("Could not dm member after banning!");}
+            }
+            catch {
+                console.log("Could not dm member after banning!");
+            }
 
-                await memberFetched.ban({ reason: reason });
-                interaction.reply({ content: `Banned ${memberFetched.user.tag} successfully!\nReason: ${reason}` });
-            }
-            else {
-                await interaction.reply({ content: "You're not allowed to do that!", ephemeral: true }); return;
-            }
+            await member.ban({ reason: reason });
+            interaction.reply({ content: `Banned ${member.user.username} successfully!\nReason: ${reason}` });
         },
 };

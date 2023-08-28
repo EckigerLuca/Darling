@@ -1,6 +1,6 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const { bold, EmbedBuilder, SlashCommandBuilder } = require('discord.js');
 const { color } = require('../../data/config.json');
-const { EmbedBuilder } = require('discord.js');
+const { randomInt } = require('../../utils/random');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,30 +10,26 @@ module.exports = {
             subcommand
                 .setName('number')
                 .setDescription('returns a random number')
-                .addNumberOption(option => option.setName('start').setDescription('Start of Range'))
-                .addNumberOption(option => option.setName('end').setDescription('End of Range')))
+                .addIntegerOption(option => option.setName('start').setDescription('Start of Range'))
+                .addIntegerOption(option => option.setName('end').setDescription('End of Range')))
 		.setDMPermission(false),
 
         async execute(interaction) {
-            let startRange = interaction.options.getNumber('start');
-            let endRange = interaction.options.getNumber('end');
-            if (startRange == null) {
-                startRange = 1;
-            }
-            if (endRange == null) {
-                endRange = startRange + 100;
-            }
+            const startRange = interaction.options.getInteger('start') || 1;
+            const endRange = interaction.options.getInteger('end') || startRange + 100;
 
-            async function getRandomIntInclusive(min, max) {
-                min = Math.ceil(min);
-                max = Math.floor(max);
-                return Math.floor(Math.random() * (max - min + 1)) + min;
+            if (startRange >= endRange) {
+                interaction.reply({
+                    content: "Your start can't be greater than or equal to your end silly!",
+                    ephemeral: true,
+                });
+                return;
             }
-            const randomNumber = await getRandomIntInclusive(startRange, endRange);
+            const randomNumber = await randomInt(startRange, endRange);
 
             const embed = new EmbedBuilder()
                 .setTitle('Random Number')
-                .setDescription(`Your random number is: **${randomNumber}**`)
+                .setDescription(`Your random number is: ${bold(randomNumber)}`)
                 .setColor(color);
             await interaction.reply({ embeds: [embed] });
         },

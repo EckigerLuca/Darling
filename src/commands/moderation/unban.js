@@ -19,7 +19,7 @@ module.exports = {
             if (messageAuthor.permissions.has(PermissionFlagsBits.BanMembers)) {
                 const guild = await interaction.guild.fetch();
                 await guild.members.unban(userID).then((user) => {
-                    interaction.reply({ content: `Successfully unbanned ${user.tag} from the server!` });
+                    interaction.reply({ content: `Successfully unbanned ${user.username} from the server!` });
                 }).catch(() => {
                     interaction.reply({ content: "Please define a valid ID, resp. the ID of a banned member!", ephemeral: true }); return;
                 });

@@ -5,13 +5,13 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('clear')
         .setDescription('deletes a specified amount of messages in a channel')
-        .addNumberOption(option =>
+        .addIntegerOption(option =>
             option
-            .setName('amount')
-            .setDescription('define amount of messages to delete')
-            .setRequired(true)
-            .setMinValue(1)
-            .setMaxValue(100))
+                .setName('amount')
+                .setDescription('define amount of messages to delete')
+                .setRequired(true)
+                .setMinValue(1)
+                .setMaxValue(100))
 		.setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
 		.setDMPermission(false),
 
@@ -26,7 +26,7 @@ module.exports = {
             return;
         }
 
-        const amount = interaction.options.getNumber('amount');
+        const amount = interaction.options.getInteger('amount');
         const messages = await interaction.channel.messages.fetch({ limit: amount });
         if (messages.find(msg => Date.now() - msg.createdAt >= 1000 * 60 * 60 * 24 * 14)) {
             await interaction.editReply({ content: "I'm sorry, but I can't delete messages which are older than 14 days!" });
