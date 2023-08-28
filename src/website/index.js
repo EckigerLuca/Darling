@@ -161,6 +161,9 @@ module.exports = client => {
 	});
 
 	app.get("/dashboard/:guildID", checkAuth, async (req, res) => {
+		if (!/^\d+$/.test(req.params.guildID)) {
+			return res.redirect("/?error=" + encodeURIComponent("Haha, funny. Try again."));
+		}
 		const guild = await client.guilds.cache.get(req.params.guildID);
 		if (!guild) return res.redirect("/?error=" + encodeURIComponent("I am not in this Guild yet, please add me first!"));
         let member = guild.members.cache.get(req.user.id);
