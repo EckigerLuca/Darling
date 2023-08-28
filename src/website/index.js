@@ -118,7 +118,6 @@ module.exports = client => {
 			votes = data.points ? data.points : 0;
 		} catch (e) {
 			logger.error(e);
-		} finally {
 			clearTimeout(timeout);
 			votes = "top.gg down";
 		}
