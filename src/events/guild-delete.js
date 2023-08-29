@@ -15,8 +15,8 @@ module.exports = {
 		try {
 			await dbClient.connect();
 			const db = dbClient.db("darling");
-			const collections = await db.listCollections();
-			await collections.forEach(async c => {
+			const collections = await db.listCollections().toArray();
+			collections.forEach(async c => {
 				const collection = await db.collection(c.name);
 				await collection.deleteOne(filter);
 			});
