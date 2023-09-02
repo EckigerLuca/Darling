@@ -181,6 +181,7 @@ module.exports = {
 					const rawBirthday = (newInteraction.fields.getTextInputValue('birthday')).split('/');
 					let birthday = `${rawBirthday[0]}/${rawBirthday[1]}`;
 					if (rawBirthday[0] > 31 || rawBirthday[1] > 12) birthday = "00/00";
+					if (birthday.includes(undefined)) birthday = "00/00";
 					const updateDocument = {
 						$set: {
 							"gender": newInteraction.fields.getTextInputValue('gender'),
