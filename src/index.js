@@ -4,7 +4,7 @@ const { token, mongodbUri } = require('./data/config.json');
 const { MongoClient } = require('mongodb');
 const logger = require('silly-logger');
 
-const topGG = false;
+const { topGG } = require('./data/config.json');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
 client.commands = new Collection();
@@ -13,11 +13,50 @@ const dbClient = new MongoClient(String(mongodbUri));
 (async function dbSetup() {
 	await dbClient.connect();
 	client.dbClient = dbClient;
-	logger.success("Connected to database!");
+	logger.success("Connected to database server!");
+
+	try {
+		const databases = (await dbClient.db().admin().listDatabases()).databases;
+		let found = false;
+		databases.forEach((database) => {
+			if (database.name === "darling") found = true;
+		});
+		if (!found) {
+			throw new Error("Database not existing!");
+		}
+	}
+	catch (err) {
+		logger.error("Database not existing! Please create a mongodb database called 'darling' and restart the bot!");
+		process.exit(1);
+	}
+
+	const requiredCollections = ['servers', 'users', 'welcome'];
+	const collections = await dbClient.db("darling").listCollections().toArray();
+	const collectionsOnServer = [];
+	const notFound = [];
+
+	collections.forEach((collection) => {
+		collectionsOnServer.push(collection.name);
+	});
+
+	requiredCollections.forEach((collection) => {
+		if (!collectionsOnServer.includes(collection)) notFound.push(collection);
+	});
+
+	if (notFound.length > 0) {
+		logger.error(`Missing collections: ${notFound.join(', ')}`);
+		logger.info("Creating missing collections...");
+		notFound.forEach(async (collection) => {
+			dbClient.db("darling").createCollection(collection);
+			logger.info(`Created collection ${collection}!`);
+		});
+	}
+	logger.success("Database setup complete!\n");
+
 } ());
 
 if (topGG) {
-	const discordBotListToken = require('./data/config.json');
+	const { discordBotListToken } = require('./data/config.json');
 	const { AutoPoster } = require('topgg-autoposter');
 	const ap = AutoPoster(`${String(discordBotListToken)}`, client);
 
