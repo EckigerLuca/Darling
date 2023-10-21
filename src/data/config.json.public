@@ -2,6 +2,7 @@
     "token": "TOKEN HERE",
     "clientId": "ID HERE",
     "color": "#D1BABD CHANGE TO WHATEVER COLOR YOU LIKE",
+	"topGG": false,
     "discordBotListToken": "YOUR TOP.GG BOT TOKEN HERE IF YOU HAVE ONE. CHECK README!",
     "mongodbUri": "MONGO DB CONNECTION STRING HERE"
 }
