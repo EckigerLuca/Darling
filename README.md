@@ -10,7 +10,7 @@ So I'd prefer if You would just add it to your server with [this](https://eckige
 ### But if You want to host it by yourself,
 rename the `config.json.public` to `config.json` (found under `src/data`) and edit the values. The Bot **needs** the `SERVER MEMBERS INTENT`, so make sure to enable it!
 
-Make sure that you have a mongo-db database avaiable for bot! The name of the database needs to be `darling` and inside that db the following collections are required: `welcome` `users`
+Make sure that you have a mongo-db database avaiable for bot! The name of the database needs to be `darling`. On first start, the bot will create the needed collection on it's own. [Install MongoDB](https://www.mongodb.com/docs/v6.0/administration/install-community/) (Currently using v6.0)
 
 New with Version 2.0 is a Web Dashboard, which can't be disabled! <br>
 Set it up by renaming the `settings.json.public` (found under `src/website`) to `settings.json` and changing the values in the as needed. Client ID and Secret are found at the OAuth2 Section of your Application. You also need to add your Domain and Callback URL to the Redirects.
@@ -25,10 +25,10 @@ If the bot is online, invite it to the server You want to use it on and check if
 If the Bot won't start, check the console for any errors and if there are one's, create an Issue (or try to fix them by yourself).
 
 ## Top.gg
-This bot uses Top.gg. If you don't want to use it, leave the variable `topGG` in the `index.js` as it is, but if you want to use it change the bool to true and PLEASE DO NOT forget to add your token in the config file!
+This bot uses Top.gg. If you don't want to use it, leave the variable `topGG` in the `config.json` as it is, but if you want to use it change the bool to `true` and PLEASE DO NOT forget to add your token in the file!
 
 ## Contact:
-* [E-Mail](mailto:contact@eckigerluca.com)
+* [E-Mail](mailto:contact@darling-bot.xyz)
 * Discord: `EckigerLuca#0001`
 * Support [Server](https://eckigerluca.com/discord)
 
