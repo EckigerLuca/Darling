@@ -4,6 +4,9 @@ const { token, mongodbUri } = require('./data/config.json');
 const { MongoClient } = require('mongodb');
 const logger = require('silly-logger');
 
+logger.enableLogFiles(true);
+logger.logFolderPath('./src/logs');
+
 const { topGG } = require('./data/config.json');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });

@@ -8,3 +8,5 @@ special/
 note.txt
 botstart.sh
 start.sh
+src/logs/*
+!src/logs/.gitkeep
