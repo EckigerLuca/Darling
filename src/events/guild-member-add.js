@@ -57,13 +57,21 @@ module.exports = {
 					}
 
 					if (result.role[0] == true) {
-						const role = await member.guild.roles.fetch(result.role[1]);
-						await member.roles.add(role);
+						try {
+							const role = await member.guild.roles.fetch(result.role[1]);
+							await member.roles.add(role);
+						} catch (err) {
+							logger.error(err);
+						}
 					}
 
-					const channel = await member.guild.channels.fetch(result.channelId);
+					try {
+						const channel = await member.guild.channels.fetch(result.channelId);
 
-					await channel.send({ content: memberMention, embeds: [embed] });
+						if (channel) await channel.send({ content: memberMention, embeds: [embed] });
+					} catch (err) {
+						logger.error(err);
+					}
 
 					if (result.dm[0] == true) {
 						const dmChannel = await member.user.createDM();
