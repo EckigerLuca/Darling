@@ -56,6 +56,7 @@
 			display: grid;
 			place-items: center;
 			align-content: center;
+			min-height: 100vh;
 		}
 
 		.hidden {
@@ -95,7 +96,7 @@
 
 <body>
 	<%- await include('header.ejs'); %>
-	<div class="hidden vh-100" id="landing">
+	<div class="hidden" id="landing">
 		<div class="container ml-3 mr-3">
 			<div class="row row-cols-1 row-cols-md-2 mb-5">
 				<div class="col">
